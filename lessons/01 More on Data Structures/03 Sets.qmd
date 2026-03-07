@@ -1,0 +1,65 @@
+---
+title: Sets
+---
+
+In Python, a set is just another type of sequence. The mathematical definition of a set is an unordered collection of unique elements. That is, a set is basically just a list with no duplicates.
+
+::: {.callout-tip title="Definition"}
+A **set** is a type of Python sequence that contains an unordered collection of unique values.
+:::
+
+Since sets are mathematically defined, they support mathematical operations such as union, intersection, and difference. Defining a set can be done in several ways. The first is to formally define one, very much like you would define a list. However, instead of using square brackets, we use curly braces:
+
+```python
+a = { 1, 2, 3, 4, 5 }
+b = { 3, 4, 5, 6, 7 }
+```
+
+These Python statements declare and initialize two sets, `a` and `b`. Another way to create a set is to do so from some other sequence (such as a list):
+
+```python
+c = [ 3, 1, 4, 1, 5, 9 ]
+d = set(c)
+```
+
+The list `c` is used as input to create the set `d`. The set `d` will only have one instance of any duplicated element in the list `c`; therefore, the value of the set `d` is as follows:
+
+```python
+{1, 3, 4, 5, 9}
+```
+
+Note that the element 1 appears only once in the set `d`. In addition, the set is unordered; that is, its elements don't necessarily have to be in the same order as those in the list.
+
+A set can even be created from a string (since a string is a sequence):
+
+```python
+e = set("sweet")
+```
+
+The value of the set `e` is as follows:
+
+```python
+{'s', 't', 'w', 'e'}
+```
+
+Again, note that the elements of this set are unique. To illustrate the set operations (union, intersection, and difference), we will use the sets `a` and `b` defined above. The **union** of the sets `a` and `b` represents the elements **in either a or b**. The Python expression for this is written as `a | b`.
+
+Its output is the following set:
+
+```python
+{1, 2, 3, 4, 5, 6, 7}
+```
+
+These elements are all of the unique elements in `a` or `b`. Similarly, the **intersection** of the sets `a` and `b` represents the elements **in both a and b**. The Python expression for this is written as `a & b`. Its output is the following set:
+
+```python
+{3, 4, 5}
+```
+
+These elements are the only unique elements in both `a` and `b`. Lastly, the **difference** of the sets `a` and `b` represents the elements **in a but not in b**. The Python expression for this is written as `a – b`. Its output is the following set:
+
+```python
+{1, 2}
+```
+
+The difference operation can be thought of as a subtraction of the set `b` from the set `a`. All elements in both `a` and `b` are removed. The remaining elements in a make up the resulting set. Any additional elements in `b` that are not in `a` are ignored.

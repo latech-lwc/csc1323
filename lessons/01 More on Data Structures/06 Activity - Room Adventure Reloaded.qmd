@@ -1,0 +1,275 @@
+---
+title: Activity - Room Adventure...Reloaded
+---
+
+## Introduction
+
+In this activity, we will update the **Room Adventure** game that was designed in a previous RPi activity. The goal will be to replace the parallel arrays in the game with dictionaries. Such a substitution makes sense because parallel arrays associate (or map) the elements of two or more arrays by index value.
+
+That is, the first element of one array is paired with the first element of another, and so on. Dictionaries are perfectly suited for this because they associate one value with another!
+
+Recall that parallel arrays were used to represent the following relationships:
+
+1.  Exits with exit locations (through the lists `exits` and `exitLocations`); and
+2.  Items with item descriptions (through the lists `items` and `itemDescriptions`).
+
+Exits were strings like "north" and "west", and exit locations were rooms (instances of the class `Room`). Items were strings like "table" and "fireplace", and item descriptions were strings like "It is made of oak. A golden key rests on it." and "It is full of ashes."
+
+Very quickly, we see that we can replace the lists `exits` and `exitLocations` with a single dictionary (perhaps just called `exits`). Suppose, for example, that an exit to the east led to some instance of a room represented by the variable `r2`, and an exit to the north led to some instance of a room represented by the variable `r3`. A dictionary that represents this could be created as follows:
+
+```python
+exits = {"east": r2, "north": r3}
+```
+
+Of course, this supposes that the variables `r2` and `r3` exist.
+
+## Replace the Parallel Lists with Dictionaries
+
+The first thing to do to modify our game is to remove the parallel arrays for both `exits` and `items`, and replace them with dictionaries. This must be done in the constructor of the Room class; specifically, in the lines indicated with comments in the code block that follows:
+
+```python
+class Room:
+
+    def __init__(self, name):
+        self.name = name
+        self.exits = []             # list before replacement
+        self.exitLocations = []     # list before replacement
+        self.items = []             # list before replacement
+        self.itemDescriptions = []  # list before replacement
+        self.grabbables = []
+
+    # The rest of the code is omitted for brevity
+```
+
+The lists `exits` and `exitLocations` are paired; so are the lists `items` and `itemDescriptions`. Let's replace them with two dictionaries instead:
+
+```python
+def __init__(self, name):
+    self.name = name
+    self.exits = {}     # dictionary after replacement
+    self.items = {}     # dictionary after replacement
+    self.grabbables = []
+```
+
+There is no longer a need for matching lists since the dictionaries intrinsically match keys to values! Pay attention to the braces (as opposed to brackets).
+
+## Remove the Accessors and Mutators for the Deleted Parallel Lists
+
+Recall that accessors and mutators were implemented for each of a Room's instance variables. Since the lists `exitLocations` and `itemDescriptions` were removed, their respective accessors and mutators must also be removed. The existing accessors and mutators for the instance variables exits and items remain unchanged. In fact, they will work seamlessly with the new dictionaries.
+
+The accessor and mutator for the old instance variable `exitLocations` must be removed from the source code:
+
+```python
+# remove these two functions
+@property
+def exitLocations(self):
+    return self._exitLocations
+
+@exitLocations.setter
+def exitLocations(self, value):
+    self._exitLocations = value
+```
+
+The accessor and mutator for the old instance variable `itemDescriptions` must also be removed from the source code:
+
+```python
+# remove these two functions
+@property
+def itemDescriptions(self):
+    return self._itemDescriptions
+
+@itemDescriptions.setter
+def itemDescriptions(self, value):
+    self._itemDescriptions = value
+```
+
+## Modify the `addExit` and `addItem` Functions
+
+The next step is to change the `addExit` and `addItem` functions in the `Room` class so that they appropriately insert new exits and items into dictionaries instead of parallel lists as is currently done. First, let's change the `addExit` function:
+
+```python
+class Room:
+    # the rest of the code omitted for brevity
+
+    def addExit(self, exit, room):
+        self._exits.append(exit)            # remove this line
+        self._exitLocations.append(room)    # remove this line
+```
+
+Note how the function currently appends the exit to one list and the room to another. Let's change this so that the exit and room are added as a key-value pair to the appropriate dictionary:
+
+```python
+class Room:
+    # the rest of the code omitted for brevity
+
+    def addExit(self, exit, room):
+        # append the exit and room to the appropriate dictionary
+        self._exits[exit] = room    # add this line
+```
+
+Now, let's change the `addItem` function:
+
+```python
+class Room:
+    # the rest of the code omitted for brevity
+
+    def addItem(self, item, desc):
+        # append the item and description to the appropriate lists
+        self._items.append(item)            # remove this line
+        self._itemDescriptions.append(desc) # remove this line
+```
+
+This function is similar to the old `addExit` function. It appends the item to one list and the description to another. Let's change this so that the item and description are added as a key-value pair to the appropriate dictionary:
+
+```python
+class Room:
+    # the rest of the code omitted for brevity
+
+    def addItem(self, item, desc):
+        # append the item and description to the appropriate dictionary
+        self._items[item] = desc    # add this line
+```
+
+## Modify the `__str__` Function
+
+In the game, the player is continually presented with the status: location, items, exits, and inventory. This is specified in the Room class and specifically involves the bit of source code that generates the string representation of a Room. This is done in the `__str__` function, which begins on line 100:
+
+```python
+class Room:
+    # the rest of the code omitted for brevity
+
+    def __str__(self):
+        # first, the room name
+        s = f"You are in {self.name}.\n"
+
+        # next, the items in the room
+        s += "You see: "
+        for item in self.items:    # needs to be modified
+            s += item + " "
+        s += "\n"
+
+        # next, the exits from the room
+        s += "Exits: "
+        for exit in self.exits:    # needs to be modified
+            s += exit + " "
+
+        return s
+```
+
+The statements that need to be changed are indicated with comments in the above code block. In their current form, they iterate through the two lists. The list items used to contain the items (e.g., table). Since `items` is now a dictionary (with the items as keys and item descriptions as values), then we must iterate through its keys! 
+
+Similarly, The list exits used to contain the exits (e.g., south). Since exits is now a dictionary (with the exits as keys and room objects as values), then we must also iterate through its keys. This can be done by replacing the two for loops as follows:
+
+
+```python
+class Room:
+    # the rest of the code omitted for brevity
+
+    def __str__(self):
+        # first, the room name
+        s = f"You are in {self.name}.\n"
+
+        # next, the items in the room
+        s += "You see: "
+        for item in self.items.keys():   # modified
+            s += item + " "
+        s += "\n"
+
+        # next, the exits from the room
+        s += "Exits: "
+        for exit in self.exits.keys():   # modified
+            s += exit + " "
+
+        return s
+```
+
+
+## Modify the `main` Part of the Program
+
+There are two places that need modification in the main part of the program. Both are required because the current source code refers to the old lists that have been replaced by dictionaries. The first modification occurs in the part of the source code that is executed if the verb in the action specified by the player is go (e.g., "go south"). This part of the source code begins on line 247. Note that some of the next part of the if statement is provided for clarity:
+
+```python
+if (verb == "go"):
+
+    # set a default response
+    response = "Invalid exit."
+
+    # check for valid exits in the current room
+    for i in range(len(currentRoom.exits)):                # needs to be modified
+        
+        # a valid exit is found
+        if (noun == currentRoom.exits[i]):                 # needs to be modified
+            # change the current room to the one ...
+            currentRoom = currentRoom.exitLocations[i]     # needs to be modified
+            # set the response (success)
+            response = "Room changed."
+            # no need to check any more exits
+            break                                          # needs to be modified
+
+# the verb is: look
+elif (verb == "look"):
+...
+```
+
+Currently, the algorithm iterates through the list of exits. If one matches the noun specified by the player, then the current room is changed to the matching exit location (in the parallel list). If this occurs, the break statement exits the loop (i.e., we don't need to check for more exits since a valid one has already been found). The changes required affect the highlighted lines in the snippet of source code above. Ultimately, the part of the if statement that is executed if the verb is go should be changed to the following source code. Again, some of the next part of the if statement is provided for clarity:
+
+```python
+if (verb == "go"):
+
+    # set a default response
+    response = "Invalid exit."
+
+    # REMOVED THE FOR LOOP
+        
+    # a valid exit is found - REMOVED ONE LEVEL OF INDENTATION
+    if (noun in currentRoom.exits):             # NEW
+        # change the current room to the one ...
+        currentRoom = currentRoom.exits[noun]   # NEW
+        # set the response (success)
+        response = "Room changed."
+                                                # REMOVED BREAK
+
+# the verb is: look
+elif (verb == "look"):
+...
+```
+
+
+Given how we modified the portion of code handling the verb `"go"`, try modifing the portion of `main` that handles the verb `"look"`. That is, modify the following block of code to use the dictionaries we've created instead of using the original lists. 
+
+```python
+# the verb is: look
+elif (verb == "look"):
+    # set a default response
+    response = "I don't see that item."
+    # check for valid items in the current room
+    for i in range(len(currentRoom.items)):                
+        # a valid item is found
+        if  (noun == currentRoom.items[i]):                
+            # set the response to the item's description
+            response = currentRoom.itemDescriptions[i]     
+            # no need to check any more items
+            break                                          
+# the verb is: take
+elif (verb == "take"):
+```
+
+::: {.callout-note title="Solution" collapse="true"}
+As before, the algorithm iterates through a list (of items in this case). If one matches the noun specified by the player, then the response is changed to the matching item description (in the parallel list). If this occurs, the break statement exits the loop (i.e., we don't need to check for more items since a valid one has already been found). The changes required affect the indicated lines in the snippet of source code above. Ultimately, the part of the if statement that is executed if the verb is look should be changed to the following source code. Again, some of the next part of the if statement is provided for clarity:
+
+```python
+# the verb is: look
+elif (verb == "look"):
+    # set a default response
+    response = "I don't see that item."
+
+    # check for valid items in the current room
+    if (noun in currentRoom.items):         # new
+        # if one is found, set the response to the...
+        response = currentRoom.items[noun]  # new
+
+# the verb is: take
+elif (verb == "take"):
+```
+:::
+

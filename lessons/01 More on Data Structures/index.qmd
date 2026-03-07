@@ -1,0 +1,24 @@
+---
+title: "01 More On Data Structures"
+---
+
+## Introduction
+
+So far, you have been introduced to various elementary and high level data structures: arrays, linked lists, stacks, queues, and binary trees. Specific to Python, you have used lists (similar to arrays) in your programs. In this lesson, we will discuss some powerful functions that work with lists and introduce several new data structures.
+
+## Contents
+
+1. [Useful List Functions](01 Useful List Functions.qmd)
+
+2. [List Comprehensions](02 List Comprehensions.qmd)
+
+3. [Sets](03 Sets.qmd)
+
+4. [Dictionaries](04 Dictionaries.qmd)
+
+5. [Dictionary Comprehensions](05 Dictionary Comprehensions.qmd)
+
+6. [Activity - Room Adventure Reloaded](06 Activity - Room Adventure Reloaded.qmd)
+
+7. [Wrapping Up Data Structures](07 Wrapping Up Data Structures.qmd)
+

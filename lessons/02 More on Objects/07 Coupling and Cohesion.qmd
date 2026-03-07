@@ -1,0 +1,28 @@
+## Coupling and Cohesion
+
+So far in this lesson, the concepts that have been discussed all help in designing code. In particular, you may have noticed that they help reason about and design large projects involving many programmers. The kinds of projects that you will likely work on in an educational setting are usually small in comparison to the kinds of projects that professionals work on in industry. These large projects require careful consideration when designing them, programming them, and later testing them, so that they are manageable and ultimately produce a solution that solves some original problem.
+
+The rest of this lesson will focus on a few more topics that help address the design of applications. The first looks at the connections between separate units of a program.
+
+::: {.callout-tip title="Definition"}
+A **unit** is any reasonably self-contained component of a program.
+:::
+
+For example, a class can be considered a unit. But at another level of abstraction, so can a function. In fact, the function can be considered as zooming in on a class. Zooming out of a class may reveal several classes, all contained within some library. The library can also be considered a unit, just at another level of abstraction.
+
+::: {.callout-tip title="Definition"}
+**Coupling** refers to links between the separate units of a program.
+:::
+
+If two classes depend closely on one another, we say that they are **tightly coupled**. Similarly, if two methods depend closely on one another, they are tightly coupled. Two units that do not depend closely on one another are **loosely coupled**. When designing applications, we aim for loosely coupled units, or generally just loose coupling. Why? Because it makes it possible to understand one unit without having to understand others. In the end, it just makes things simpler. For example, we can change one class with little to no effect on other classes. This increases maintainability. We try to avoid tight coupling, because changes to a unit that is tightly coupled with one or more other units can cascade and result in a chain of additional changes to the other units.
+
+::: {.callout-tip title="Definition"}
+**Cohesion** refers to the number and diversity of tasks that a single unit is responsible for.
+:::
+
+If a unit is responsible for a single task, we say that it has **high cohesion**. If a unit is responsible for many tasks, we say that it has **low cohesion**. When designing applications, we aim for high cohesion. The more simple and lean a unit is, the easier it is to understand what it does. It's just that much easier to reason about and maintain.
+
+
+Generally, applications that are highly cohesive often make it easy to reuse units in order to reduce code duplication. Low cohesion implies that units perform multiple tasks and have no clear identity. So what does this mean specifically in terms of application design? At the class level: classes should represent one single, well defined entity; and at the function level: a function should be responsible for one well defined task.
+
+Designing applications with loose coupling and high cohesion helps with localizing change. When change is needed, as few units as possible should be affected. In fact, we can use the concepts of coupling and cohesion to answer the questions, “How long should a class be?” and “How long should a function be?” Simply put, a function is too long if it does more than one logical task, and a class is too complex if it represents more than one logical entity. Of course, these are guidelines; the real world is often a bit more complicated.

@@ -1,0 +1,127 @@
+---
+title: Floating Point Numbers
+---
+
+Most modern personal computers are based on a bus size of thirty-two bits. Using two’s complement notation, they can conveniently manipulate numbers in the range of approximately -2 billion to +2 billion. Many times, we humans need our computers to work with numbers far outside of this relatively narrow range. For example, scientific applications often need to represent very small or very large quantities, such as Avogadro’s number: 6.02 * 1023 molecules/mole. Even a program designed to make projections about the national debt of the United States, which is measured in trillions of dollars, will be forced to work with numbers outside of the range provided by the 32-bit two’s complement representation. In addition to the problem of being limited to a relatively narrow range of values, the two’s complement binary notation we studied cannot represent fractions. This makes it impossible to express concepts like one-half and 75%.
+
+Floating point notation, which is closely related to exponential notation, addresses both of these problems. As you will recall from math or science classes, exponential notation is often used to express very small or very large numbers. For example, the speed of light can be expressed as 3.0 * 108 meters/second.
+
+The two components necessary to express a number in exponential notation are called the mantissa (3.0 in the above number representing the speed of light) and the exponent (8 in the above number representing the speed of light). These values are expressed in base ten, so the exponent is expressed in terms of base ten as well. Essentially, the exponent tells us the number of positions that the decimal point should be moved to the right or left. Positive exponents cause the decimal point to move to the right; negative exponents cause the decimal point to move to the left. Hence, the representation for the speed of light translates to a 3 followed by eight 0s (i.e., three hundred million meters per second). Fractions can also be expressed in this system; for example, 1/1000 = 1.0 * 10-3 = 0.001.
+
+
+Floating point notation is the machine level equivalent of exponential notation. Floating point numbers include signed representations of both the mantissa and the exponent. Since the representations of both will be in base two, it will be considered the base of the exponent.
+
+As an example, here is the number 56.0 expressed using one possible 32-bit floating point representation:
+
+![](images)
+
+The leading bit (bit 32) of this representation signifies the sign of the number (0 for positive, 1 for negative). Specifically, it represents the sign of the mantissa. The next eight bits (bits 31 to 24) represent the exponent in two’s complement notation (remember the exponent can be positive or negative). The final 23 bits are the mantissa expressed as an unsigned number. The number represented in this example (in binary form) is 111 * 211 which in decimal form becomes 7 * 23 = 7 * 8 = 56.0.
+
+Another way of thinking about this example is to view the exponent as specifying the number of 0s that are to follow the bit pattern supplied by the mantissa. In this case, we have 111 followed by three 0s, or 1110002 = 56.
+
+Here is an example of a number that is outside the range of values that can be stored using a 32-bit two’s complement notation. The number (in binary form) is 11 * 2100000, which in decimal form is 3 * 232 = 12,884,901,888:
+
+![](images)
+
+Another way of thinking about the number represented by this bit pattern is 11 followed by thirty-two 0s. Now, consider the representation of -0.75 as a floating point number:
+
+![](images)
+
+The 1 in the leftmost bit signifies that the number is negative. The exponent, 111111102 is also negative due the 1 in its leftmost bit (remember that the exponent is represented in two's complement notation). The magnitude of the exponent is 2 (complement the bits to get 000000012, and add one to get 000000102 = 210). The magnitude of the mantissa is 112 = 310. Therefore, the value is:
+
+$$−3∗2−2 = −3∗ 1 = −3∗ 14 = −3∗0.25 = −0.75$$
+
+Another way of thinking about the number in this example is to view it (in binary form) as -0.11. The columns to the right of the decimal point are the 1/2’s column, the 1/4's column, the 1/8’s column, and so on. The number -0.11 would then be interpreted as having a 0 in the one's place, a 1 in the 1/2’s place, and a 1 in the 1/4’s place, producing -3/4 (or -0.75). Using this interpretation, the mantissa always has an implied decimal point immediately to its right. In the example above, this is viewed as 11. (note the decimal point to the right). The exponent then specifies the number of places that the decimal point should be moved (to the right for positive exponents, or to the left for negative exponents). In the example above, the exponent moves the decimal point two places to the left giving 0.11. The binary number is then interpreted in the following way:
+
+![](images)
+
+
+To work backwards (i.e., to convert -0.75 to binary), we must first break the number down into two parts, each separated by the decimal point. The part of the number that is to the left of the decimal point is easily converted using the remainder method for unsigned numbers shown in a previous lesson. Recall, that we repeatedly divide the decimal number by two and build its binary representation by using the remainders generated, from right-to-left. In this case, however, it's simple in that 010 = 02.
+
+
+The part of the number that is to the right of the decimal point is effectively done in reverse when compared to the remainder method. That is, it is repeatedly multiplied by two. The binary representation is built by using the bits generated to the left of the decimal point, from left-to-right. Specifically, we multiply the decimal number by two and separately record both parts of the result to the left and right of the decimal point. We then repeat this process with the part to the right of the decimal point, while keeping track of the parts to the left. This is repeated until the part to the right of the decimal point is 0. The binary equivalent of the original number (remember that it's the part to the right of the decimal point in the original number) is subsequently given by listing the parts to the left of the decimal point in the order of their derivation (i.e., from the first identified to the last).
+
+
+This may be a bit confusing, so let's try this method on the decimal number -0.75. As shown above, the 0 to the left of the decimal point is easily converted to binary: 0. We'll use the following table to convert the part to the right of the decimal point, .75:
+
+![](images)
+
+Since the part to the right of the decimal point is 0, the process is finished. Combining the “left part” results produces 11 as the part to the right of the decimal point in the final answer. To complete the conversion, we concatenate the parts to the left and right of the decimal point. Therefore, the binary representation of -0.7510 is -0.112. From this point, we could generate the table shown earlier that breaks -0.75 down into a sign bit, an exponent, and a mantissa. We know that the sign bit is 1:
+
+![](images)
+
+The mantissa is obtained by moving the decimal point all the way to the right: .11 → 1.1 → 11. The mantissa is therefore 11. We also note that it was moved two decimal places:
+
+![](images)
+
+Lastly, we know that the exponent is -2 (since we'll need to move the decimal point 2 places to the left in the mantissa). We know how to convert -2 to binary by starting with the binary representation of 2, complementing the bits, and finally adding one: 00000010 → 11111101 → 111111102:
+
+![](images)
+
+Let's try another example and convert +5.5625 to binary. First, the 5 to the left of the decimal point: 510 = 1012. Next, we'll convert the part to the right of the decimal point using the method described earlier:
+
+![](images)
+
+Therefore, 5.562510 = 101.10012. Similarly, we can fill the table below, specifying the sign bit, exponent, and mantissa. First, the number is positive; therefore, the sign bit is 0:
+
+![](images)
+
+Next, the mantissa is 1011001 (we shifted the decimal point all the way to the right):
+
+![](images)
+
+Finally, the exponent is -4 (since the decimal point needs to be moved four places to the left). We convert -4 to binary using two's complement notation: 00000100 → 11111011 → 111111002:
+
+![](images)
+
+Working in reverse, we can actually recreate the decimal representation of the number. We know that the number is positive because the sign bit is 0. We can convert the exponent using two's complement notation: 11111100 → 00000011 → 000001002 = -4. And we can convert the mantissa: 10110012 = 8910.
+
+We then combine the components into exponential notation (using two as the base for the exponent):
+
+$$ 89∗2−4 = 89∗ 1 = 89∗ 1 = 89∗0.0625 = 5.5625 $$
+
+Let's try another example, converting -16.125 to binary. First, the left part: 1610 = 100002. Next, the right part:
+
+![](images)
+
+Therefore, -16.12510 = 10000.0012. As before, we can fill the floating point table. First, the number is negative; therefore, the sign bit is 1:
+
+![](images)
+
+Next, the mantissa is 10000001 (we shifted the decimal point all the way to the right):
+
+![](images)
+
+Finally, the exponent is -3 (since the decimal point needs to be moved three places to the left). We convert -3 to binary using two's complement notation: 00000011 → 11111100 → 111111012:
+
+![](images)
+
+Again, we can recreate the decimal representation of the number. We know that the number is negative because the sign bit is 1. We can convert the exponent: 11111101 → 00000010 → 000000112 = -3. And we can convert the mantissa: 100000012 = 12910. We then combine the components:
+
+$$ −129∗2−3 = −129∗ 1 = −129∗18 = −129∗0.125 = − 16.125 $$
+
+Let's try one last (perhaps more complicated) example, converting -2337.7109375 to binary. First, the left part: -233710 = 1001001000012. Now, the right part:
+
+![](images)
+
+Therefore, -2337.710937510 = -100100100001.10110112. Again, we can fill the floating point table. First, the number is negative; therefore, the sign bit is 1:
+
+![](images)
+
+Next, the mantissa is 1001001000011011011 (we shifted the decimal point all the way to the right):
+
+![](images)
+
+Finally, the exponent is -7 (since the decimal point needs to be moved seven places to the left). We convert -7 to binary using two's complement notation: 00000111 → 11111000 → 111110012:
+
+![](images)
+
+Again, we can recreate the decimal representation of the number. We know that the number is negative because the sign bit is 1. We can convert the exponent: 11111001 → 00000110 → 000001112 = -7. And we can convert the mantissa: 10010010000110110112 = 29922710. We then combine the components:
+
+$$ −299227∗2−7 = −299227∗ 1 = −299227∗ 1 = −299227∗0.0078125 = − 2337.7109375 27 128 $$
+
+:::{.callout-note}
+## Did you know?
+It is interesting to note that some fractions that can be expressed precisely in decimal notation, such as 1/10 = 0.1, do not have an exact floating point representation. This is due to the fact that floating point numbers are represented using base two. One-tenth can be approximated in binary as 0.0001100110011001... (where 1001 repeats indefinitely). It can never be represented exactly. This result should not be surprising. After all, many factions (e.g., 1/3) cannot be represented exactly as decimal values. This is one reason why computed results that involve fractions are not always 100% accurate. They sometimes suffer from round off error as a result of the base ten to base two conversion process.
+:::
+

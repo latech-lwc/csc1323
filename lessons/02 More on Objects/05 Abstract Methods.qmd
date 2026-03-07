@@ -1,0 +1,173 @@
+## Abstract Methods
+
+One of the benefits of the object-oriented paradigm in programming is that it easily allows for more than one programmer to be involved in the implementation of a system. The implementation is often divided according to classes (e.g., one team of programmers works on one class while another team deals with another class). In these cases, it is important to include measures that allow any programmer to know the expectations of each class. One of the measures that helps with this is the idea of abstract methods.
+
+Consider the animal hierarchy that was discussed earlier in this lesson. Suppose that one team was tasked with the design of the `Animal` class, and another with the design of various classes at the bottom of the hierarchy. Generally, it is good programming practice to put the members that all (or many of) the classes will use higher up in the hierarchy. Suppose that the project required a function to represent the way animals communicate (i.e., sound and motion cues). We know that all animals communicate in one way or another; however, there is no general way that applies to the majority of the animals. In this scenario, it is beneficial to use an abstract method.
+
+::: {.callout-tip title="Defintion"}
+An **abstract method** in a class is a way of promising that any subclasses of some superclass will provide implementation details for that method.
+:::
+
+In the communication example above, the `Animal` class has no general way of implementing some sort of communicate function. Since all animals communicate, it is imperative that all subclasses provide an explicit implementation for the communicate function.
+
+In Python, a method in a class is made abstract by providing a single statement that generates an error noting that a subclass has not implemented the abstract method. In Python (as in many other object- oriented programming languages), errors can be *raised* or *thrown* to alert the user of some sort of problem. In Java, for example, errors (actually called exceptions) are thrown. In Python, errors are raised. This will be discussed thoroughly in a future lesson. For now, it is sufficient to note that abstract methods can raise an error known as a `NotImplementedError`. Should a subclass not implement a function defined as abstract in the superclass, and an object reference of the subclass tries to call it, the error will be raised. This terminates the program.
+
+Here is an example of a simple `Animal` class (with the abstract method communicate) and a `Bird` subclass. The `Bird` subclass does not implement the abstract method in this example:
+
+```Python
+class Animal:
+
+    def __init__(self):
+        """ Constructs a new Animal """
+
+    def communicate(self):
+        """ How an animal communicates """
+        raise NotImplementedError("Abstract method communicate not implemented in subclass!")
+
+
+class Bird(Animal):
+
+    def __init__(self):
+        """ Constructs a new Bird """
+
+b = Bird()
+b.communicate()
+```
+
+The functions above simply have comments instead of any actual implementation; however, they can still be used to understand the concept. The `Animal` class has a constructor and an abstract function called `communicate`. Making that function abstract is a way of enforcing that all subclasses have an actual implementation of it (instead of, for example, hoping that whoever is working on that class remembers to implement it). Note the only statement in the function:
+
+```python
+raise NotImplementedError("Abstract method...")
+```
+
+The Bird class has not implemented the communicate function in this example. Therefore, the statement b.communicate() causes a `NotImplementedError` to be raised:
+
+```default
+Traceback (most recent call last):
+    File "...\02 More on Objects\code\abstract1.py", line 14, in <module>
+        b.communicate()
+    File "...\02 More on Objects\code\abstract1.py", line 7, in communicate
+        raise NotImplementedError("Abstract method communicate not implemented in subclass!")
+    NotImplementedError: Abstract method communicate not implemented in subclass!
+```
+
+But why is the error raised? It all comes down to method lookup. Since the function is not defined in the `Bird` subclass, then it is searched for in its superclass (i.e., the `Animal` class). Of course, it is found there; however, it only contains the statement that raises the error. And so the error is raised!
+
+To show that actually implementing the communicate function in the Bird class works, here's a modification of the above program:
+
+```python
+class Animal:
+
+    def __init__(self):
+        """ Constructs a new Animal """
+
+    def communicate(self):
+        """ How an animal communicates """
+        raise NotImplementedError("Abstract method communicate not implemented in subclass!")
+
+
+class Bird(Animal):
+
+    def __init__(self):
+        """ Constructs a new Bird """
+
+    def communicate(self):
+        """ How a bird communicates """
+        print("A Bird communicates!")
+
+
+b = Bird()
+b.communicate()
+```
+
+The output of the program is the single line:
+
+```default
+     A Bird communicates!
+```
+
+Note the comments in the constructors of the `Animal` and `Bird` classes. These functions have no actual code. You may be wondering why Python doesn't generate the error: `IndentationError: expected an indented block`. Recall that using the keyword `pass` is an easy way of stubbing out functions whose details will be provided at a later time. Python considers comments specified with three quotes (single or double) to be a valid statement. Therefore, another way to stub out a function (without using the keyword `pass`) is to provide such a comment.
+
+Another way of implementing an abstract method is by making use of the **Abstract Base Class** (abc) library that is packaged with Python. When imported, a method can be marked as abstract in the same way that one can be marked as an accessor or mutator. The difference is the decorator used to mark the function: `@abc.abstractmethod`. This method ensures that a `TypeError` will be raised immediately upon the instantiation of a subclass if the abstract method is not implemented in the subclass. Note that the following statement must be placed at the top of the class (i.e., after the class signature) in order for this method to work:
+
+```Python
+(metaclass = abc.ABCMeta)
+```
+
+Here's an example of a modified `Animal` class that implements this way of including abstract methods:
+
+```Python
+import abc
+
+class Animal(metaclass = abc.ABCMeta):
+
+    def __init__(self):
+        """ Constructs a new Animal """
+
+    @abc.abstractmethod
+    def communicate(self):
+        """ How an animal communicates """
+
+
+class Bird(Animal):
+
+    def __init__(self):
+        """ Constructs a new Bird """
+
+
+b = Bird()
+b.communicate()
+```
+
+Note the differences. First, the `abc` library is imported. Second, the `communicate` method is marked as abstract via `@abc.abstractmethod`. Third, the class has the following statement with its signature:
+
+```python
+(metaclass = abc.ABCMeta)
+```
+
+When the variable `b` is instantiated as a new object of the `Bird` class, the following error occurs:
+
+```default
+Traceback (most recent call last):
+    File "...\02 More on Objects\code\abstract3.py", line 17, in<module>
+         b = Bird()
+    TypeError: Can't instantiate abstract class Bird with abstract methods communicate
+```
+
+To show that actually implementing the abstract method in the `Bird` subclass works with this way of including abstract methods, here is working source code:
+
+
+```python
+import abc
+class Animal(metaclass = abc.ABCMeta):
+
+    def __init__(self):
+        """ Constructs a new Animal """
+
+    @abc.abstractmethod
+    def communicate(self):
+        """ How an animal communicates """
+
+
+class Bird(Animal):
+
+    def __init__(self):
+        """ Constructs a new Bird """
+
+    def communicate(self):
+        """ How an animal communicates """
+        print("A Bird communicates!")
+
+
+b = Bird()
+b.communicate()
+```
+
+The output of the program is the single line:
+
+```default
+A Bird communicates!
+```
+
+In standard practice, the first method is usually preferred. The main reason for this is that the second is not particularly *Pythonic*. Python prides itself in being dynamic and obvious. That is, it is quite readable that the `communicate` method defined in the `Animal` class must be implemented in the `Bird` subclass because it raises an error if it is called. On the other hand, the first method requires the unimplemented function to actually be called by an object reference of the first class before an error is raised. The second method immediately raises an error when an object of the subclass that doesn't implement the abstract method is instantiated. So in the end, take your pick.
+

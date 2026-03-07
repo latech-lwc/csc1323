@@ -1,0 +1,26 @@
+---
+title: "Introduction"
+---
+
+In previous lessons that dealt with computer architecture, many fundamental building blocks of computers were covered; for example:
+
+- The layers of a computer system (e.g., operating system, applications, and so on);
+
+- Fundamentals of digital logic (circuits and switches);
+
+- Logic gates (and, or, and not);
+
+- Boolean algebra;
+
+- Combinational circuits (xor, comparators, and adders);
+
+- The binary and hexadecimal number systems;
+
+- Converting between number systems;
+
+- Binary arithmetic (addition and multiplication); and
+
+- Half and full adders, and chaining full adders together to add larger binary numbers.
+
+
+In this lesson, we will first discuss how numbers and characters are represented in computers. So far, all of the numbers that we have looked at have been *unsigned* ( i.e., assumed to be positive). For example, the number 1001001<sub>2</sub> is equivalent to 73<sub>10</sub>. However, in order to be able to handle negative numbers, we need a way to represent the sign of a number. Subsequently, we will cover several more combinational circuits that prove quite useful in the design of computing systems. In addition, several important sequential circuits that serve as the building blocks for computer memory will be discussed. Finally, we will show how a Central Processing Unit (CPU) is built from the primitive components discussed in the lessons on computer architecture.

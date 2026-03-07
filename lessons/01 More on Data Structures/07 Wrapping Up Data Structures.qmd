@@ -1,0 +1,131 @@
+## Wrapping Up Data Structures
+
+By now, you should have a good idea of the need for data structures. Generally, programs that solve problems store and manipulate data in some way. Data structures make this possible. In this curriculum, various useful data structures were introduced. Here is a table that summarizes them:
+
++---------------------+------------------------------------------------------------------------+
+| Data structure      | Description                                                            |
++=====================+========================================================================+
+| Array               | Similar pieces of data stored in **contiguous** memory                 |
+|                     | locations. Data values (elements) are stored at index                  |
+|                     | locations. The size of an array must be known before                   |
+|                     | using one.                                                             |
++---------------------+------------------------------------------------------------------------+
+| Linked list         | Similar pieces of data stored in **nodes** located in various          |
+|                     | memory locations. Nodes store data values and a **link** to the        |
+|                     | next node in memory. The list has a **head** (the first element)       |
+|                     | and a **tail** (the last element). The size of a linked list           |
+|                     | can grow or shrink as needed.                                          |
++---------------------+------------------------------------------------------------------------+
+| Stack               | A list-like structure where inserting and deleting is                  |
+|                     | performed at one end (usually called the top of the stack).            |
+|                     | Inserting is called a **push** operation; deleting is called           |
+|                     | a **pop** operation. The last item inserted in a stack                 |
+|                     | is the first item out of the stack;                                    |
+|                     | therefore, a stack is a **LIFO** (last-in, first-out) data             |
+|                     | structure.                                                             |
++---------------------+------------------------------------------------------------------------+
+| Queue               | A list-like structure where inserting is performed                     |
+|                     | at one end (usually called the **back** of the queue)                  |
+|                     | and deleting is performed at the other end (usually                    |
+|                     | called the **front** of the queue). Inserting is called                |
+|                     | an **enqueue** operation; deleting is called a **dequeue**             |
+|                     | operation. The first item inserted in a queue is the                   |
+|                     | first item out of the queue; therefore, a queue is a                   |
+|                     | **FIFO** (first-in, first-out) data structure.                         |
++---------------------+------------------------------------------------------------------------+
+| Binary tree         | A tree-like data structure made up of **nodes** that store             |
+|                     | similar pieces of data. Each node has links to (up to) two             |
+|                     | children. The binary tree has a **root** (the top node) and            |
+|                     | leaves (nodes at the bottom with no children). From any                |
+|                     | node, a **subtree** can be described such that the node is the         |
+|                     | root of that subtree.                                                  |
++---------------------+------------------------------------------------------------------------+
+| Ordered binary tree | A binary tree such that the values of all children in the              |
+|                     | left subtree of each node are less than the value of the               |
+|                     | node, and the values of all children in the right subtree of           |
+|                     | each node are greater than or equal to the value of the node.          |
++---------------------+------------------------------------------------------------------------+
+| Dictionary          | Also known as an **associative array**, a data structure that          |
+|                     | maps **keys** to **values**. Keys are unchangeable pieces of data;     |
+|                     | values are associated with keys (one value per key).                   |
++---------------------+------------------------------------------------------------------------+
+
+
+## Knowledge Check
+
+**1.** Which data structure stores similar pieces of data in **contiguous** memory locations?
+
+- A) Linked list
+- B) Stack
+- C) Array
+- D) Dictionary
+
+::: {.callout-note collapse="true" title="Answer"}
+**C) Array.** Arrays store elements side-by-side in contiguous memory and access them by index. Linked lists, by contrast, store nodes in various memory locations connected by links.
+:::
+
+---
+
+**2.** What is the operation of inserting an element into a stack called?
+
+- A) Enqueue
+- B) Push
+- C) Append
+- D) Insert
+
+::: {.callout-note collapse="true" title="Answer"}
+**B) Push.** Inserting into a stack is called a **push** operation; removing from a stack is called a **pop** operation.
+:::
+
+---
+
+**3.** A queue is described as a FIFO data structure. What does FIFO stand for?
+
+- A) Fast Input, Fast Output
+- B) First In, Flexible Out
+- C) Final In, First Out
+- D) First In, First Out
+
+::: {.callout-note collapse="true" title="Answer"}
+**D) First In, First Out.** The first item inserted into a queue is the first item removed. This is the opposite of a stack, which is LIFO (Last In, First Out).
+:::
+
+---
+
+**4.** In an ordered binary tree, where are the values that are **less than** a given node stored?
+
+- A) In the right subtree of that node
+- B) In the left subtree of that node
+- C) At the root of the tree
+- D) In a separate dictionary
+
+::: {.callout-note collapse="true" title="Answer"}
+**B) In the left subtree of that node.** In an ordered binary tree, all values in the left subtree of a node are less than the node's value, and all values in the right subtree are greater than or equal to it.
+:::
+
+---
+
+**5.** What is another name for a dictionary data structure?
+
+- A) Ordered binary tree
+- B) Linked list
+- C) Associative array
+- D) Stack
+
+::: {.callout-note collapse="true" title="Answer"}
+**C) Associative array.** A dictionary is also known as an **associative array** because it associates keys with values.
+:::
+
+---
+
+**6.** Which of the following data structures can grow or shrink in size as needed, unlike an array?
+
+- A) Linked list
+- B) Stack
+- C) Ordered binary tree
+- D) Array
+
+::: {.callout-note collapse="true" title="Answer"}
+**A) Linked list.** A linked list's size can grow or shrink as needed because nodes can be added or removed anywhere in memory. An array's size must be known and fixed before it is used.
+:::
+

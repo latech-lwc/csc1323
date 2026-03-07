@@ -1,0 +1,76 @@
+---
+title: Dictionary Comprehensions
+---
+
+Just as with lists, comprehensions can be used to create dictionaries. Of course, these are known as dictionary comprehensions. Here's one that creates a dictionary with the key-value pairs such that the values are cubes of the keys, and the keys range from 1 through 5:
+
+```python
+dict = {x: x ** 3 for x in range(1, 6)}
+```
+
+The created dictionary `dict` is therefore `{1: 1, 2: 8, 3: 27, 4: 64, 5: 125}`. The key-value pairs are specified in the dictionary comprehension as `x: x**3` (i.e., a key is some value *x*, and its associated value is *x* cubed). The range for the values (1 through 5) taken on by the variable `x` is specified as for `x` in range(1, 6).
+
+::: {.callout-tip title="Practice"}
+Try to modify the dictionary comprehension above so that the values are stored as strings instead of integers.
+:::
+
+::: {.callout-note title="Solution" collapse="true"}
+Wrap the value expression in `str()` to convert each cube to a string:
+
+```python
+dict = {x: str(x ** 3) for x in range(1, 6)}
+```
+
+The resulting dictionary is `{1: '1', 2: '8', 3: '27', 4: '64', 5: '125'}`.
+:::
+
+## Knowledge Check
+
+**Challenge 1**
+
+Write a dictionary comprehension that maps each word in the list `["apple", "banana", "cherry"]` to its length.
+
+
+::: {.callout-note title="Solution" collapse="true"}
+```python
+words = ["apple", "banana", "cherry"]
+lengths = {word: len(word) for word in words}
+```
+
+The resulting dictionary is `{'apple': 5, 'banana': 6, 'cherry': 6}`.
+:::
+
+
+
+**Challenge 2**
+
+Write a dictionary comprehension that creates a dictionary of even numbers from 1 to 10 mapped to their squares. Only include numbers that are even.
+
+
+::: {.callout-note title="Solution" collapse="true"}
+Add an `if` condition to filter for even numbers:
+
+```python
+squares = {x: x ** 2 for x in range(1, 11) if x % 2 == 0}
+```
+
+The resulting dictionary is `{2: 4, 4: 16, 6: 36, 8: 64, 10: 100}`.
+:::
+
+**Challenge 3**
+
+
+Given two lists `keys = ["a", "b", "c"]` and `values = [1, 2, 3]`, write a dictionary comprehension that pairs them together into a single dictionary.
+
+
+::: {.callout-note title="Solution" collapse="true"}
+Use `zip()` to iterate over both lists simultaneously:
+
+```python
+keys = ["a", "b", "c"]
+values = [1, 2, 3]
+paired = {k: v for k, v in zip(keys, values)}
+```
+
+The resulting dictionary is `{'a': 1, 'b': 2, 'c': 3}`.
+:::

@@ -1,0 +1,180 @@
+---
+title: List Comprehensions
+---
+
+## Introduction to List Comprehension
+
+Consider the simple problem of creating a list of the cubes of the integers 0, 1, 2, etc, up to 9 (i.e., 0, 1, 8, 27, 64, ..., 729).
+
+::: {.callout-tip title="Practice"}
+Try to write a snippet of Python code that accomplishes the above before continuing.
+:::
+
+::: {.callout-note title="Possible Solutions" collapse="true"}
+**Using a for loop with `append`:**
+```python
+cubes = []
+for x in range(10):
+    cubes.append(x ** 3)
+```
+
+**Using a named function with `map`:**
+```python
+def cube(x):
+    return x ** 3
+
+cubes = list(map(cube, range(10)))
+```
+
+**Using a while loop with `append`:**
+```python
+cubes = []
+x = 0
+while x < 10:
+    cubes.append(x ** 3)
+    x += 1
+```
+:::
+
+Another way uses a concept known as **list comprehensions**.
+
+A **list comprehension** provides a simple, concise way of creating lists (even complex ones). The most common use of this concept creates a list where each element is the result of some operation or expression applied to each element of another list.
+
+## Example 1
+
+Here's an example that does the same thing as the snippet of code above:
+
+```python
+cubes = [x * x * x for x in range(10)]
+```
+
+Yes, it's a single statement! A **list comprehension** uses the for loop to generate or to iterate through the items of a sequence and applies some operation or expression to each of those items. In the statement above, the generated sequence is the range of values from 0 through 9. The expression that is applied to each of the elements in the generated sequence is `x * x * x` (i.e., it cubes each element). The result is a new list of the cubes of the elements in the generated sequence (0 through 9):
+
+```python
+[0, 1, 8, 27, 64, 125, 216, 343, 512, 729]
+```
+
+The list comprehension can be read in English as,
+
+>The variable cubed is to be a list that contains some x cubed for each x in the range 0 through 9.
+
+In fact, we can map the English version to the Python statement:
+
+| The variable `cubes` is to be | a list that contains | some value x cubed | for each x in the range 0 through 9 |
+|---|---|---|---|
+| `cubes =` | `[` | `x * x * x` | **`for`** `x` **`in`** `range(10)]` |
+
+Minimally, a list comprehension consists of brackets containing an expression (e.g., `x * x * x`) followed by a `for` loop. Additional `for` loops or even `if` statements can be chained after the first `for` loop. The resulting list is an evaluation of the expression in the context of the `for` loops and `if` statements that follow it. 
+
+## Example 2
+
+Here's a seemingly convoluted example:
+
+```python
+sums = [x + y for x in [1, 2, 3] for y in [3, 1, 4] if x != y]
+```
+
+The output of this statement is:
+
+```python
+[4, 5, 5, 3, 6, 4, 7]
+```
+
+This statement generates a list of the sums of the pairs that can be formed by combining a single element from the first list `[1, 2, 3]` with a single element from the second list `[3, 1, 4]`, **so long as the elements differ** (i.e., `if x != y`). The elements of each list are processed from left-to-right. The first sum is calculated by adding the first element of the first list to the first element of the second list (1 + 3 = 4). The second sum is calculated by adding the first element of the first list to the third element of the second list (1 + 4 = 5). Why the third element and not the second? Because this would mean that both elements have the same value (1). The if statement ensures that sums will only be produced if the list elements differ.
+
+
+## Example 3
+
+Here's another (similar) example of list comprehension:
+
+```python
+pairs = [[x, y] for x in [1, 2, 3] for y in [3, 1, 4] if x < y]
+```
+
+The output of this statement is:
+
+```python
+[[1, 3], [1, 4], [2, 3], [2, 4], [3, 4]]
+```
+
+This statement generates a list of the pairs that can be formed by combining a single element from the first list `[1, 2, 3]` with a single element from the second list `[3, 1, 4]`, **so long as the element from the first list is less than the element from the second list**. 
+
+Again, the list elements are processed from left-to-right. It is similar to the previous statement; however, instead of generating a list of sums, a list of pairs of elements is generated. In fact, it's a list of lists! The enclosed sublists are composed of only two elements each.
+
+## Example 4
+
+Really cool things can be done with list comprehension. For example, here's a neat way to compute $\pi$ to various precisions from two through eight digits:
+
+```python
+from math import pi
+
+pi_digits = [round(pi, n) for n in range(2, 9)]
+```
+
+And here's the output:
+
+```python
+[3.14, 3.142, 3.1416, 3.14159, 3.141593, 3.1415927, 3.14159265]
+```
+
+The function `round` does what you expect it to do: it *rounds* the value specified in the first parameter to a precision specified in the second parameter. For example, the expression `round(pi, 3)` rounds pi to three digits to the right of the decimal point (i.e., 3.142).
+
+
+## Knowledge Check
+
+**Challenge 1** 
+
+Use a list comprehension to create a list of the squares of all even numbers from 1 to 20 (i.e., `[4, 16, 36, 64, 100, 144, 196, 256, 324, 400]`).
+
+::: {.callout-note title="Solution" collapse="true"}
+```python
+squares = [x ** 2 for x in range(1, 21) if x % 2 == 0]
+```
+:::
+
+**Challenge 2** 
+
+Given the list of words below, use a list comprehension to create a new list that contains only the words with more than 4 characters, converted to uppercase.
+
+```python
+words = ["cat", "elephant", "dog", "python", "ant", "bear"]
+```
+
+The expected output is: `['ELEPHANT', 'PYTHON']`
+
+::: {.callout-note title="Solution" collapse="true"}
+```python
+words = ["cat", "elephant", "dog", "python", "ant", "bear"]
+long_words = [w.upper() for w in words if len(w) > 4]
+```
+:::
+
+**Challenge 3** 
+
+Use a list comprehension to generate all coordinate pairs `[x, y]` where `x` is from 1 to 3 and `y` is from 1 to 3, but only include pairs where `x` and `y` are **not** equal.
+
+The expected output is: `[[1, 2], [1, 3], [2, 1], [2, 3], [3, 1], [3, 2]]`
+
+::: {.callout-note title="Solution" collapse="true"}
+```python
+pairs = [[x, y] for x in range(1, 4) for y in range(1, 4) if x != y]
+```
+:::
+
+**Challenge 4** 
+
+Use a list comprehension to convert a list of temperatures in Celsius to Fahrenheit, rounded to one decimal place. The formula is $F = \frac{9}{5}C + 32$.
+
+```python
+celsius = [0, 20, 37, 100]
+```
+
+The expected output is: `[32.0, 68.0, 98.6, 212.0]`
+
+::: {.callout-note title="Solution" collapse="true"}
+```python
+celsius = [0, 20, 37, 100]
+fahrenheit = [round((9/5) * c + 32, 1) for c in celsius]
+```
+:::
+

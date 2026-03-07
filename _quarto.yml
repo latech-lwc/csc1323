@@ -1,0 +1,70 @@
+project:
+  type: website
+  output-dir: docs
+
+format:
+  html:
+    theme: 
+      light: cosmo
+      dark: darkly
+    css: styles.css
+    toc: true
+
+
+website:
+  page-navigation: true
+  title: "The Science of Computing III"
+  sidebar:
+    title: false
+    collapsible: true
+    collapse-level: 2
+    search: true
+    contents:
+      - section: "Lessons"
+        href: "lessons/index.qmd"
+        contents:
+          - section: "01 More on Data Structures"
+            href: "lessons/01 More on Data Structures/index.qmd"
+            contents:
+              - "lessons/01 More on Data Structures/01 Useful List Functions.qmd"
+              - "lessons/01 More on Data Structures/02 List Comprehensions.qmd"
+              - "lessons/01 More on Data Structures/03 Sets.qmd"
+              - "lessons/01 More on Data Structures/04 Dictionaries.qmd"
+              - "lessons/01 More on Data Structures/05 Dictionary Comprehensions.qmd"
+              - "lessons/01 More on Data Structures/06 Activity - Room Adventure Reloaded.qmd"
+              - "lessons/01 More on Data Structures/07 Wrapping Up Data Structures.qmd"
+          - section: "02 More on Objects"
+            href: "lessons/02 More on Objects/index.qmd"
+            contents:
+              - "lessons/02 More on Objects/01 Inheritance.qmd"
+              - "lessons/02 More on Objects/02 Abstraction and Modularization.qmd"
+              - "lessons/02 More on Objects/03 Polymorphism.qmd"
+              - "lessons/02 More on Objects/04 Multiple Inheritance.qmd"
+              - "lessons/02 More on Objects/05 Abstract Methods.qmd"
+              - "lessons/02 More on Objects/06 Abstract Classes.qmd"
+              - "lessons/02 More on Objects/07 Coupling and Cohesion.qmd"
+          - section: "03 Building a Computer"
+            href: "lessons/03 Building a Computer/index.qmd"
+            contents:
+              - "lessons/03 Building a Computer/01 Introduction/index.qmd"
+              - "lessons/03 Building a Computer/02 Signed Numbers/index.qmd"
+              - "lessons/03 Building a Computer/03 Characters/index.qmd"
+              - "lessons/03 Building a Computer/04 Floating Point Numbers/index.qmd"
+              - "lessons/03 Building a Computer/05 Decoders and Encoders/index.qmd"
+              - "lessons/03 Building a Computer/06 Multiplexers and Demultiplexers/index.qmd"
+              - "lessons/03 Building a Computer/07 Flip Flops/index.qmd"
+              - "lessons/03 Building a Computer/08 A Simple Computer/index.qmd"
+          - section: "04 Beam - Problem Solving with Computers"
+            href: "lessons/04 Beam - Problem Solving with Computers/index.qmd"
+          - section: "05 Beam - Software Engineering"
+            href: "lessons/05 Beam - Software Engineering/index.qmd"
+          - section: "06 Algorithms...Reloaded"
+            href: "lessons/06 Algorithms...Reloaded/index.qmd"
+          - section: "07 Beam - Artificial Intelligence"
+            href: "lessons/07 Beam - Artificial Intelligence/index.qmd"
+          - section: "08 Beam - Git"
+            href: "lessons/08 Beam - Git/index.qmd"
+
+      - section: "Activities"
+        href: "activities/index.qmd"
+

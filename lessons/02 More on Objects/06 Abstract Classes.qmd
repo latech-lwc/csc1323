@@ -1,0 +1,54 @@
+## Abstract Classes
+
+Recall the Zooland activity discussed earlier. Although the `Animal` class exists and can be instantiated, what kind of animal would such an instance imply? That is, what kind of animal would it be? In fact, it could be any animal. The intended behavior is most likely to only allow the creation of instances of the various animals at the bottom of the hierarchy. For example, instantiating an `Ostrich`, `Dolphin`, and `Wolf` should be allowed. However, instantiating a `Bird`, `Mammal`, or `Terrestrial` (`Mammal`) should not since they aren't specific enough and really describe groups or types of animals.
+
+Instantiating any class in the hierarchy can create confusion because it could potentially allow instances of objects that were not planned in the design. We can restrict the instantiation of the `Animal` class, for example, by making it abstract. That way, no one can just instantiate an `Animal` object.
+
+::: {.callout-tip title="Defintion"}
+**Abstract classes** are classes designed solely to be used as superclasses and never to be instantiated.
+:::
+
+Ensuring that the subclasses of abstract classes are not abstract means that they can be instantiated.
+
+In Python, the only way to make a class abstract is to use the Abstract Base Class method discussed above. To prevent the class from actually being instantiated, at least one of its methods must be made abstract. The following `Animal` class, for example, cannot be instantiated because its communicate method is abstract:
+
+```python
+import abc
+class Animal(metaclass = abc.ABCMeta):
+
+    def __init__(self):
+        """ Constructs a new Animal """
+
+    @abc.abstractmethod
+    def communicate(self):
+        """ How an animal communicates """
+
+
+class Bird(Animal):
+
+    def __init__(self):
+        """ Constructs a new Bird """
+
+    def communicate(self):
+        """ How an animal communicates """
+        print("A Bird communicates!")
+
+a = Animal()         
+
+```
+
+Note that the program above is the same as before, except that the main part of the program has been changed to attempt to declare an instance of the `Animal` class. Here's the output:
+
+```default
+Traceback (most recent call last):
+    File "...\lessons\02 More on Objects\code\abstract5.py", line 21, in <module>
+        a = Animal()
+    TypeError: Can't instantiate abstract class Animal with abstract methods communicate
+```
+
+Make sure that you understand that using the `abc` library to implement abstract methods means that the entire class is also abstract. However, it is the only way to actually make an entire class abstract. So which method should you choose? If you want to make entire classes abstract, then you must use the second method (i.e., using the `abc` library). If you just want to make one or more functions in a class abstract but not the entire class, then use the first method.
+
+::: {.callout-tip title="Did you know?"}
+As discussed above, abstract classes cannot be instantiated, and are instead only used as superclasses to define state and behavior that can be inherited by subclasses. **Concrete classes** are those classes that can be instantiated.
+:::
+

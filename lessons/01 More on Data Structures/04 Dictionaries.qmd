@@ -1,0 +1,177 @@
+---
+title: Dictionaries
+---
+
+## Introduction to Dictionaries
+
+A dictionary is perhaps one of the most powerful data structures at our disposal in Python. As you have seen, sequences (like lists) are indexed by a range of numbers (i.e., the first element is placed at index 0, the second element is placed at index 1, and so on).
+
+::: {.callout-tip title="Definition"}
+A **dictionary** is a data structure whose elements are indexed by unique keys. A **key** is just an unchangeable value. The elements are known as **values**, and are associated with the keys. That is, a single **key** maps to a single **value**. This is why we often say that dictionaries contain **key-value pairs**.
+:::
+
+Technically, a list pairs an index (which could be called a key) with a value (the element at that index). The difference is that dictionaries permit keys to be of almost any type, so long as a key is not susceptible to change. That is, it must be **immutable**. For example, the integer 5, the floating point number 3.14, the string "Jones", and the character '%' are all valid keys. Note that all keys in a single dictionary must be unique (i.e., there can be no duplicate keys).
+
+Consider a dictionary that you are familiar with: the kind that you lookup the definitions of words in. Using such a dictionary typically involves searching for some word in order to obtain its definition. In such a dictionary, the word is the key, and its definition is the value associated with that key. You should have noticed that, to search a dictionary, the key is required. The unknown is the value that is associated with the key (a definition). In some programming languages, this type of data structure is known as an **associative array**.
+
+Another dictionary data structure that you are probably familiar with is a phone book (although you've probably only used some online version and not an actual book). What are the keys in a phone book? What about the values? Clearly, a name is the key (e.g., Bob Jones). The values associated with the keys are records that contain an address and a phone number. Certainly, such records can be represented as long strings (perhaps even with newlines). But we may also wish to represent the records as objects of some `PersonInfo` class!
+
+Dictionaries are created similarly to sets (using braces). The difference is that key-value pairs are specified in the format `key: value`. Here's an example of a dictionary with strings representing last names as the keys and integers representing office numbers as the values:
+
+```python
+offices = { "Jones": 247, "Smith": 121, "Kennedy": 108 }
+```
+
+This creates a dictionary with the following key-value pairs (in no particular order):
+
+|Last Name | Office Number |
+|:--- |:--- |
+|Jones |247 |
+|Smith|121|
+|Kennedy|108|
+
+For readability, you will frequently see dictionaries written with 1 key-value pair per line of code, as follows:
+
+```python
+offices = { 
+    "Jones": 247, 
+    "Smith": 121, 
+    "Kennedy": 108 
+}
+```
+
+## Operating on Dictioniaries
+
+The main operations associated with a dictionary are to store some key-value pair and to retrieve a value associated with a key. Adding the new key-value pair `"Wilkerson": 355`, for example, can be added to the dictionary above as follows:
+
+```python
+offices["Wilkerson"] = 355
+```
+
+The dictionary now has the following key-value pairs (in no particular order):
+
+|Last Name | Office Number |
+|:--- |:--- |
+|Jones |247 |
+|Smith|121|
+|Kennedy|108|
+|Wilkerson|355|
+
+Retrieving a value matching the key `"Smith"`, for example, can be done as follows:
+
+```python
+loc = offices["Smith"]
+```
+
+The value of the variable `loc` is therefore 121. Note that attempting to retrieve a value using a key that is not in the dictionary results in an error.
+
+An existing key-value pair in the dictionary may be overwritten by simply inserting a new value with the same key. For example, suppose that Kennedy changed offices (to, say, 111). The dictionary can be updated as follows:
+
+```python
+offices["Kennedy"] = 111
+```
+
+The dictionary now has the following key-value pairs (in no particular order):
+
+|Last Name | Office Number |
+|:--- |:--- |
+|Jones |247 |
+|Smith|121|
+|Kennedy|111|
+|Wilkerson|355|
+
+A key-value pair can be removed from the dictionary using the `del` keyword as follows:
+
+```python
+del offices["Smith"]
+```
+
+The dictionary now has the following key-value pairs (in no particular order):
+
+|Last Name | Office Number |
+|:--- |:--- |
+|Jones |247 |
+|Kennedy|111|
+|Wilkerson|355|
+
+Determining if a key is in the dictionary without actually returning the value associated with the key can be done by using the keyword `in` as follows:
+
+```python
+"Kennedy" in offices # true
+"Smith" in offices # false (since it was just removed)
+
+if ("Smith" in offices): # false
+    ...
+```
+
+The keys and values in a dictionary don't have to be homogeneous; that is, they can each be of different types. For instance, the following key-value pair could be added to the dictionary:
+
+```python
+offices[12345] = "abracadabra"
+```
+
+Although it doesn't necessarily make sense, the dictionary now has the following key-value pairs (in no
+particular order):
+
+|Last Name | Office Number |
+|:--- |:--- |
+|Jones |247 |
+|Kennedy|111|
+|Wilkerson|355|
+|12345|abracadabra|
+
+A neat way to obtain a list of all of the keys in a dictionary is to use the `keys` function as follows:
+
+```python
+office_keys = list(offices.keys())
+```
+
+The keys function returns a "view" object that can be converted into a list by using the list constructor (similar to how we used it for the `filter` and `map` functions). The variable `office_keys` above then has the following value:
+
+```python
+['Jones', 12345, 'Wilkerson', 'Kennedy']
+```
+
+There are several ways of iterating through the values of a dictionary. One uses the `keys` function just described. This can be accomplished as follows:
+
+```python
+for k in offices.keys():
+    print(offices[k])
+```
+
+Note that we don't need to convert the keys into a list if we are simply iterating through them. Of course, we can convert it to a list if we wanted to, but in the context above it isn't necessary.
+The output of this snippet of Python code is:
+
+```default
+247
+abracadabra
+355
+111
+```
+
+Of course, to produce a key-value pair mapping, only a small modification is required:
+
+```python
+for k in offices.keys():
+    print(k, "->", offices[k])
+```
+
+The output of this now includes both the keys and values:
+
+```default
+Jones -> 247
+12345 -> abracadabra
+Wilkerson -> 355
+Kennedy -> 111
+```
+
+Another way that Python provides to do the same thing and which produces the same output is to use the dictionary method `items` as follows:
+
+```python
+for k, v in offices.items():
+    print(k, "->", v)
+```
+
+The `items` function returns a view object that contains pairs of values, each of which is a key-value pair in the dictionary.
+
+Note that `k` and `v` are used to stand for `key` and `value`. Any variable name will do (as long as it is descriptive) but these are normally used by convention with dictionaries. Using key and value (or val) as opposed to `k` and `v` would also be perfectly fine.
