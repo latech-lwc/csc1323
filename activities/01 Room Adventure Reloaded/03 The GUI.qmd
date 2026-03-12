@@ -1,0 +1,16 @@
+---
+title: "The GUI"
+---
+
+The GUI is split up into three main parts:
+
+1. A text-based representation of the current room that contains its description, items located in the room, and grabbables in the room that can be taken into inventory — along with the player's inventory and some relevant current status.
+
+2. An image that provides a static picture of the room
+
+
+3. An input action section that takes player input for processing.
+
+Here is a diagram that shows each part. 
+
+![Wireframe diagram of the game GUI layout. The upper portion is divided into two side-by-side panels: "Image" on the left, displaying the current room's picture, and "Information" on the right, showing room description, items, and inventory. A full-width "Input (commands)" panel spans the bottom for player input.](images/gui-layout.png)

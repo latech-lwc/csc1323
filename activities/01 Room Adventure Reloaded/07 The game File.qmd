@@ -1,0 +1,511 @@
+---
+title: The `game.py` File
+---
+
+## The `Game` Class Outline
+
+The `Game` class is quite involved, so we'll build it a little at a time. Let's begin with a shell. Using docstrings in each method stub will prevent the need to write `pass`.
+
+The `Game` class inherits from Tkinter's `Frame` class in order to support GUI components. The constructor simply calls the constructor of its superclass. The `play` method ties everything together — it creates the rooms, sets up the GUI, sets the initial room image, and sets the initial status.
+
+::: {.callout-note}
+## Challenge: Write the `Game` Class Shell
+
+In `game.py`, write a shell for the `Game` class. It should:
+
+- Inherit from Tkinter's `Frame` class in the header of the game class (you should already have this done from the Project Setup section of this activity).
+
+- Define two **class variables**: 
+
+    * `current_room` - initialized to `None`
+
+    * `inventory` - initialized to an empty list
+
+- Have a constructor that takes a `parent` argument, calls the superclass constructor, and packs itself to fill the window (this should be done from the Project Setup from this activity)
+
+- Have headers for the following methods. You can stub out each method with a docstring that briefly describes what you think the method is for, or place the word `pass` inside each method for now.
+    * `create_rooms`
+    * `setup_gui`
+    * `set_room_image`
+    * `set_status` - takes in a string that represents the status
+    * `play`
+    * `process` - takes in a variable that represent the `event` when triggered
+    * `handle_go` - takes in a string that represents a noun
+    * `handle_look` - takes in a string that represents a noun
+    * `handle_take` - takes in a string that represents a noun
+- Have `play` fully implemented so that it calls on `create_rooms`, `setup_gui`, `set_room_image`, and `set_status("")` in that order. Notice the empty string passed to set_status.
+:::
+
+::: {.callout-tip collapse="true"}
+## Possible Solution
+
+```python
+# the game class
+# inherits from the Frame class of Tkinter
+class Game(Frame):
+
+    # Class Variables
+    current_room = None     # keep track of the current room
+    inventory = []          # an empty list to represent the inventory
+
+
+    # the constructor
+    def __init__(self, parent):
+        # call the constructor in the superclass
+        Frame.__init__(self, parent)
+        self.pack(fill=BOTH, expand=1)
+
+    def create_rooms(self):
+        """Creates the rooms."""
+
+    def setup_gui(self):
+        """Sets up the GUI."""
+
+    def set_room_image(self):
+        """Sets the current room image."""
+
+    def set_status(self, status):
+        """Sets the status displayed on the right of the GUI."""
+
+    def play(self):
+        """Plays the game."""
+        # add the rooms to the game
+        self.create_rooms()
+        # configure the GUI
+        self.setup_gui()
+        # set the current room
+        self.set_room_image()
+        # set the current status
+        self.set_status("")
+
+    def process(self, event):
+        """Processes the player's input."""
+
+    def handle_go(self, noun):
+        """Processes the verb `go`"""
+
+    def handle_look(self, noun):
+        """Processes the verb `look`"""
+
+    def handle_take(self, noun):
+        """Processes the verb `take`"""
+```
+:::
+
+
+## The `create_rooms` Function
+
+This function is almost exactly the same as in the last Room Adventure program. When the rooms are instantiated, a string representing the file name of an associated image must also be passed in. At the end of the function, the current room is set as a class variable (`Game.current_room`).
+
+::: {.callout-note}
+## Challenge: Implement `create_rooms`
+
+Implement a `create_rooms` method. Using the room layout and item/exit information from earlier in the activity, it should:
+
+- Instantiate four `Room` objects, each with a name and an image filename (e.g., `"room1.gif"`)
+- Add the correct exits, items, and grabbables to each room
+- Set `Game.current_room` to Room 1 at the end
+:::
+
+::: {.callout-tip collapse="true"}
+## Possible Solution
+
+```python
+class Game(Frame):
+
+    # other methods omitted for brevity
+
+    def create_rooms(self):
+        """Creates the rooms."""
+        # create the rooms and give them meaningful names and an image
+        r1 = Room("Room 1", "room1.gif")
+        r2 = Room("Room 2", "room2.gif")
+        r3 = Room("Room 3", "room3.gif")
+        r4 = Room("Room 4", "room4.gif")
+
+
+        # Build out Room 1
+        r1.add_exit("east", r2)
+        r1.add_exit("south", r3)
+
+        r1.add_grabbable("key")
+
+        r1.add_item("chair", "It is made of wicker and no one is sitting on it.")
+        r1.add_item("table", "It is made of oak. A golden key rests on it.")
+
+
+        # Build Room 2
+        r2.add_exit("west", r1)
+        r2.add_exit("south", r4)
+
+        r2.add_item("rug", "It is nice and Indian. It also needs to be vacuumed.")
+        r2.add_item("fireplace", "It is full of ashes.")
+
+
+        # Build Room 3
+        r3.add_exit("north", r1)
+        r3.add_exit("east", r4)
+
+        r3.add_grabbable("book")
+
+        r3.add_item("bookshelves", "They are empty. Go figure.")
+        r3.add_item("statue", "There is nothing special about it.")
+        r3.add_item("desk", "The statue is resting on it. So is a book.")
+
+
+        # Build Room 4
+        r4.add_exit("north", r2)
+        r4.add_exit("west", r3)
+        r4.add_exit("south", None)   # DEATH!
+
+        r4.add_grabbable("6-pack")
+
+        r4.add_item(
+            "brew_rig",
+            "Gourd is brewing some sort of oatmeal stout on the brew rig. A 6-pack is resting beside it."
+        )
+
+        # set Room 1 as the current room for when the game begins
+        Game.current_room = r1
+```
+:::
+
+
+## The `setup_gui` Function
+
+A Tkinter `Frame` will contain the three main GUI components:
+
+- A full-width **Entry** widget at the bottom for player input, bound to the `process` method
+- A **Label** widget on the left half for displaying the current room's image
+- A **Text** widget on the right half (inside its own `Frame`) for displaying game status
+
+The `pack_propagate(False)` calls ensure that widget sizes remain fixed and aren't overridden by their contents.
+
+::: {.callout-note}
+## Challenge: Implement `setup_gui`
+
+Implement the `setup_gui` method. It should set up the three GUI components described above:
+
+1. An `Entry` widget at the bottom, bound to `self.process` on `<Return>`, with a white background and initial focus
+2. A `Label` widget on the left (half the window width) for the room image
+3. A `Frame` on the right (half the window width) containing a disabled, light-grey `Text` widget for status
+
+Store these as class variables: `Game.player_input`, `Game.image`, and `Game.text`.
+:::
+
+::: {.callout-tip collapse="true"}
+## Possible Solution
+
+```python
+class Game(Frame):
+
+    # other methods omitted for brevity
+
+    def setup_gui(self):
+        """Sets up the GUI."""
+
+        # Setup the player input at the bottom of the GUI.
+        Game.player_input = Entry(self, bg="white")
+        Game.player_input.bind("<Return>", self.process)
+        Game.player_input.pack(side=BOTTOM, fill=X)
+        Game.player_input.focus()
+
+        # The image panel is a Label on the left half
+        img = None
+        Game.image = Label(self, width=WIDTH // 2, image=img)
+        Game.image.image = img
+        Game.image.pack(side=LEFT, fill=Y)
+        Game.image.pack_propagate(False)
+
+        # The status panel is a Text widget inside a Frame on the right half
+        text_frame = Frame(self, width=WIDTH // 2)
+        Game.text = Text(
+            text_frame,
+            bg="lightgrey",
+            state=DISABLED
+        )
+        Game.text.pack(fill=Y, expand=1)
+        text_frame.pack(side=RIGHT, fill=Y)
+        text_frame.pack_propagate(False)
+```
+:::
+
+
+## The `set_room_image` Function
+
+This function updates the image panel on the left side of the GUI. If the current room is `None`, the player has died (by going south from Room 4), and a skull image is shown instead.
+
+::: {.callout-note}
+## Challenge: Implement `set_room_image`
+
+Implement `set_room_image`. It should:
+
+- Check if `Game.current_room` is `None`
+  - If so, load `"skull.gif"` as the image
+  - Otherwise, load the image associated with the current room (`Game.current_room.image`)
+- Update `Game.image` to display the loaded image
+
+Use Tkinter's `PhotoImage` to load the image, and store it as `Game.img`.
+:::
+
+::: {.callout-tip collapse="true"}
+## Possible Solution
+
+```python
+class Game(Frame):
+
+    # other methods omitted for brevity
+
+    def set_room_image(self):
+        """Sets the current room image."""
+        if (Game.current_room == None):
+            # if dead, set the skull image
+            Game.img = PhotoImage(file="skull.gif")
+        else:
+            # otherwise grab the image for the current room
+            Game.img = PhotoImage(file=Game.current_room.image)
+
+        # display the image on the left of the GUI
+        Game.image.config(image=Game.img)
+        Game.image.image = Game.img
+```
+:::
+
+
+## The `set_status` Function
+
+Since the `Text` widget is disabled so that the player cannot edit it, it must first be enabled before its contents can be changed. The new status is inserted, and the widget is disabled again. If the player is dead (`current_room` is `None`), a death message is shown instead.
+
+::: {.callout-note}
+## Challenge: Implement `set_status`
+
+Implement `set_status(self, status)`. It should:
+
+1. Enable `Game.text`, then clear its contents
+2. If `Game.current_room` is `None`, insert a message telling the player they are dead
+3. Otherwise, insert a message showing the current room's string representation, the player's inventory, and the `status` argument
+4. Disable `Game.text` again
+:::
+
+::: {.callout-tip collapse="true"}
+## Possible Solution
+
+```python
+class Game(Frame):
+
+    # other functions omitted for brevity
+
+    def set_status(self, status):
+        """Sets the status displayed on the right of the GUI."""
+        # enable the text widget, clear it, set it, and disable it
+        Game.text.config(state=NORMAL)
+        Game.text.delete("1.0", END)
+
+        if (Game.current_room == None):
+            # if dead, let the player know
+            Game.text.insert(
+                END,
+                "You are dead. The only thing you can do now is quit.\n"
+            )
+        else:
+            # otherwise, display the appropriate status
+            msg_contents = [
+                str(Game.current_room),
+                "You are carrying: ",
+                str(Game.inventory),
+                status
+            ]
+            msg = "\n".join(msg_contents)
+            Game.text.insert(END, msg)
+
+        Game.text.config(state=DISABLED)
+```
+:::
+
+
+## The `process` Function
+
+This method is called every time the player presses Enter. It reads the player's input, converts it to lowercase, and routes it to the appropriate handler (`handle_go`, `handle_look`, or `handle_take`). If the player is dead or the input isn't exactly two words, processing stops early.
+
+::: {.callout-note}
+## Challenge: Implement `process`
+
+Implement `process(self, event)`. It should:
+
+1. Get the player's input from `Game.player_input` and convert it to lowercase
+2. If the input is one of `"quit"`, `"exit"`, `"bye"`, or `"sionara!"`, exit the game
+3. If `Game.current_room` is `None` (player is dead), clear the input and return
+4. Split the input into words — if there aren't exactly 2, set the default error status and return
+5. Route the verb (`words[0]`) to `handle_go`, `handle_look`, or `handle_take`, passing the noun (`words[1]`)
+6. After handling, call `set_room_image` and clear the input field
+:::
+
+::: {.callout-tip collapse="true"}
+## Possible Solution
+
+```python
+class Game(Frame):
+
+    # other functions omitted for brevity
+
+    def process(self, event):
+        """Processes the player's input."""
+        # grab the player's input from the input at the bottom of the GUI
+        action = Game.player_input.get()
+
+        # set the user's input to lowercase to make it easier to compare
+        action = action.lower()
+
+        # set a default response
+        response = "I don't understand. Try verb noun. Valid verbs are go, look, and take"
+
+        # exit the game if the player wants to leave
+        exit_messages = ["quit", "exit", "bye", "sionara!"]
+        if action in exit_messages:
+            exit(0)
+
+        # if the player is dead (went south from room 4)
+        if (Game.current_room == None):
+            Game.player_input.delete(0, END)
+            return
+
+        # split the user input into words and store them in a list
+        words = action.split()
+
+        # the game only understands two word inputs
+        if (len(words) != 2):
+            self.set_status(response)
+            Game.player_input.delete(0, END)
+            return
+
+        # isolate the verb and noun
+        verb = words[0]
+        noun = words[1]
+
+        if verb == "go":
+            self.handle_go(noun)
+        elif verb == "look":
+            self.handle_look(noun)
+        elif verb == "take":
+            self.handle_take(noun)
+
+        # update the room image and clear the player's input
+        self.set_room_image()
+        Game.player_input.delete(0, END)
+```
+:::
+
+
+## The Handler Functions
+
+The `process` method delegates to three handler methods: one for each supported verb. Each handler receives the noun from the player's input and updates the game state and status accordingly.
+
+::: {.callout-note}
+## Challenge: Implement `handle_go`
+
+Implement `handle_go(self, noun)`. It should:
+
+- Set a default response of `"Invalid exit."`
+- Check if `noun` is a valid exit in `Game.current_room`
+  - If so, update `Game.current_room` to the destination room and set response to `"Room changed."`
+- Call `self.set_status(response)` at the end
+:::
+
+::: {.callout-tip collapse="true"}
+## Possible Solution
+
+```python
+class Game(Frame):
+
+    # other functions omitted for brevity
+
+    def handle_go(self, noun):
+        """Processes the verb `go`."""
+        response = "Invalid exit."
+
+        if (noun in Game.current_room.exits):
+            Game.current_room = Game.current_room.exits[noun]
+            response = "Room changed."
+
+        self.set_status(response)
+```
+:::
+
+::: {.callout-note}
+## Challenge: Implement `handle_look`
+
+Implement `handle_look(self, noun)`. It should:
+
+- Set a default response of `"I don't see that item."`
+- Check if `noun` is a valid item in `Game.current_room`
+  - If so, set response to that item's description
+- Call `self.set_status(response)` at the end
+:::
+
+::: {.callout-tip collapse="true"}
+## Possible Solution
+
+```python
+class Game(Frame):
+
+    # other functions omitted for brevity
+
+    def handle_look(self, noun):
+        """Processes the verb `look`."""
+        response = "I don't see that item."
+
+        if (noun in Game.current_room.items):
+            response = Game.current_room.items[noun]
+
+        self.set_status(response)
+```
+:::
+
+::: {.callout-note}
+## Challenge: Implement `handle_take`
+
+Implement `handle_take(self, noun)`. It should:
+
+- Set a default response of `"I don't see that item."`
+- Loop through `Game.current_room.grabbables`
+  - If `noun` matches a grabbable, add it to `Game.inventory`, remove it from the room, set response to `"Item grabbed."`, and break out of the loop
+- Call `self.set_status(response)` at the end
+:::
+
+::: {.callout-tip collapse="true"}
+## Possible Solution
+
+```python
+class Game(Frame):
+
+    # other functions omitted for brevity
+
+    def handle_take(self, noun):
+        """Processes the verb `take`."""
+        response = "I don't see that item."
+
+        for grabbable in Game.current_room.grabbables:
+            if (noun == grabbable):
+                Game.inventory.append(grabbable)
+                Game.current_room.del_grabbable(grabbable)
+                response = "Item grabbed."
+                break
+
+        self.set_status(response)
+```
+:::
+
+
+## Testing
+
+At this point you should have a working game. Run the `main.py` file to test the game out. Some things you should try:
+
+- Navigate to different rooms.
+
+- Look at items in different rooms.
+
+- Take a grabbable to place it in your inventory.
+
+- Test the exiting key words.
+
+- Test the `death` scenario.

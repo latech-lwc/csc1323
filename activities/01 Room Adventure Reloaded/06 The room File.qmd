@@ -1,0 +1,200 @@
+---
+title: The `room.py` File
+---
+
+Let's begin with the `Room` class (which happens to be almost exactly the same as the modified version that uses dictionaries instead of parallel lists). The only change is the addition of a new instance variable that represents a room's image. 
+
+Go to the `room.py` file and build out the `Room` class by completing the following:
+
+## The Constructor
+
+Build the constructor by specifying all of the instance variables and providing a default value. Let's use dictionaries for the `exits` and the `items`.
+
+```python
+# room.py
+
+# the room class
+class Room:
+
+    # the constructor
+    def __init__(self, name, image):
+        """
+        Rooms have the following:
+        name: str - represents the name of the room
+        image: str - represents the relative filepath to the image,
+        exits: dict[str, Room] - keys are direction, values are a Room object, 
+        items: dict[str, str] - keys are the name of the item, values are the descriptions of the items
+        grabbables: list[str] - things you can place in your inventory
+        """
+        self.name = name
+        self.image = image
+        self.exits = {}
+        self.items = {}
+        self.grabbables = []
+```
+
+## Getters and Setters
+
+If you had getters and setter in the previous iteration, let's omit the ones that are not being used for any special checking of values. In the academic world, we ask you to create getters and setters that do nothing just to make sure you know how to. However, now that we've mastered that concept, we will only include the necessary ones.
+
+That leaves us with one single pair of getters and setters, which will be for our `image` instance variable. We will use the setter to check if the image exists in the filesystem. If it doesn't it will throw an error. This will be for our own purposes for when we instantiate rooms later on. That is, if we create a room where the filepath doesn't exist for the image, we will know immediately.
+
+To do this, be sure to import the `os` module at the top of your file.
+
+```python
+# room.py
+
+import os
+
+class Room:
+    # construtor omitted for brevity
+
+    # getters and setters for the instance variables
+    @property
+    def image(self):
+        return self._image
+
+    @image.setter
+    def image(self, value):
+        # check if filepath exists
+        if not os.path.exists(value):
+            # raise an error to kill the program if it does not
+            raise ValueError(f"Filepath does not exist: {value}")
+        
+        # at this point, if we haven't hit the error, set the filepath
+        self._image = value
+```
+
+## Helpful Methods
+
+Next let's add some helpful methods for adding exits, items, and grabbables.
+
+```python
+class Room:
+    # construtor omitted for brevity
+
+    # getters/setters omited for brevity
+
+    # Other methods
+    def add_exit(self, exit, room):
+        """
+        Adds an exit to the room
+        exit: str - the direction of the exit (e.g., north)
+        room: Room - an instance of the Room class
+        """
+        # append the exit and room to the appropriate dictionary
+        self.exits[exit] = room
+
+
+    def add_item(self, item, desc):
+        """
+        Adds an item to the room
+        item: str - the name of an item (e.g. table)
+        desc: str - the description of the item
+        """
+        # append the item and description to the appropriate dictionary
+        self.items[item] = desc
+
+
+    def add_grabbable(self, item):
+        """            
+        Adds a grabbable item to the room
+        item: str - the name of the grabbable (e.g., key)
+        """
+        self.grabbables.append(item)
+
+
+    def del_grabbable(self, item):
+        """            
+        Removes a grabbable item from the room
+        item: str - the name of the grabbable (e.g., key)
+        """
+        # remove the item from the list
+        self.grabbables.remove(item)
+```
+
+## The `__str__` Method
+
+The last method we will add to the Room class is the `__str__` method. 
+
+```python
+class Room:
+    # construtor omitted for brevity
+
+    # getters/setters omited for brevity
+
+    # Other methods omitted for brevity
+
+    def __str__(self):
+        """Returns a string representation of the room."""
+        # first, the room name
+        s = f"You are in {self.name}.\n"
+
+        # next, the items in the room
+        s += "You see: "
+        for item in self.items.keys():
+            s += item + " "
+        s += "\n"
+
+        # next, the exits from the room
+        s += "Exits: "
+        for exit in self.exits.keys():
+            s += exit + " "
+
+        return s
+```
+
+
+## Testing
+
+A popular approach for testing items from a specific file is to add code to the `# main` portion under a conditional in the form `if __name__ == "__main__":`. Anything inside this conditional will only execute if the file is ran directly (that is, not as an import into another file).
+
+Let's test the Room class by adding to `# main` inside the `room.py` file.
+
+```python
+# room.py
+
+class Room:
+
+    # room class contents omited for brevity.
+
+
+# main
+if __name__ == "__main__":
+    # create the filepath so that it is safe on any operating system
+    # The os.path.join() function will combine the strings you provide in an 
+    # appropriate way for the OS you are on.
+    image_filepath_1 = os.path.join("images", "test1.gif")
+    image_filepath_2 = os.path.join("images", "test2.gif")
+
+    # Test the constructor
+    # Result should be no errors.
+    test_room_1 = Room("Test Room 1", image_filepath)
+    test_room_2 = Room("Test Room 2", image_filepath)
+
+    # Test the add_exit method
+    # Result should be no errors.
+    test_room.add_exit("east", test_room_1)
+
+    # Test the add_item method
+    # Result should be no errors.
+    test_room.add_item("table", "It has 4 legs.")
+
+    # Test the add_grabbable method
+    # Result should be no errors.
+    test_room.add_grabbable("key")
+
+
+    # Test the __str__ method.
+    # Results should be:
+    # - no errors
+    # - Correct information printed to the terminal.
+    print(test_room)
+
+    # Test the del_grabbable method
+    # Result should be no errors and the key removed from the grabbables list.
+    test_room.del_grabbable("key")
+    print(test_room.grabbables)
+```
+
+

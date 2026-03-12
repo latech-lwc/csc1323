@@ -1,0 +1,99 @@
+---
+title: "Project Setup"
+---
+
+## Introduction
+
+It turns out that a lot of the source code designed in the last Room Adventure activity can be reused in this activity as well. Some of it, however, will need to be moved around and/or redesigned so that the GUI can work seamlessly with the backend (e.g., rooms, items, inventory, player input, etc).
+
+Also, let's start working as if we're working on a larger project where your code base is divided across multiple files (cohesive units) in a single directory.
+
+
+## Directory Setup
+
+Start by creating a directory on your system where all the code will live. It is recommended that you name that directory something appropriate for the project such as `Room Adventure - Reloaded`.
+
+::: {.callout-tip}
+# IDEs and Projects
+
+If you're using a professional IDE such as Visual Studio Code, it is recommened you open the project into its own instance of the application by selecting `File` > `Open Folder` and selecting the project directory. 
+
+This will allow you to take full advantage of the development tools provided in these applications (such as a conveniently placed Terminal, the filesystem navigator, and the `run` button).
+:::
+
+Inside this newly created directory, create 4 files:
+
+- `README.md` - A file that will contain a description of the project and how to run the project. Note that the extension `.md` is for **MarkDown**. MarkDown allows us to add quick styles to a document such as headings, code blocks, and bulleted lists.
+
+- `main.py` - the file that will be run directly and serve as the window into the project
+
+- `game.py` - the file that will contain the `Game` class.
+
+- `room.py` - the file that will contain the `Room` class. 
+
+Also, in this directory, create a directory named `images`.
+
+A map of the directory would be as follows:
+
+```
+Room Adventure - Reloaded/
+├── README.md
+├── main.py
+├── game.py
+├── room.py
+└── images/
+```
+
+## Game File Setup
+
+In the `game.py` file, add the following:
+
+1. A header for your file (be sure to put your name, date, and description)
+
+2. A `Game` class that inherits from the tkinter `Frame`
+
+3. A constructor for the `Game` class that calls on the constructor of the `Frame` class with the window passed in as `parent`.
+
+4. A `play` method that will just print the word `"playing"` for now. This will be used for testing purposes.
+
+```python
+#################################################################
+# Name:
+# Date:
+# Description: game.py
+#################################################################
+from tkinter import *
+
+class Game(Frame):
+    
+    # the constructor
+    def __init__(self, parent):
+        # call the constructor in the superclass
+        Frame.__init__(self, parent)
+        self.pack(fill=BOTH, expand=1)
+
+    def play(self):
+        print("playing") # a place holder for now
+```
+
+## Room File Setup
+
+For the `room.py` file, we will simply create a placeholder for now by creating the `Room` class and place `pass` inside of it.
+
+```python
+#################################################################
+# Name:
+# Date:
+# Description: room.py
+#################################################################
+
+class Room:
+    pass
+```
+
+
+## Images Directory
+
+Download the following images and place them in the images directory.
+
+NOTE: PUT THE IMAGES HERE

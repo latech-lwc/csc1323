@@ -1,0 +1,22 @@
+---
+title: "Homework: Room Adventure...Revolutions"
+---
+
+For the homework portion of this activity, you may have the option to work in groups (pending prof approval). 
+
+Your task is to re-implement the Room Adventure improvements that you made in your text-based version of the game — in this new GUI version of the game. Of course, feel free to add new improvements! Note that this component is worth one-third of your grade for this assignment! So be creative and precise. You will definitely want to implement significant improvements, since your grade for this portion will be comparatively assigned (i.e., the best improvements to the game earn the best grade for this portion of the assignment).
+
+Clearly, you will need to add images for each room. Note that **images should be 400x550 pixels**. The height of 550 pixels is slightly flexible (e.g., 500 or 600 pixels should also work). Optionally, you can add sound to the game. An idea would be to have a different sound play in each room! Note that this is a bit more difficult and is entirely optional.
+
+::: {.callout-warning}
+Some warnings about using sound in your game, if you decide to do this. For adding the ability to play sound, you are encouraged to use `pygame`. Specifically, you are not allowed to use anything specific to Windows. This is a Raspberry Pi activity, so if it can't run on the Pi, you can't use it. You also are not allowed to specify an entire file path to your sound file. Think about it like this: is your professor likely to have that exact file path on their own Raspberry Pi when they grade your submission? Is any other person wanting to run your code likely to have that specific file saved in that specific place on their hard drive? Definitely not.
+
+So if you want to play a sound file, that file must be in the same place as your code. This way you can reference just the file name and not have to include a path. If you want to put all sound files into a folder, make sure that folder is in the same place as your code and use a forward slash `/` when referencing the file. For example, in your code use `"sounds/sound.wav"` to refer to the `sound.wav` file in the `sounds` folder. Do make sure to include all sound files in your submission!
+:::
+
+Make sure to put an appropriate header at the top of your program and to appropriately comment your source code as necessary. Since your game will now include images for each room, submit your source code, images, and any other required file(s) (e.g., sound files) as a single ZIP archive. If you include sound files, please make sure that they are compressed and/or optimized. **There is a 10MB limit on the size of the ZIP archive. Submissions that are greater than this size will not be accepted!**
+
+
+## Rubric
+
+

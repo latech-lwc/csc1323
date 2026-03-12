@@ -67,4 +67,16 @@ website:
 
       - section: "Activities"
         href: "activities/index.qmd"
+        contents:
+          - section: "Room Adventure...Reloaded"
+            href: "activities/01 Room Adventure Reloaded/index.qmd"
+            contents:
+              - "activities/01 Room Adventure Reloaded/01 The Game.qmd"
+              - "activities/01 Room Adventure Reloaded/02 The Gameplay.qmd"
+              - "activities/01 Room Adventure Reloaded/03 The GUI.qmd"
+              - "activities/01 Room Adventure Reloaded/04 Project Setup.qmd"
+              - "activities/01 Room Adventure Reloaded/05 The main File.qmd"
+              - "activities/01 Room Adventure Reloaded/06 The room File.qmd"
+              - "activities/01 Room Adventure Reloaded/07 The game File.qmd"
+              - "activities/01 Room Adventure Reloaded/08 Homework.qmd"
 

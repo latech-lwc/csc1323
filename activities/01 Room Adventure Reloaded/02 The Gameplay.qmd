@@ -1,0 +1,55 @@
+---
+title: "The Gameplay"
+---
+
+The game is text-based, although this activity adds a GUI that integrates the player's input, the status of the room, and an image associated with the room. Information such as which room the player is located in, what objects are in the current room, and so on, is continually provided throughout the game. The player is prompted for an action (i.e., what to do) after which the current situation is updated.
+
+As was the case last time, the game supports a simple vocabulary for the player's actions that is composed of a verb followed by a noun. For example, the action `go south` instructs the player to take the south exit in the current room (if that is a valid exit). If the specified exit is invalid (or, for example, if the player misspells an action), an appropriate response is provided, instructing the player of the accepted vocabulary. Supported verbs are: `go`, `look`, and `take`. Supported nouns depend on the verb; for example, for the verb `go`, the nouns `north`, `east`, `south`, and `west` are supported. This will allow the player to structure the following go commands:
+
+```sh
+go north
+```
+
+```sh
+go east
+```
+
+```sh
+go south
+```
+
+```sh
+go west
+```
+
+The verbs `look` and `take` support a variety of nouns that depend on the actual items located in the rooms of the mansion. The player cannot, for example, `look table` in a room that doesn't have a table! Some examples of look and take actions are:
+
+```sh
+look table
+```
+
+```sh 
+take key
+```
+
+The gameplay depends on the user's input. Rooms change based on valid `go` actions, meaningful information is provided based on valid `look` actions, and inventory is accumulated based on valid `take` actions. For this game, gameplay can continue forever or until the player decides to `go south` in room 4 and effectively jump out of the window to his/her death.
+
+![](images/skull.png)
+
+At any time, the player may issue the following actions to leave the game:
+
+```sh 
+quit
+```
+
+```sh 
+exit
+```
+
+```sh
+bye
+```
+
+```sh
+sionara!
+```

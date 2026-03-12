@@ -1,0 +1,20 @@
+---
+title: "Raspberry Pi Activity: Room Adventure...Revolutions"
+---
+
+## Overview
+
+In this activity, you will modify the Room Adventure game that you created and extended in a previous RPi activity. You will need the following items:
+
+- Raspberry Pi with power adapter
+
+- Display
+
+- Keyboard and mouse
+
+::: {.callout-tip}
+If you wish, you can simply bring your laptop with the Python interpreter and your favorite IDE installed since you will not be using the GPIO pins on the RPi.
+:::
+
+
+

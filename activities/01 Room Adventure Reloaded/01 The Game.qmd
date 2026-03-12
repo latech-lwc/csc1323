@@ -1,0 +1,68 @@
+---
+title: "The Game"
+---
+
+The basic premise of the game will not change from the previous activity. Again, the setting of the game is a small "mansion" consisting of four rooms. 
+
+Each room has various exits that lead to other rooms in the mansion. Each room has items, some of which can simply be observed, and others that can be picked up and added to the player's inventory. 
+
+For this activity, there is no actual goal for the player other than to move about the mansion, observe various items throughout the rooms in the mansion, and add various items found in the rooms to inventory. There is an end state that results in death, however! Of course, this doesn't prevent extending the game with a better story and more variety.
+
+The four rooms are laid out in a simple square pattern. **Room 1** is at the top-left of the mansion, **room 2** is at the top-right, **room 3** is at the bottom-left, and **room 4 **is at the bottom-right. 
+
+
+![Diagram of a mansion floor plan arranged in a two-by-two grid. Room 1 is top-left with exits east to Room 2 and south to Room 3. Room 2 is top-right with exits south to Room 4 and west to Room 1. Room 3 is bottom-left with exits north to Room 1 and east to Room 4. Room 4 is bottom-right with exits north to Room 2, west to Room 3, and south leading to death.](images/room-layout.png){width=60% fig-align="center"}
+
+
+
+Each room has items that can be observed:
+
+- Room 1: A chair and a table
+
+- Room 2: A rug and a fireplace
+
+- Room 3: Some bookshelves, a statue, and a desk
+
+- Room 4: A brew rig (you know, to brew some delicious libations)
+
+Observable items can provide useful information (once observed) and may reveal new items (some of which can be placed in the player's inventory). In addition, each room may have some items that can be grabbed by the player and placed in inventory:
+
+- Room 1: A key
+
+- Room 3: A book
+
+- Room 4: A 6-pack of a recently brewed beverage
+
+The rooms have various exits that lead to other rooms in the mansion:
+
+
+- Room 1: 
+
+    * An exit to the **east** that leads to **room 2**
+
+    * An exit to the **south** that leads to **room 3**
+
+
+- Room 2: 
+
+    * An exit to the **south** that leads to **room 4**
+    
+    * An exit to the **west** that leads to **room 1**
+
+
+- Room 3: 
+
+    * An exit to the **north** that leads to **room 1**
+    
+    * An exit to the **east** that leads to **room 4**
+
+
+- Room 4: 
+
+    * An exit to the **north** that leads to **room 2**
+    
+    * An exit to the **west** that leads to **room 3**
+    
+    * An *unlabeled* exit to the **south** that leads to...death! Think of it as jumping out of a window.
+
+

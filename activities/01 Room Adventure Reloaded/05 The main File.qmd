@@ -1,0 +1,66 @@
+---
+title: The `main.py` File
+---
+
+Instead of starting with the source code from your previous implementation, we will build the new Room Adventure game from scratch by integrating what we can from the old version. 
+
+Let's begin with the `main.py` file (which turns out to be just a few lines of code!)
+
+First we will unpack the `tkinter` library, import the `Room` class from the `room.py` file, and import the `Game` class from the `game.py` file.
+
+```python
+#################################################################
+# Name:
+# Date:
+# Description: main.py
+#################################################################
+from tkinter import Tk
+from room import Room
+from game import Game
+```
+
+Now, let's add the details about the window configuration.
+
+```python
+# We will use a default GUI size of 800x600
+WIDTH = 800
+HEIGHT = 600
+
+# create the window
+window = Tk()
+window.title("Room Adventure")
+```
+
+Last, let's create an instance of the `Game`, run the `play` method on this instance, and run the `mainloop()` function for the window.
+
+```python
+# create the GUI as a Tkinter canvas inside the window
+g = Game(window)
+
+# play the game
+g.play()
+
+# wait for the window to close
+window.mainloop()
+```
+
+## Testing
+
+When building a larger project, it is good to test your code occassionally to be sure you have not created any errors up to this point.
+
+Run the main file in the terminal by using the following command. The expected result is that a window should pop up. Additionally, the terminal should print the message `playing`.
+
+```sh
+# on windows
+python main.py
+```
+
+```sh 
+# windows alternative
+py main.py
+```
+
+```sh 
+# on Raspberry Pi OS and mac 
+python3 main.py 
+```
