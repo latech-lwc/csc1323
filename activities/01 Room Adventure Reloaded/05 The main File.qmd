@@ -2,7 +2,7 @@
 title: The `main.py` File
 ---
 
-Instead of starting with the source code from your previous implementation, we will build the new Room Adventure game from scratch by integrating what we can from the old version. 
+Instead of starting with the source code from your previous implementation, we will build the new Room Adventure game from scratch. 
 
 Let's begin with the `main.py` file (which turns out to be just a few lines of code!)
 
@@ -46,7 +46,7 @@ window.mainloop()
 
 ## Testing
 
-When building a larger project, it is good to test your code occassionally to be sure you have not created any errors up to this point.
+When building a larger project, it is good to test your code occassionally to be sure you have not created any errors up to the current point.
 
 Run the main file in the terminal by using the following command. The expected result is that a window should pop up. Additionally, the terminal should print the message `playing`.
 

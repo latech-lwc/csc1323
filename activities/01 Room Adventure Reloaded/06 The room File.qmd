@@ -164,8 +164,8 @@ if __name__ == "__main__":
     # create the filepath so that it is safe on any operating system
     # The os.path.join() function will combine the strings you provide in an 
     # appropriate way for the OS you are on.
-    image_filepath_1 = os.path.join("images", "test1.gif")
-    image_filepath_2 = os.path.join("images", "test2.gif")
+    image_filepath_1 = os.path.join("images", "room1.gif")
+    image_filepath_2 = os.path.join("images", "room2.gif")
 
     # Test the constructor
     # Result should be no errors.

@@ -48,7 +48,7 @@
     "href": "activities/01 Room Adventure Reloaded/08 Homework.html",
     "title": "Homework: Room Adventure…Revolutions",
     "section": "",
-    "text": "For the homework portion of this activity, you may have the option to work in groups (pending prof approval).\nYour task is to re-implement the Room Adventure improvements that you made in your text-based version of the game — in this new GUI version of the game. Of course, feel free to add new improvements! Note that this component is worth one-third of your grade for this assignment! So be creative and precise. You will definitely want to implement significant improvements, since your grade for this portion will be comparatively assigned (i.e., the best improvements to the game earn the best grade for this portion of the assignment).\nClearly, you will need to add images for each room. Note that images should be 400x550 pixels. The height of 550 pixels is slightly flexible (e.g., 500 or 600 pixels should also work). Optionally, you can add sound to the game. An idea would be to have a different sound play in each room! Note that this is a bit more difficult and is entirely optional.\nMake sure to put an appropriate header at the top of your program and to appropriately comment your source code as necessary. Since your game will now include images for each room, submit your source code, images, and any other required file(s) (e.g., sound files) as a single ZIP archive. If you include sound files, please make sure that they are compressed and/or optimized. There is a 10MB limit on the size of the ZIP archive. Submissions that are greater than this size will not be accepted!",
+    "text": "For the homework portion of this activity, your task is to implement Room Adventure improvements in this new GUI version of the game. Note that this component is worth one-third of your grade for this assignment! So be creative and precise. You will definitely want to implement significant improvements, since your grade for this portion will be comparatively assigned (i.e., the best improvements to the game earn the best grade for this portion of the assignment).\nClearly, you will need to add images for each room. Note that images should be 400x550 pixels. The height of 550 pixels is slightly flexible (e.g., 500 or 600 pixels should also work).\nOptionally, you can add sound to the game. An idea would be to have a different sound play in each room! Note that this is a bit more difficult and is entirely optional.\nWorking as a group is optional (pending professor approval).\nMake sure to put an appropriate header at the top of your program and to appropriately comment your source code as necessary. Since your game will now include images for each room, submit your source code, images, and any other required file(s) (e.g., sound files) as a single ZIP archive. If you include sound files, please make sure that they are compressed and/or optimized. There is a 10MB limit on the size of the ZIP archive. Submissions that are greater than this size will not be accepted!",
     "crumbs": [
       "Activities",
       "Room Adventure...Reloaded",
@@ -60,7 +60,7 @@
     "href": "activities/01 Room Adventure Reloaded/08 Homework.html#rubric",
     "title": "Homework: Room Adventure…Revolutions",
     "section": "Rubric",
-    "text": "Rubric",
+    "text": "Rubric\nYou will be graded based on the crieria in the table that follows.\n\n\n\n#\nITEM\nPOINTS\n\n\n\n\n1\nSource code is appropriately commented throughout\n2\n\n\n2\nCoding style is good\n2\n\n\nGeneral\n\n\n\n\n3\nThe GUI exists and works as intended\n2\n\n\n4\nThe Room class exists and is logical\n2\n\n\n5\nThe Game class exists and is logical\n5\n\n\nGUI\n\n\n\n\n6\nInput is properly parsed\n2\n\n\n7\nRoom descriptions change properly\n4\n\n\n8\nRoom images change properly\n4\n\n\nImprovements*\n\n\n\n\n9\nAdditions/improvements are appropriate\n12\n\n\n10\nThe game works after the additions/improvements\n5\n\n\n\nTOTAL\n40",
     "crumbs": [
       "Activities",
       "Room Adventure...Reloaded",
@@ -785,7 +785,7 @@
     "href": "activities/01 Room Adventure Reloaded/05 The main File.html",
     "title": "The main.py File",
     "section": "",
-    "text": "Instead of starting with the source code from your previous implementation, we will build the new Room Adventure game from scratch by integrating what we can from the old version.\nLet’s begin with the main.py file (which turns out to be just a few lines of code!)\nFirst we will unpack the tkinter library, import the Room class from the room.py file, and import the Game class from the game.py file.\nNow, let’s add the details about the window configuration.\nLast, let’s create an instance of the Game, run the play method on this instance, and run the mainloop() function for the window.",
+    "text": "Instead of starting with the source code from your previous implementation, we will build the new Room Adventure game from scratch.\nLet’s begin with the main.py file (which turns out to be just a few lines of code!)\nFirst we will unpack the tkinter library, import the Room class from the room.py file, and import the Game class from the game.py file.\nNow, let’s add the details about the window configuration.\nLast, let’s create an instance of the Game, run the play method on this instance, and run the mainloop() function for the window.",
     "crumbs": [
       "Activities",
       "Room Adventure...Reloaded",
@@ -797,7 +797,7 @@
     "href": "activities/01 Room Adventure Reloaded/05 The main File.html#testing",
     "title": "The main.py File",
     "section": "Testing",
-    "text": "Testing\nWhen building a larger project, it is good to test your code occassionally to be sure you have not created any errors up to this point.\nRun the main file in the terminal by using the following command. The expected result is that a window should pop up. Additionally, the terminal should print the message playing.\n# on windows\npython main.py\n# windows alternative\npy main.py\n# on Raspberry Pi OS and mac \npython3 main.py",
+    "text": "Testing\nWhen building a larger project, it is good to test your code occassionally to be sure you have not created any errors up to the current point.\nRun the main file in the terminal by using the following command. The expected result is that a window should pop up. Additionally, the terminal should print the message playing.\n# on windows\npython main.py\n# windows alternative\npy main.py\n# on Raspberry Pi OS and mac \npython3 main.py",
     "crumbs": [
       "Activities",
       "Room Adventure...Reloaded",
@@ -869,7 +869,7 @@
     "href": "activities/01 Room Adventure Reloaded/06 The room File.html#testing",
     "title": "The room.py File",
     "section": "Testing",
-    "text": "Testing\nA popular approach for testing items from a specific file is to add code to the # main portion under a conditional in the form if __name__ == \"__main__\":. Anything inside this conditional will only execute if the file is ran directly (that is, not as an import into another file).\nLet’s test the Room class by adding to # main inside the room.py file.\n# room.py\n\nclass Room:\n\n    # room class contents omited for brevity.\n\n\n# main\nif __name__ == \"__main__\":\n    # create the filepath so that it is safe on any operating system\n    # The os.path.join() function will combine the strings you provide in an \n    # appropriate way for the OS you are on.\n    image_filepath_1 = os.path.join(\"images\", \"test1.gif\")\n    image_filepath_2 = os.path.join(\"images\", \"test2.gif\")\n\n    # Test the constructor\n    # Result should be no errors.\n    test_room_1 = Room(\"Test Room 1\", image_filepath)\n    test_room_2 = Room(\"Test Room 2\", image_filepath)\n\n    # Test the add_exit method\n    # Result should be no errors.\n    test_room.add_exit(\"east\", test_room_1)\n\n    # Test the add_item method\n    # Result should be no errors.\n    test_room.add_item(\"table\", \"It has 4 legs.\")\n\n    # Test the add_grabbable method\n    # Result should be no errors.\n    test_room.add_grabbable(\"key\")\n\n\n    # Test the __str__ method.\n    # Results should be:\n    # - no errors\n    # - Correct information printed to the terminal.\n    print(test_room)\n\n    # Test the del_grabbable method\n    # Result should be no errors and the key removed from the grabbables list.\n    test_room.del_grabbable(\"key\")\n    print(test_room.grabbables)",
+    "text": "Testing\nA popular approach for testing items from a specific file is to add code to the # main portion under a conditional in the form if __name__ == \"__main__\":. Anything inside this conditional will only execute if the file is ran directly (that is, not as an import into another file).\nLet’s test the Room class by adding to # main inside the room.py file.\n# room.py\n\nclass Room:\n\n    # room class contents omited for brevity.\n\n\n# main\nif __name__ == \"__main__\":\n    # create the filepath so that it is safe on any operating system\n    # The os.path.join() function will combine the strings you provide in an \n    # appropriate way for the OS you are on.\n    image_filepath_1 = os.path.join(\"images\", \"room1.gif\")\n    image_filepath_2 = os.path.join(\"images\", \"room2.gif\")\n\n    # Test the constructor\n    # Result should be no errors.\n    test_room_1 = Room(\"Test Room 1\", image_filepath)\n    test_room_2 = Room(\"Test Room 2\", image_filepath)\n\n    # Test the add_exit method\n    # Result should be no errors.\n    test_room.add_exit(\"east\", test_room_1)\n\n    # Test the add_item method\n    # Result should be no errors.\n    test_room.add_item(\"table\", \"It has 4 legs.\")\n\n    # Test the add_grabbable method\n    # Result should be no errors.\n    test_room.add_grabbable(\"key\")\n\n\n    # Test the __str__ method.\n    # Results should be:\n    # - no errors\n    # - Correct information printed to the terminal.\n    print(test_room)\n\n    # Test the del_grabbable method\n    # Result should be no errors and the key removed from the grabbables list.\n    test_room.del_grabbable(\"key\")\n    print(test_room.grabbables)",
     "crumbs": [
       "Activities",
       "Room Adventure...Reloaded",
@@ -1025,7 +1025,7 @@
     "href": "activities/01 Room Adventure Reloaded/04 Project Setup.html#directory-setup",
     "title": "Project Setup",
     "section": "Directory Setup",
-    "text": "Directory Setup\nStart by creating a directory on your system where all the code will live. It is recommended that you name that directory something appropriate for the project such as Room Adventure - Reloaded.\n\n\n\n\n\n\nTipIDEs and Projects\n\n\n\nIf you’re using a professional IDE such as Visual Studio Code, it is recommened you open the project into its own instance of the application by selecting File &gt; Open Folder and selecting the project directory.\nThis will allow you to take full advantage of the development tools provided in these applications (such as a conveniently placed Terminal, the filesystem navigator, and the run button).\n\n\nInside this newly created directory, create 4 files:\n\nREADME.md - A file that will contain a description of the project and how to run the project. Note that the extension .md is for MarkDown. MarkDown allows us to add quick styles to a document such as headings, code blocks, and bulleted lists.\nmain.py - the file that will be run directly and serve as the window into the project\ngame.py - the file that will contain the Game class.\nroom.py - the file that will contain the Room class.\n\nAlso, in this directory, create a directory named images.\nA map of the directory would be as follows:\nRoom Adventure - Reloaded/\n├── README.md\n├── main.py\n├── game.py\n├── room.py\n└── images/",
+    "text": "Directory Setup\nStart by creating a directory on your system where all the code will live. It is recommended that you name that directory something appropriate for the project such as Room Adventure - Reloaded.\n\n\n\n\n\n\nTipIDEs and Projects\n\n\n\nIf you’re using a professional IDE such as Visual Studio Code, it is recommened you open the project into its own instance of the application by selecting File &gt; Open Folder and selecting the project directory.\nThis will allow you to take full advantage of the development tools provided in these applications (such as a conveniently placed Terminal, the filesystem navigator, and the run button).\n\n\nInside this newly created directory, create 4 files and a directory:\n\nREADME.md - A file that will contain a description of the project and how to run the project. Note that the extension .md is for MarkDown. MarkDown allows us to add quick styles to a document such as headings, code blocks, and bulleted lists.\nmain.py - the file that will be run directly and serve as the window into the project\ngame.py - the file that will contain the Game class.\nroom.py - the file that will contain the Room class.\nimages/ - the directory that will store the images. Download the images, unzip the downloaded file, and place the images in that folder.\n\nA map of the directory would be as follows:\nRoom Adventure - Reloaded/\n├── README.md\n├── main.py\n├── game.py\n├── room.py\n└── images/\n    ├── room1.gif\n    ├── room2.gif\n    ├── room3.gif\n    ├── room4.gif\n    └── skull.gif",
     "crumbs": [
       "Activities",
       "Room Adventure...Reloaded",
@@ -1033,11 +1033,11 @@
     ]
   },
   {
-    "objectID": "activities/01 Room Adventure Reloaded/04 Project Setup.html#game-file-setup",
-    "href": "activities/01 Room Adventure Reloaded/04 Project Setup.html#game-file-setup",
+    "objectID": "activities/01 Room Adventure Reloaded/04 Project Setup.html#game-file-initial-setup",
+    "href": "activities/01 Room Adventure Reloaded/04 Project Setup.html#game-file-initial-setup",
     "title": "Project Setup",
-    "section": "Game File Setup",
-    "text": "Game File Setup\nIn the game.py file, add the following:\n\nA header for your file (be sure to put your name, date, and description)\nA Game class that inherits from the tkinter Frame\nA constructor for the Game class that calls on the constructor of the Frame class with the window passed in as parent.\nA play method that will just print the word \"playing\" for now. This will be used for testing purposes.\n\n#################################################################\n# Name:\n# Date:\n# Description: game.py\n#################################################################\nfrom tkinter import *\n\nclass Game(Frame):\n    \n    # the constructor\n    def __init__(self, parent):\n        # call the constructor in the superclass\n        Frame.__init__(self, parent)\n        self.pack(fill=BOTH, expand=1)\n\n    def play(self):\n        print(\"playing\") # a place holder for now",
+    "section": "Game File Initial Setup",
+    "text": "Game File Initial Setup\nIn the game.py file, add the following as part of the setup:\n\nA header for your file (be sure to put your name, date, and description)\nA Game class that inherits from the tkinter Frame\nA constructor for the Game class that calls on the constructor of the Frame class with the window passed in as parent. The constructor should also contain a line that manages the geometry with pack.\nA play method that will just print the word \"playing\" for now. This will be used for testing purposes.\n\n#################################################################\n# Name:\n# Date:\n# Description: game.py\n#################################################################\nfrom tkinter import *\n\nclass Game(Frame):\n    \n    # the constructor\n    def __init__(self, parent):\n        # call the constructor in the superclass\n        Frame.__init__(self, parent)\n        self.pack(fill=BOTH, expand=1)\n\n    def play(self):\n        print(\"playing\") # a place holder for now",
     "crumbs": [
       "Activities",
       "Room Adventure...Reloaded",
@@ -1045,23 +1045,11 @@
     ]
   },
   {
-    "objectID": "activities/01 Room Adventure Reloaded/04 Project Setup.html#room-file-setup",
-    "href": "activities/01 Room Adventure Reloaded/04 Project Setup.html#room-file-setup",
+    "objectID": "activities/01 Room Adventure Reloaded/04 Project Setup.html#room-file-initial-setup",
+    "href": "activities/01 Room Adventure Reloaded/04 Project Setup.html#room-file-initial-setup",
     "title": "Project Setup",
-    "section": "Room File Setup",
-    "text": "Room File Setup\nFor the room.py file, we will simply create a placeholder for now by creating the Room class and place pass inside of it.\n#################################################################\n# Name:\n# Date:\n# Description: room.py\n#################################################################\n\nclass Room:\n    pass",
-    "crumbs": [
-      "Activities",
-      "Room Adventure...Reloaded",
-      "Project Setup"
-    ]
-  },
-  {
-    "objectID": "activities/01 Room Adventure Reloaded/04 Project Setup.html#images-directory",
-    "href": "activities/01 Room Adventure Reloaded/04 Project Setup.html#images-directory",
-    "title": "Project Setup",
-    "section": "Images Directory",
-    "text": "Images Directory\nDownload the following images and place them in the images directory.\nNOTE: PUT THE IMAGES HERE",
+    "section": "Room File Initial Setup",
+    "text": "Room File Initial Setup\nFor the room.py file, we will simply create a placeholder for now by creating the Room class and place pass inside of it.\n#################################################################\n# Name:\n# Date:\n# Description: room.py\n#################################################################\n\nclass Room:\n    pass",
     "crumbs": [
       "Activities",
       "Room Adventure...Reloaded",

@@ -591,9 +591,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
   <li><a href="#directory-setup" id="toc-directory-setup" class="nav-link" data-scroll-target="#directory-setup">Directory Setup</a></li>
-  <li><a href="#game-file-setup" id="toc-game-file-setup" class="nav-link" data-scroll-target="#game-file-setup">Game File Setup</a></li>
-  <li><a href="#room-file-setup" id="toc-room-file-setup" class="nav-link" data-scroll-target="#room-file-setup">Room File Setup</a></li>
-  <li><a href="#images-directory" id="toc-images-directory" class="nav-link" data-scroll-target="#images-directory">Images Directory</a></li>
+  <li><a href="#game-file-initial-setup" id="toc-game-file-initial-setup" class="nav-link" data-scroll-target="#game-file-initial-setup">Game File Initial Setup</a></li>
+  <li><a href="#room-file-initial-setup" id="toc-room-file-initial-setup" class="nav-link" data-scroll-target="#room-file-initial-setup">Room File Initial Setup</a></li>
   </ul>
 </nav>
     </div>
@@ -642,29 +641,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>This will allow you to take full advantage of the development tools provided in these applications (such as a conveniently placed Terminal, the filesystem navigator, and the <code>run</code> button).</p>
 </div>
 </div>
-<p>Inside this newly created directory, create 4 files:</p>
+<p>Inside this newly created directory, create 4 files and a directory:</p>
 <ul>
 <li><p><code>README.md</code> - A file that will contain a description of the project and how to run the project. Note that the extension <code>.md</code> is for <strong>MarkDown</strong>. MarkDown allows us to add quick styles to a document such as headings, code blocks, and bulleted lists.</p></li>
 <li><p><code>main.py</code> - the file that will be run directly and serve as the window into the project</p></li>
 <li><p><code>game.py</code> - the file that will contain the <code>Game</code> class.</p></li>
 <li><p><code>room.py</code> - the file that will contain the <code>Room</code> class.</p></li>
+<li><p><code>images/</code> - the directory that will store the images. <a href="downloads/images.zip">Download the images</a>, unzip the downloaded file, and place the images in that folder.</p></li>
 </ul>
-<p>Also, in this directory, create a directory named <code>images</code>.</p>
 <p>A map of the directory would be as follows:</p>
 <pre><code>Room Adventure - Reloaded/
 ├── README.md
 ├── main.py
 ├── game.py
 ├── room.py
-└── images/</code></pre>
+└── images/
+    ├── room1.gif
+    ├── room2.gif
+    ├── room3.gif
+    ├── room4.gif
+    └── skull.gif</code></pre>
 </section>
-<section id="game-file-setup" class="level2">
-<h2 class="anchored" data-anchor-id="game-file-setup">Game File Setup</h2>
-<p>In the <code>game.py</code> file, add the following:</p>
+<section id="game-file-initial-setup" class="level2">
+<h2 class="anchored" data-anchor-id="game-file-initial-setup">Game File Initial Setup</h2>
+<p>In the <code>game.py</code> file, add the following as part of the setup:</p>
 <ol type="1">
 <li><p>A header for your file (be sure to put your name, date, and description)</p></li>
 <li><p>A <code>Game</code> class that inherits from the tkinter <code>Frame</code></p></li>
-<li><p>A constructor for the <code>Game</code> class that calls on the constructor of the <code>Frame</code> class with the window passed in as <code>parent</code>.</p></li>
+<li><p>A constructor for the <code>Game</code> class that calls on the constructor of the <code>Frame</code> class with the window passed in as <code>parent</code>. The constructor should also contain a line that manages the geometry with <code>pack</code>.</p></li>
 <li><p>A <code>play</code> method that will just print the word <code>"playing"</code> for now. This will be used for testing purposes.</p></li>
 </ol>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#################################################################</span></span>
@@ -685,8 +689,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> play(<span class="va">self</span>):</span>
 <span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"playing"</span>) <span class="co"># a place holder for now</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="room-file-setup" class="level2">
-<h2 class="anchored" data-anchor-id="room-file-setup">Room File Setup</h2>
+<section id="room-file-initial-setup" class="level2">
+<h2 class="anchored" data-anchor-id="room-file-initial-setup">Room File Initial Setup</h2>
 <p>For the <code>room.py</code> file, we will simply create a placeholder for now by creating the <code>Room</code> class and place <code>pass</code> inside of it.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#################################################################</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Name:</span></span>
@@ -696,11 +700,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Room:</span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">pass</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="images-directory" class="level2">
-<h2 class="anchored" data-anchor-id="images-directory">Images Directory</h2>
-<p>Download the following images and place them in the images directory.</p>
-<p>NOTE: PUT THE IMAGES HERE</p>
 
 
 </section>

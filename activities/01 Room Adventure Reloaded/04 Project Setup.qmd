@@ -21,7 +21,7 @@ If you're using a professional IDE such as Visual Studio Code, it is recommened 
 This will allow you to take full advantage of the development tools provided in these applications (such as a conveniently placed Terminal, the filesystem navigator, and the `run` button).
 :::
 
-Inside this newly created directory, create 4 files:
+Inside this newly created directory, create 4 files and a directory:
 
 - `README.md` - A file that will contain a description of the project and how to run the project. Note that the extension `.md` is for **MarkDown**. MarkDown allows us to add quick styles to a document such as headings, code blocks, and bulleted lists.
 
@@ -31,7 +31,8 @@ Inside this newly created directory, create 4 files:
 
 - `room.py` - the file that will contain the `Room` class. 
 
-Also, in this directory, create a directory named `images`.
+- `images/` - the directory that will store the images. [Download the images](downloads/images.zip), unzip the downloaded file, and place the images in that folder.
+
 
 A map of the directory would be as follows:
 
@@ -42,17 +43,22 @@ Room Adventure - Reloaded/
 ├── game.py
 ├── room.py
 └── images/
+    ├── room1.gif
+    ├── room2.gif
+    ├── room3.gif
+    ├── room4.gif
+    └── skull.gif
 ```
 
-## Game File Setup
+## Game File Initial Setup
 
-In the `game.py` file, add the following:
+In the `game.py` file, add the following as part of the setup:
 
 1. A header for your file (be sure to put your name, date, and description)
 
 2. A `Game` class that inherits from the tkinter `Frame`
 
-3. A constructor for the `Game` class that calls on the constructor of the `Frame` class with the window passed in as `parent`.
+3. A constructor for the `Game` class that calls on the constructor of the `Frame` class with the window passed in as `parent`. The constructor should also contain a line that manages the geometry with `pack`.
 
 4. A `play` method that will just print the word `"playing"` for now. This will be used for testing purposes.
 
@@ -76,7 +82,7 @@ class Game(Frame):
         print("playing") # a place holder for now
 ```
 
-## Room File Setup
+## Room File Initial Setup
 
 For the `room.py` file, we will simply create a placeholder for now by creating the `Room` class and place `pass` inside of it.
 
@@ -90,10 +96,3 @@ For the `room.py` file, we will simply create a placeholder for now by creating 
 class Room:
     pass
 ```
-
-
-## Images Directory
-
-Download the following images and place them in the images directory.
-
-NOTE: PUT THE IMAGES HERE
