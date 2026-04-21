@@ -23,4 +23,108 @@ In previous lessons that dealt with computer architecture, many fundamental buil
 - Half and full adders, and chaining full adders together to add larger binary numbers.
 
 
-In this lesson, we will first discuss how numbers and characters are represented in computers. So far, all of the numbers that we have looked at have been *unsigned* ( i.e., assumed to be positive). For example, the number 1001001<sub>2</sub> is equivalent to 73<sub>10</sub>. However, in order to be able to handle negative numbers, we need a way to represent the sign of a number. Subsequently, we will cover several more combinational circuits that prove quite useful in the design of computing systems. In addition, several important sequential circuits that serve as the building blocks for computer memory will be discussed. Finally, we will show how a Central Processing Unit (CPU) is built from the primitive components discussed in the lessons on computer architecture.
+In this lesson, we will first discuss how numbers and characters are represented in computers. So far, all of the binary values that we have seen have represented *unsigned* values ( i.e., assumed to be positive). For example, the number $1001001_2$ is equivalent to $73_{10}$. In order to be able to handle negative numbers, we need a way to represent the sign of a number. 
+
+Subsequently, we will cover several more combinational circuits that prove quite useful in the design of computing systems. In addition, several important sequential circuits that serve as the building blocks for computer memory will be discussed. Finally, we will show how a Central Processing Unit (CPU) is built from the primitive components discussed in the lessons on computer architecture.
+
+
+## Review
+
+Convert the following unsigned binary numbers to decimal (base 10).
+
+**1.** $1010_2$
+
+::: {.callout-note collapse="true"}
+## Answer
+
+| Bit         |  1  |  0  |  1  |  0  |
+|:------------|:---:|:---:|:---:|:---:|
+| Place Value | $2^3$ | $2^2$ | $2^1$ | $2^0$ |
+| Decimal     |  8  |  4  |  2  |  1  |
+| Value       |  8  |  0  |  2  |  0  |
+
+$$8 + 0 + 2 + 0 = 10_{10}$$
+:::
+
+**2.** $11011_2$
+
+::: {.callout-note collapse="true"}
+## Answer
+
+| Bit         |  1   |  1  |  0  |  1  |  1  |
+|:------------|:----:|:---:|:---:|:---:|:---:|
+| Place Value | $2^4$ | $2^3$ | $2^2$ | $2^1$ | $2^0$ |
+| Decimal     |  16  |  8  |  4  |  2  |  1  |
+| Value       |  16  |  8  |  0  |  2  |  1  |
+
+$$16 + 8 + 0 + 2 + 1 = 27_{10}$$
+:::
+
+**3.** $10110100_2$
+
+::: {.callout-note collapse="true"}
+## Answer
+
+| Bit         |  1   |  0  |  1  |  1  |  0  |  1  |  0  |  0  |
+|:------------|:----:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| Place Value | $2^7$ | $2^6$ | $2^5$ | $2^4$ | $2^3$ | $2^2$ | $2^1$ | $2^0$ |
+| Decimal     | 128  | 64  | 32  | 16  |  8  |  4  |  2  |  1  |
+| Value       | 128  |  0  | 32  | 16  |  0  |  4  |  0  |  0  |
+
+$$128 + 0 + 32 + 16 + 0 + 4 + 0 + 0 = 180_{10}$$
+:::
+
+Convert the following decimal (base 10) numbers to unsigned binary.
+
+**4.** $13_{10}$
+
+::: {.callout-note collapse="true"}
+## Answer
+
+Repeatedly divide by 2 and record the remainders, then read them from bottom to top.
+
+| Division | Quotient | Remainder |
+|:--------:|:--------:|:---------:|
+| 13 ÷ 2   |    6     |     1     |
+|  6 ÷ 2   |    3     |     0     |
+|  3 ÷ 2   |    1     |     1     |
+|  1 ÷ 2   |    0     |   **1**   |
+
+Reading remainders from bottom to top: $1101_2$
+:::
+
+**5.** $46_{10}$
+
+::: {.callout-note collapse="true"}
+## Answer
+
+| Division | Quotient | Remainder |
+|:--------:|:--------:|:---------:|
+| 46 ÷ 2   |    23    |     0     |
+| 23 ÷ 2   |    11    |     1     |
+| 11 ÷ 2   |     5    |     1     |
+|  5 ÷ 2   |     2    |     1     |
+|  2 ÷ 2   |     1    |     0     |
+|  1 ÷ 2   |     0    |   **1**   |
+
+Reading remainders from bottom to top: $101110_2$
+:::
+
+**6.** $195_{10}$
+
+::: {.callout-note collapse="true"}
+## Answer
+
+| Division | Quotient | Remainder |
+|:--------:|:--------:|:---------:|
+| 195 ÷ 2  |    97    |     1     |
+|  97 ÷ 2  |    48    |     1     |
+|  48 ÷ 2  |    24    |     0     |
+|  24 ÷ 2  |    12    |     0     |
+|  12 ÷ 2  |     6    |     0     |
+|   6 ÷ 2  |     3    |     0     |
+|   3 ÷ 2  |     1    |     1     |
+|   1 ÷ 2  |     0    |   **1**   |
+
+Reading remainders from bottom to top: $11000011_2$
+:::

@@ -452,7 +452,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../lessons/03 Building a Computer/04 Floating Point Numbers/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Floating Point Numbers</span></a>
+ <span class="menu-text">IEEE 754 Floating Point Representation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -665,24 +665,100 @@ window.Quarto = {
 <p><img src="images/image6.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="375"></p>
 </figure>
 </div>
-<p>Notice that while we get a correct answer (0000), this problem also generated a carry bit (the italicized leftmost 1). We will discuss this anomaly later. While the idea of two’s complement notation may seem a little strange at first, it has a unique representation for zero (0000, given four bits) and straightforward arithmetic operations. Notice that, for positive numbers, all three representations (signed magnitude, one’s complement, and two’s complement) have the same pattern as unsigned numbers.</p>
+<p>Notice that while we get a correct answer of <code>0000</code>, this problem also generated a carry bit (the italicized leftmost 1). We will discuss this anomaly later. While the idea of two’s complement notation may seem a little strange at first, it has a unique representation for zero as <code>0000</code>, given four bits, and straight forward arithmetic operations. Notice that, for positive numbers, all three representations (signed magnitude, one’s complement, and two’s complement) have the same pattern as unsigned numbers.</p>
 <p>The following table presents the sixteen signed numbers that can be represented using two’s complement notation and four bits of storage. Notice that the numbers range from negative eight to positive seven. In two’s complement notation, the range of numbers that can be represented given a fixed number of bits will always include one more negative value than there are positive values. This is because the representation of zero includes a 0 in the leftmost bit position, thus taking up one of the “positive” slots.</p>
-<p>/// a table goes here, cant do the image</p>
-<p>For n bits of storage the range of numbers that can be represented in two’s complement notation extends from <span class="math inline">\(−2n−1\)</span> to <span class="math inline">\(+2n−1−1\)</span> . In the table above, four bits of storage were used; therefore, the range of numbers was from <span class="math inline">\(−24−1 = −23 = −8\)</span> to <span class="math inline">\(24−1−1 = 23−1 = 7\)</span>. Most modern computers use 32 bits to represent integers. Thus, they are capable of representing values in the range <span class="math inline">\(−231 = − 2,147,483,648\)</span> to <span class="math inline">\(231−1 = 2,147,483,647\)</span>.</p>
-<p>What do you suppose happens if 1 is added to 7? In other words, how does the computer handle 0111 + 0001? Performing binary addition, the result is 1000. In the table, this is -8! Does this mean that 7 + 1 = -8? If the computer stored integers using only four bits, then indeed this would be the case! Counting essentially wraps around the table. That is, 7 + 1 = -8 and -8 – 1 = 7. The four bits of storage only allow numbers in this range.</p>
-<p>In order to understand why two’s complement is the preferred method for representing signed numbers at the machine level, we will look at a number of addition problems involving both positive and negative numbers. As we will see, what makes two’s complement so great is that the sign of a number can essentially be ignored when performing addition (since positive and negative numbers are treated in an identical manner). An added bonus is that we get the subtraction operations for “free” once we have addition: a problem such as X – Y can be recast as the following two step process:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;">Binary</th>
+<th style="text-align: center;">Decimal</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0111</td>
+<td style="text-align: center;">+7</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">0110</td>
+<td style="text-align: center;">+6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">0101</td>
+<td style="text-align: center;">+5</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">0100</td>
+<td style="text-align: center;">+4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">0011</td>
+<td style="text-align: center;">+3</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">0010</td>
+<td style="text-align: center;">+2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">0001</td>
+<td style="text-align: center;">+1</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">0000</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">1111</td>
+<td style="text-align: center;">−1</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">1110</td>
+<td style="text-align: center;">−2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">1101</td>
+<td style="text-align: center;">−3</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">1100</td>
+<td style="text-align: center;">−4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">1011</td>
+<td style="text-align: center;">−5</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">1010</td>
+<td style="text-align: center;">−6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">1001</td>
+<td style="text-align: center;">−7</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">1000</td>
+<td style="text-align: center;">−8</td>
+</tr>
+</tbody>
+</table>
+<p>For <span class="math inline">\(n\)</span> bits of storage the range of numbers that can be represented in two’s complement notation extends from <span class="math inline">\(−2^{n−1}\)</span> to <span class="math inline">\(+2^{n−1}−1\)</span> . In the table above, four bits of storage were used; therefore, the range of numbers was from <span class="math display">\[−2^{4−1} = −2^{3} = −8\]</span> to <span class="math display">\[2^{4−1}−1 = 2^3−1 = 7\]</span></p>
+<p>Most modern computers use 32 bits to represent integers. Thus, they are capable of representing values in the range <span class="math display">\[−2^{31} = − 2,147,483,648\]</span> to <span class="math display">\[2^{31}−1 = 2,147,483,647\]</span>.</p>
+<p>What do you suppose happens if 1 is added to 7? In other words, how does the computer handle <code>0111 + 0001</code>? Performing binary addition, the result is <code>1000</code>. In the table, this is <span class="math inline">\(-8\)</span>!</p>
+<p>Does this mean that <span class="math inline">\(7 + 1 = -8\)</span>? If the computer stored integers using only four bits, then indeed this would be the case! Counting essentially wraps around the table. That is, <span class="math inline">\(7 + 1 = -8\)</span> and <span class="math inline">\(-8 – 1 = 7\)</span>. The four bits of storage only allow numbers in this range.</p>
+<p>In order to understand why two’s complement is the preferred method for representing signed numbers at the machine level, we will look at a number of addition problems involving both positive and negative numbers. As we will see, what makes two’s complement so great is that the sign of a number can essentially be ignored when performing addition (since positive and negative numbers are treated in an identical manner). An added bonus is that we get the subtraction operations for “free” once we have addition: a problem such as <code>X – Y</code> can be recast as the following two step process:</p>
 <ol type="1">
-<li><p>Swap the sign of Y</p></li>
-<li><p>Add X and Y.</p></li>
+<li><p>Swap the sign of <code>Y</code></p></li>
+<li><p>Add <code>X</code> and <code>Y</code>.</p></li>
 </ol>
-<p>Let’s begin by examining the summation of numbers with opposite signs. First, the sum of +2 and -3 (which should sum to -1). Assuming four bits of storage, the two’s complement binary representation of +2 is 0010. The two’s complement representation of -3 is 1101. Why? To obtain -3, we begin with +3 (0011), complement the bits (1100), and add one (1101). Here’s the addition of +2 and -3:</p>
+<p>Let’s begin by examining the summation of numbers with opposite signs. First, the sum of <code>+2</code> and <code>-3</code> (which should sum to <code>-1</code>).</p>
+<p>Assuming four bits of storage, the two’s complement binary representation of <code>+2</code> is <code>0010</code>. The two’s complement representation of <code>-3</code> is <code>1101</code>. Why? To obtain <code>-3</code>, we begin with <code>+3</code> as <code>0011</code>, complement the bits to result in <code>1100</code>, and add one to result in <code>1101</code>. Here’s the addition of <code>+2</code> and <code>-3</code>:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/image7.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="375"></p>
 </figure>
 </div>
-<p>The 1 in the leftmost column of the result tells us that the number is negative. Its magnitude can be determined by complementing each bit (0000) and adding one (0001). Thus, the addition of +2 and -3 is 1111 (or -1).</p>
-<p>Next, let’s look at the addition of -2 and +3. The two’s complement binary representation of -2 is 1110 (start with +2 which is 0010, complement the bits to obtain 1101, and add one to obtain 1110). The representation of +3 is 0011. Adding these two values together gives +1 or 0001 in binary two’s complement, as is illustrated below:</p>
+<p>The 1 in the leftmost column of the result tells us that the number is negative. Its magnitude can be determined by complementing each bit <code>0000</code> and adding one <code>0001</code>. Thus, the addition of <code>+2</code> and <code>-3</code> is <code>1111</code> (or <code>-1</code>).</p>
+<p>Next, let’s look at the addition of <code>-2</code> and <code>+3</code>. The two’s complement binary representation of <code>-2</code> is <code>1110</code> (start with +2 which is <code>0010</code>, complement the bits to obtain <code>1101</code>, and add one to obtain <code>1110</code>). The representation of <code>+3</code> is <code>0011</code>. Adding these two values together gives <code>+1</code> or <code>0001</code> in binary two’s complement, as is illustrated below:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/image8.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="375"></p>
@@ -692,19 +768,19 @@ window.Quarto = {
 </section>
 <section id="overflow" class="level2">
 <h2 class="anchored" data-anchor-id="overflow">Overflow</h2>
-<p>Let’s now turn our attention to addition problems involving numbers of the same sign. Here is an illustration of the addition of two positive numbers: +2 (0010) and +3 (0011):</p>
+<p>Let’s now turn our attention to addition problems involving numbers of the same sign. Here is an illustration of the addition of two positive numbers: +2 (<code>0010</code>) and +3 (<code>0011</code>):</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/image9.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="375"></p>
 </figure>
 </div>
-<p>To show that the system handles the addition of negative numbers properly, consider adding -2 (0010 → 1101 → 1110) and -3 (0011 → 1100 → 1101). The result should be -5 (0101 → 1010 → 1011):</p>
+<p>To show that the system handles the addition of negative numbers properly, consider adding -2 (<code>0010 → 1101 → 1110</code>) and -3 (<code>0011 → 1100 → 1101</code>). The result should be -5 (<code>0101 → 1010 → 1011</code>):</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/image10.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="375"></p>
 </figure>
 </div>
-<p>The result is indeed 1011. The 1 in the leftmost bit indicates that the result is a negative number. We can determine its magnitude by implementing the two’s complement operations on it: complement the bits 1011 to obtain 0100, and add one to obtain 0101.</p>
+<p>The result is indeed <code>1011</code>. The 1 in the leftmost bit indicates that the result is a negative number. We can determine its magnitude by implementing the two’s complement operations on it: complement the bits <code>1011</code> to obtain <code>0100</code>, and add one to obtain <code>0101</code>.</p>
 <p>Notice that while we get a correct answer, this problem also generated a carry bit that is discarded. One problem that can arise when representing numeric values via a fixed number of bits is the problem of overflow.</p>
 <div class="callout callout-style-default callout-tip callout-titled" title="Defintion">
 <div class="callout-header d-flex align-content-center">
@@ -720,20 +796,20 @@ window.Quarto = {
 </div>
 </div>
 <p>The only way around overflow is to add more bits to the representation, thus increasing the range of permissible values. The best we can do in place of this is to detect when overflow occurs.</p>
-<p>Two’s complement notation makes it easy to spot when overflow occurs: when two numbers of the same sign are added together and the result has the opposite sign. Here are two examples; first, the sum of +4 and +5 (which are both positive numbers):</p>
+<p>Two’s complement notation makes it easy to spot when overflow occurs: when two numbers of the same sign are added together and the result has the opposite sign. Here are two examples; first, the sum of <code>+4</code> and <code>+5</code> (which are both positive numbers):</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/image11.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="375"></p>
 </figure>
 </div>
-<p>Clearly, the result is not -7. Note that the result (-7) has a different sign than the two numbers (+4 and +5). Here’s another example:</p>
+<p>Clearly, the result is not <code>-7</code>. Note that the result (<code>-7</code>) has a different sign than the two numbers (<code>+4</code> and <code>+5</code>). Here’s another example:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/image12.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="375"></p>
 </figure>
 </div>
 <p>Overflow in two’s complement can be spotted when the sign bits of both numbers being added are the same, yet the sign bit of the answer is different. Note that overflow can only occur when adding numbers of like sign. It can never occur when numbers of opposite signs are added.</p>
-<p>When an overflow is detected, the answer is incorrect, as shown above by the question marks, and must be discarded. There is no way to get the correct answer if the number of bits available does not allow us to express that answer. There is no way to express +9 or -9 (the correct results to the examples above) using a four-bit two’s complement number, since both are outside the range of permissible values.</p>
+<p>When an overflow is detected, the answer is incorrect, as shown above by the question marks, and must be discarded. There is no way to get the correct answer if the number of bits available does not allow us to express that answer. There is no way to express +9 or <code>-9</code> (the correct results to the examples above) using a four-bit two’s complement number, since both are outside the range of permissible values.</p>
 
 
 </section>

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Floating Point Numbers – The Science of Computing III</title>
+<title>IEEE 754 Floating Point Representation – The Science of Computing III</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -279,7 +279,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../lessons/index.html">Lessons</a></li><li class="breadcrumb-item"><a href="../../../lessons/03 Building a Computer/index.html">03 Building a Computer</a></li><li class="breadcrumb-item"><a href="../../../lessons/03 Building a Computer/04 Floating Point Numbers/index.html">Floating Point Numbers</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../lessons/index.html">Lessons</a></li><li class="breadcrumb-item"><a href="../../../lessons/03 Building a Computer/index.html">03 Building a Computer</a></li><li class="breadcrumb-item"><a href="../../../lessons/03 Building a Computer/04 Floating Point Numbers/index.html">IEEE 754 Floating Point Representation</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -452,7 +452,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../lessons/03 Building a Computer/04 Floating Point Numbers/index.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Floating Point Numbers</span></a>
+ <span class="menu-text">IEEE 754 Floating Point Representation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -578,16 +578,34 @@ window.Quarto = {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#general-information" id="toc-general-information" class="nav-link active" data-scroll-target="#general-information">General Information</a></li>
+  <li><a href="#normalized-form" id="toc-normalized-form" class="nav-link" data-scroll-target="#normalized-form">Normalized Form</a></li>
+  <li><a href="#base-10-to-ieee-754" id="toc-base-10-to-ieee-754" class="nav-link" data-scroll-target="#base-10-to-ieee-754">Base 10 to IEEE 754</a>
+  <ul class="collapse">
+  <li><a href="#example-1" id="toc-example-1" class="nav-link" data-scroll-target="#example-1">Example 1</a></li>
+  <li><a href="#example-2" id="toc-example-2" class="nav-link" data-scroll-target="#example-2">Example 2</a></li>
+  </ul></li>
+  <li><a href="#ieee-754-to-base-10" id="toc-ieee-754-to-base-10" class="nav-link" data-scroll-target="#ieee-754-to-base-10">IEEE 754 to Base 10</a>
+  <ul class="collapse">
+  <li><a href="#example-3" id="toc-example-3" class="nav-link" data-scroll-target="#example-3">Example 3</a></li>
+  <li><a href="#example-4" id="toc-example-4" class="nav-link" data-scroll-target="#example-4">Example 4</a></li>
+  </ul></li>
+  <li><a href="#knowledge-check" id="toc-knowledge-check" class="nav-link" data-scroll-target="#knowledge-check">Knowledge Check</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../lessons/index.html">Lessons</a></li><li class="breadcrumb-item"><a href="../../../lessons/03 Building a Computer/index.html">03 Building a Computer</a></li><li class="breadcrumb-item"><a href="../../../lessons/03 Building a Computer/04 Floating Point Numbers/index.html">Floating Point Numbers</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../lessons/index.html">Lessons</a></li><li class="breadcrumb-item"><a href="../../../lessons/03 Building a Computer/index.html">03 Building a Computer</a></li><li class="breadcrumb-item"><a href="../../../lessons/03 Building a Computer/04 Floating Point Numbers/index.html">IEEE 754 Floating Point Representation</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Floating Point Numbers</h1>
+<h1 class="title">IEEE 754 Floating Point Representation</h1>
 </div>
 
 
@@ -604,78 +622,444 @@ window.Quarto = {
 </header>
 
 
-<p>Most modern personal computers are based on a bus size of thirty-two bits. Using two’s complement notation, they can conveniently manipulate numbers in the range of approximately -2 billion to +2 billion. Many times, we humans need our computers to work with numbers far outside of this relatively narrow range. For example, scientific applications often need to represent very small or very large quantities, such as Avogadro’s number: 6.02 * 1023 molecules/mole. Even a program designed to make projections about the national debt of the United States, which is measured in trillions of dollars, will be forced to work with numbers outside of the range provided by the 32-bit two’s complement representation. In addition to the problem of being limited to a relatively narrow range of values, the two’s complement binary notation we studied cannot represent fractions. This makes it impossible to express concepts like one-half and 75%.</p>
-<p>Floating point notation, which is closely related to exponential notation, addresses both of these problems. As you will recall from math or science classes, exponential notation is often used to express very small or very large numbers. For example, the speed of light can be expressed as 3.0 * 108 meters/second.</p>
-<p>The two components necessary to express a number in exponential notation are called the mantissa (3.0 in the above number representing the speed of light) and the exponent (8 in the above number representing the speed of light). These values are expressed in base ten, so the exponent is expressed in terms of base ten as well. Essentially, the exponent tells us the number of positions that the decimal point should be moved to the right or left. Positive exponents cause the decimal point to move to the right; negative exponents cause the decimal point to move to the left. Hence, the representation for the speed of light translates to a 3 followed by eight 0s (i.e., three hundred million meters per second). Fractions can also be expressed in this system; for example, 1/1000 = 1.0 * 10-3 = 0.001.</p>
-<p>Floating point notation is the machine level equivalent of exponential notation. Floating point numbers include signed representations of both the mantissa and the exponent. Since the representations of both will be in base two, it will be considered the base of the exponent.</p>
-<p>As an example, here is the number 56.0 expressed using one possible 32-bit floating point representation:</p>
-<p><img src="images.png" class="img-fluid"></p>
-<p>The leading bit (bit 32) of this representation signifies the sign of the number (0 for positive, 1 for negative). Specifically, it represents the sign of the mantissa. The next eight bits (bits 31 to 24) represent the exponent in two’s complement notation (remember the exponent can be positive or negative). The final 23 bits are the mantissa expressed as an unsigned number. The number represented in this example (in binary form) is 111 * 211 which in decimal form becomes 7 * 23 = 7 * 8 = 56.0.</p>
-<p>Another way of thinking about this example is to view the exponent as specifying the number of 0s that are to follow the bit pattern supplied by the mantissa. In this case, we have 111 followed by three 0s, or 1110002 = 56.</p>
-<p>Here is an example of a number that is outside the range of values that can be stored using a 32-bit two’s complement notation. The number (in binary form) is 11 * 2100000, which in decimal form is 3 * 232 = 12,884,901,888:</p>
-<p><img src="images.png" class="img-fluid"></p>
-<p>Another way of thinking about the number represented by this bit pattern is 11 followed by thirty-two 0s. Now, consider the representation of -0.75 as a floating point number:</p>
-<p><img src="images.png" class="img-fluid"></p>
-<p>The 1 in the leftmost bit signifies that the number is negative. The exponent, 111111102 is also negative due the 1 in its leftmost bit (remember that the exponent is represented in two’s complement notation). The magnitude of the exponent is 2 (complement the bits to get 000000012, and add one to get 000000102 = 210). The magnitude of the mantissa is 112 = 310. Therefore, the value is:</p>
-<p><span class="math display">\[−3∗2−2 = −3∗ 1 = −3∗ 14 = −3∗0.25 = −0.75\]</span></p>
-<p>Another way of thinking about the number in this example is to view it (in binary form) as -0.11. The columns to the right of the decimal point are the 1/2’s column, the 1/4’s column, the 1/8’s column, and so on. The number -0.11 would then be interpreted as having a 0 in the one’s place, a 1 in the 1/2’s place, and a 1 in the 1/4’s place, producing -3/4 (or -0.75). Using this interpretation, the mantissa always has an implied decimal point immediately to its right. In the example above, this is viewed as 11. (note the decimal point to the right). The exponent then specifies the number of places that the decimal point should be moved (to the right for positive exponents, or to the left for negative exponents). In the example above, the exponent moves the decimal point two places to the left giving 0.11. The binary number is then interpreted in the following way:</p>
-<p><img src="images.png" class="img-fluid"></p>
-<p>To work backwards (i.e., to convert -0.75 to binary), we must first break the number down into two parts, each separated by the decimal point. The part of the number that is to the left of the decimal point is easily converted using the remainder method for unsigned numbers shown in a previous lesson. Recall, that we repeatedly divide the decimal number by two and build its binary representation by using the remainders generated, from right-to-left. In this case, however, it’s simple in that 010 = 02.</p>
-<p>The part of the number that is to the right of the decimal point is effectively done in reverse when compared to the remainder method. That is, it is repeatedly multiplied by two. The binary representation is built by using the bits generated to the left of the decimal point, from left-to-right. Specifically, we multiply the decimal number by two and separately record both parts of the result to the left and right of the decimal point. We then repeat this process with the part to the right of the decimal point, while keeping track of the parts to the left. This is repeated until the part to the right of the decimal point is 0. The binary equivalent of the original number (remember that it’s the part to the right of the decimal point in the original number) is subsequently given by listing the parts to the left of the decimal point in the order of their derivation (i.e., from the first identified to the last).</p>
-<p>This may be a bit confusing, so let’s try this method on the decimal number -0.75. As shown above, the 0 to the left of the decimal point is easily converted to binary: 0. We’ll use the following table to convert the part to the right of the decimal point, .75:</p>
-<p><img src="images.png" class="img-fluid"></p>
-<p>Since the part to the right of the decimal point is 0, the process is finished. Combining the “left part” results produces 11 as the part to the right of the decimal point in the final answer. To complete the conversion, we concatenate the parts to the left and right of the decimal point. Therefore, the binary representation of -0.7510 is -0.112. From this point, we could generate the table shown earlier that breaks -0.75 down into a sign bit, an exponent, and a mantissa. We know that the sign bit is 1:</p>
-<p><img src="images.png" class="img-fluid"></p>
-<p>The mantissa is obtained by moving the decimal point all the way to the right: .11 → 1.1 → 11. The mantissa is therefore 11. We also note that it was moved two decimal places:</p>
-<p><img src="images.png" class="img-fluid"></p>
-<p>Lastly, we know that the exponent is -2 (since we’ll need to move the decimal point 2 places to the left in the mantissa). We know how to convert -2 to binary by starting with the binary representation of 2, complementing the bits, and finally adding one: 00000010 → 11111101 → 111111102:</p>
-<p><img src="images.png" class="img-fluid"></p>
-<p>Let’s try another example and convert +5.5625 to binary. First, the 5 to the left of the decimal point: 510 = 1012. Next, we’ll convert the part to the right of the decimal point using the method described earlier:</p>
-<p><img src="images.png" class="img-fluid"></p>
-<p>Therefore, 5.562510 = 101.10012. Similarly, we can fill the table below, specifying the sign bit, exponent, and mantissa. First, the number is positive; therefore, the sign bit is 0:</p>
-<p><img src="images.png" class="img-fluid"></p>
-<p>Next, the mantissa is 1011001 (we shifted the decimal point all the way to the right):</p>
-<p><img src="images.png" class="img-fluid"></p>
-<p>Finally, the exponent is -4 (since the decimal point needs to be moved four places to the left). We convert -4 to binary using two’s complement notation: 00000100 → 11111011 → 111111002:</p>
-<p><img src="images.png" class="img-fluid"></p>
-<p>Working in reverse, we can actually recreate the decimal representation of the number. We know that the number is positive because the sign bit is 0. We can convert the exponent using two’s complement notation: 11111100 → 00000011 → 000001002 = -4. And we can convert the mantissa: 10110012 = 8910.</p>
-<p>We then combine the components into exponential notation (using two as the base for the exponent):</p>
-<p><span class="math display">\[ 89∗2−4 = 89∗ 1 = 89∗ 1 = 89∗0.0625 = 5.5625 \]</span></p>
-<p>Let’s try another example, converting -16.125 to binary. First, the left part: 1610 = 100002. Next, the right part:</p>
-<p><img src="images.png" class="img-fluid"></p>
-<p>Therefore, -16.12510 = 10000.0012. As before, we can fill the floating point table. First, the number is negative; therefore, the sign bit is 1:</p>
-<p><img src="images.png" class="img-fluid"></p>
-<p>Next, the mantissa is 10000001 (we shifted the decimal point all the way to the right):</p>
-<p><img src="images.png" class="img-fluid"></p>
-<p>Finally, the exponent is -3 (since the decimal point needs to be moved three places to the left). We convert -3 to binary using two’s complement notation: 00000011 → 11111100 → 111111012:</p>
-<p><img src="images.png" class="img-fluid"></p>
-<p>Again, we can recreate the decimal representation of the number. We know that the number is negative because the sign bit is 1. We can convert the exponent: 11111101 → 00000010 → 000000112 = -3. And we can convert the mantissa: 100000012 = 12910. We then combine the components:</p>
-<p><span class="math display">\[ −129∗2−3 = −129∗ 1 = −129∗18 = −129∗0.125 = − 16.125 \]</span></p>
-<p>Let’s try one last (perhaps more complicated) example, converting -2337.7109375 to binary. First, the left part: -233710 = 1001001000012. Now, the right part:</p>
-<p><img src="images.png" class="img-fluid"></p>
-<p>Therefore, -2337.710937510 = -100100100001.10110112. Again, we can fill the floating point table. First, the number is negative; therefore, the sign bit is 1:</p>
-<p><img src="images.png" class="img-fluid"></p>
-<p>Next, the mantissa is 1001001000011011011 (we shifted the decimal point all the way to the right):</p>
-<p><img src="images.png" class="img-fluid"></p>
-<p>Finally, the exponent is -7 (since the decimal point needs to be moved seven places to the left). We convert -7 to binary using two’s complement notation: 00000111 → 11111000 → 111110012:</p>
-<p><img src="images.png" class="img-fluid"></p>
-<p>Again, we can recreate the decimal representation of the number. We know that the number is negative because the sign bit is 1. We can convert the exponent: 11111001 → 00000110 → 000001112 = -7. And we can convert the mantissa: 10010010000110110112 = 29922710. We then combine the components:</p>
-<p><span class="math display">\[ −299227∗2−7 = −299227∗ 1 = −299227∗ 1 = −299227∗0.0078125 = − 2337.7109375 27 128 \]</span></p>
+<p>IEEE 754 is a set of standards that describe how floating point values should be represented at the machine level. This page contains a summary of how this is done for 32-bit values that are not very close to 0, that is, <strong>normalized form</strong>.</p>
+<section id="general-information" class="level2">
+<h2 class="anchored" data-anchor-id="general-information">General Information</h2>
+<p>As a binary value, there are 3 fields that form an IEEE 754 formated number:</p>
+<ul>
+<li><p>The sign field</p></li>
+<li><p>The exponent field</p></li>
+<li><p>The mantissa field</p></li>
+</ul>
+<p>The <strong>sign field</strong> is 1 bit, while the other two fields vary depending on the precision of the value. A 16-bit number is referred to as a <strong>half-precision</strong> value, a 32-bit number is a <strong>single precision</strong> value, and a 64-bit number is a <strong>double precision</strong> value. An example of a single precision value follows in the text field below.</p>
+<pre class="text"><code>11000000100010000000000000000000</code></pre>
+<p>The same single precision value can be split into its different fields as follows for human readability purposes.</p>
+<pre class="text"><code>Sign Field    Exponent Field    Mantissa Field
+-----------   ---------------   ----------------------------
+1             1000 0001         0001 0000 0000 0000 0000 000</code></pre>
+<p>While Python does not distinguish single precision from double precision for the user, other languages such as the C language do. A float in the C language is 32-bit single precision value while a double are 64-bit double precision values. The number of bits in each field for single and double precision values is indicated in the table that follows.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Precision</th>
+<th>Sign Bits</th>
+<th>Exponent Bits</th>
+<th>Mantissa Bits</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Single</td>
+<td>1</td>
+<td>8</td>
+<td>23</td>
+</tr>
+<tr class="even">
+<td>Double</td>
+<td>1</td>
+<td>11</td>
+<td>52</td>
+</tr>
+</tbody>
+</table>
+<p>When representing floating point values, there are three cases of this standard that are considered:</p>
+<ol type="1">
+<li><p>Normalized Form</p>
+<ul>
+<li><p>The “common” case.</p></li>
+<li><p>Used to represent values that are not very close to 0.</p></li>
+<li><p>Examples would include <code>1.98</code> or <code>-11.2345</code></p></li>
+</ul></li>
+<li><p>Denormalized Form</p>
+<ul>
+<li><p>Used to represent 0 and values very close to 0.</p></li>
+<li><p>An example would be <span class="math inline">\(1.18 \times 10 ^ {-38}\)</span></p></li>
+</ul></li>
+<li><p>Special values</p>
+<ul>
+<li>Used for special numbers like <span class="math inline">\(+\infty\)</span> and <span class="math inline">\(-\infty\)</span></li>
+</ul></li>
+</ol>
+<p>In this course, we are only concerned with the normalized form as this is used to represent the most common numbers.</p>
+</section>
+<section id="normalized-form" class="level2">
+<h2 class="anchored" data-anchor-id="normalized-form">Normalized Form</h2>
+<p>This is the common case. Some key features of this form include:</p>
+<ul>
+<li><p>The exponent field is not all 0s.</p></li>
+<li><p>The exponent field is not all 1s.</p></li>
+<li><p>The exponent field is biased in some way.</p>
+<ul>
+<li><p>For 32-bit values the bias is 127</p></li>
+<li><p>For 64-bit values, the bias is 1023</p></li>
+</ul></li>
+<li><p>The mantissa field will represent a fractional value <span class="math inline">\(x\)</span> with an understood <code>1.</code> in front of it. That is, if we have a value <span class="math inline">\(1.0110\)</span>, then the mantissa field is everything after the radix point (i.e.&nbsp;<span class="math inline">\(0110\)</span>)</p></li>
+</ul>
+</section>
+<section id="base-10-to-ieee-754" class="level2">
+<h2 class="anchored" data-anchor-id="base-10-to-ieee-754">Base 10 to IEEE 754</h2>
+<section id="example-1" class="level3">
+<h3 class="anchored" data-anchor-id="example-1">Example 1</h3>
+<p>Convert -4.25 to single precision IEEE 754 floating point number (i.e.&nbsp;32-bits).</p>
+<ol type="1">
+<li><p><strong>Convert base number (ignoring sign) to binary</strong></p>
+<p><strong>Whole Part:</strong></p>
+<p>Whole part is 4. Divide quotients by 2 repeatedly and read the remainders in reverse order to get the binary value.</p>
+<pre><code>    4 / 2 = 2r0
+    2 / 2 = 1r0
+    1 / 2 = 0r1    // stop when quotient is 0</code></pre>
+<p>Reading the remainders in reverse gives <span class="math inline">\(100\)</span>.</p>
+<p><strong>Fractional Part:</strong></p>
+<p>Fractional Part is 0.25. Multiply the fractional parts by 2 repeatedly and read the whole parts from the top down.</p>
+<pre><code>               Whole part
+               |
+               | Fractional Part
+               | |  
+               v v
+    0.25 * 2 = 0.5
+    0.5  * 2 = 1.0  // stop when fractional part is 0</code></pre>
+<p>Reading the whole parts from top down gives <span class="math inline">\(01\)</span>.</p>
+<p><strong>Recombine</strong></p>
+<p>Finish this step by combining the whole and fractional binary results into <span class="math inline">\(100.01\)</span></p></li>
+<li><p><strong>Implicitly Normalize the Previous Result</strong></p>
+<p>Shift the radix point (decimal point) to the right of the most significant bit. This shift is done by multiplying your binary value by <span class="math inline">\(2^k\)</span> where <span class="math inline">\(k\)</span> is the number of place values you need to shift your radix point.</p>
+<pre><code>     100.01 
+     10.001   // shifted left one place
+     1.0001   // shifted left 2 places total. stop here.</code></pre>
+<p><strong>Identify the True Exponent</strong></p>
+<p>The exponent is <span class="math inline">\(2\)</span> since we shifted <span class="math inline">\(2\)</span> places to the left. We will refer to this exponent as the <code>TrueExponent</code>. Recall that the exponent field holds a <code>BiasedExponent</code> instead of the <code>TrueExponent</code>.</p>
+<p><strong>Identify the Mantissa Field</strong></p>
+<p>The mantissa field will start with <span class="math inline">\(0001\)</span> since that is the value to the right of the radix point. <em>Do not discard leading 0s in the mantissa</em>. The leading 0s are important. We can (and will), however, place trailing 0s after this value.</p></li>
+<li><p><strong>Bias the Exponent</strong></p>
+<p>Apply a bias to your <code>TrueExponent</code> value. Since we are working under single precision (32-bit), our bias is 127.</p>
+<p><span class="math display">\[
+\begin{aligned}
+\text{BiasedExponent} &amp;= \text{TrueExponent} + 127\\
+\text{BiasedExponent} &amp;= 2 + 127\\
+\text{BiasedExponent} &amp;= 129\\
+\end{aligned}
+\]</span></p></li>
+<li><p><strong>Convert the Biased Exponent to Binary</strong></p>
+<p>The exponent is represented using 8 bits in single precision.</p>
+<p>Using the subtraction method:</p>
+<p><span class="math display">\[
+\begin{aligned}
+129 - 2^7 &amp;= 1\\
+1 - 2^0 &amp;= 0\\
+\end{aligned}
+\]</span></p>
+<p>So our binary representation is <span class="math inline">\(1000 0001\)</span>. Thus our exponent field is <code>1000 0001</code></p></li>
+<li><p><strong>Put it all together</strong></p>
+<p>In the previous steps, we saw:</p>
+<ul>
+<li><p>Sign is -, thus the sign field is 1.</p></li>
+<li><p>The exponent field was <code>1000 0001</code></p></li>
+<li><p>The mantissa field was <code>0001</code>.</p></li>
+</ul>
+<p>Placing each value into their respective fields and adding trailing 0s to the mantissa give the following result.</p>
+<pre><code>Final Result:
+S    Exponent    Mantissa (23 bits total)
+--   ----------  ----------------------------
+1    1000 0001   0001 0000 0000 0000 0000 000</code></pre>
+<p>Note that we placed spaces after every 4 bits for readability. The true result would be: <code>11000000100010000000000000000000</code>.</p></li>
+</ol>
+</section>
+<section id="example-2" class="level3">
+<h3 class="anchored" data-anchor-id="example-2">Example 2</h3>
+<p>Convert +13.625 to a single precision IEEE 754 floating point number (i.e.&nbsp;32-bits).</p>
+<ol type="1">
+<li><p><strong>Convert base number (ignoring sign) to binary</strong></p>
+<p><strong>Whole Part:</strong></p>
+<p>Whole part is 13. Divide quotients by 2 repeatedly and read the remainders in reverse order to get the binary value.</p>
+<pre><code>    13 / 2 = 6r1
+    6  / 2 = 3r0
+    3  / 2 = 1r1
+    1  / 2 = 0r1    // stop when quotient is 0</code></pre>
+<p>Reading the remainders in reverse gives <span class="math inline">\(1101\)</span>.</p>
+<p><strong>Fractional Part:</strong></p>
+<p>Fractional part is 0.625. Multiply the fractional parts by 2 repeatedly and read the whole parts from the top down.</p>
+<pre><code>                Whole part
+                |
+                | Fractional Part
+                | |
+                v v
+    0.625 * 2 = 1.25
+    0.25  * 2 = 0.5
+    0.5   * 2 = 1.0  // stop when fractional part is 0</code></pre>
+<p>Reading the whole parts from top down gives <span class="math inline">\(101\)</span>.</p>
+<p><strong>Recombine</strong></p>
+<p>Finish this step by combining the whole and fractional binary results into <span class="math inline">\(1101.101\)</span>.</p></li>
+<li><p><strong>Implicitly Normalize the Previous Result</strong></p>
+<p>Shift the radix point to the right of the most significant bit by multiplying by <span class="math inline">\(2^k\)</span> where <span class="math inline">\(k\)</span> is the number of places shifted.</p>
+<pre><code>     1101.101
+     110.1101   // shifted left one place
+     11.01101   // shifted left 2 places
+     1.101101   // shifted left 3 places total. stop here.</code></pre>
+<p><strong>Identify the True Exponent</strong></p>
+<p>The exponent is <span class="math inline">\(3\)</span> since we shifted <span class="math inline">\(3\)</span> places to the left. We will refer to this exponent as the <code>TrueExponent</code>.</p>
+<p><strong>Identify the Mantissa Field</strong></p>
+<p>The mantissa field will start with <span class="math inline">\(101101\)</span> since that is the value to the right of the radix point. <em>Do not discard leading 0s in the mantissa</em>. We can (and will) place trailing 0s after this value.</p></li>
+<li><p><strong>Bias the Exponent</strong></p>
+<p>Apply a bias to your <code>TrueExponent</code> value. Since we are working under single precision (32-bit), our bias is 127.</p>
+<p><span class="math display">\[
+\begin{aligned}
+\text{BiasedExponent} &amp;= \text{TrueExponent} + 127\\
+\text{BiasedExponent} &amp;= 3 + 127\\
+\text{BiasedExponent} &amp;= 130\\
+\end{aligned}
+\]</span></p></li>
+<li><p><strong>Convert the Biased Exponent to Binary</strong></p>
+<p>The exponent is represented using 8 bits in single precision.</p>
+<p>Using the subtraction method:</p>
+<p><span class="math display">\[
+\begin{aligned}
+130 - 2^7 &amp;= 2\\
+2 - 2^1 &amp;= 0\\
+\end{aligned}
+\]</span></p>
+<p>So our binary representation is <span class="math inline">\(1000\ 0010\)</span>. Thus our exponent field is <code>1000 0010</code>.</p></li>
+<li><p><strong>Put it all together</strong></p>
+<p>In the previous steps, we saw:</p>
+<ul>
+<li><p>Sign is +, thus the sign field is 0.</p></li>
+<li><p>The exponent field was <code>1000 0010</code></p></li>
+<li><p>The mantissa field was <code>101101</code>.</p></li>
+</ul>
+<p>Placing each value into their respective fields and adding trailing 0s to the mantissa give the following result.</p>
+<pre><code>Final Result:
+S    Exponent    Mantissa (23 bits total)
+--   ----------  ----------------------------
+0    1000 0010   1011 0100 0000 0000 0000 000</code></pre>
+<p>Note that we placed spaces after every 4 bits for readability. The true result would be: <code>01000001010110100000000000000000</code>.</p></li>
+</ol>
+</section>
+</section>
+<section id="ieee-754-to-base-10" class="level2">
+<h2 class="anchored" data-anchor-id="ieee-754-to-base-10">IEEE 754 to Base 10</h2>
+<section id="example-3" class="level3">
+<h3 class="anchored" data-anchor-id="example-3">Example 3</h3>
+<p>Convert the following 32-bit IEEE 754 normalized form value to decimal.</p>
+<pre><code>S    Exponent    Mantissa (23 bits total)
+--   ----------  ----------------------------
+0    1000 0011   1000 1100 0000 0000 0000 000</code></pre>
+<ol type="1">
+<li><p><strong>Convert the Exponent to Decimal</strong></p>
+<p>Convert the exponent to decimal by multiplying by the appropriate powers of two and adding the sums.</p>
+<pre><code>      1    0   0   0   0   0   1   1
+ x  128   64  32  16   8   4   2   1 
+ ------------------------------------
+    128 +  0 + 0 + 0 + 0 + 0 + 2 + 1  = 131</code></pre></li>
+<li><p><strong>Unbias the Exponent</strong></p>
+<p>Recall the exponent field holds a biased exponent, thus we need to unbias it. For 32-bit values, the bias is 127. We subtract 127 from the biased exponent.</p>
+<p><span class="math display">\[
+\begin{align}
+\text{TrueExponent} &amp;= \text{BiasedExponent} - 127\\
+\text{TrueExponent} &amp;= 131 - 127\\
+\text{TrueExponent} &amp;= 4\\
+\end{align}
+\]</span></p></li>
+<li><p><strong>Use the Formula to Express the Value as Fractional Binary</strong></p>
+<p>We can use the following formula where <span class="math inline">\(MF\)</span> is the mantissa field, <span class="math inline">\(TE\)</span> is the true exponent, and <span class="math inline">\(S\)</span> is the sign to get a fractional binary form.</p>
+<p><span class="math display">\[(-1)^S \times 1.MF \times 2^{TE}\]</span></p>
+<p>Recall that the mantissa field is <code>1000 11</code> without the trailing 0s.</p>
+<p>We get the following:</p>
+<p><span class="math display">\[(-1)^0 \times 1.100011 \times 2^{4}\]</span></p>
+<p>Simplifying this expressing gives <span class="math inline">\(11000.11\)</span> as a fractional binary expression.</p></li>
+<li><p><strong>Convert the Fractional Binary Expression to Base 10</strong></p>
+<p>Convert the fractional binary expression <span class="math inline">\(11000.11\)</span> to decimal by multiplying by the appropriate powers of two and adding the sums.</p>
+<pre><code>       1   1   0   0   0 .   1     1
+ x    16   8   4   2   1   0.5  0.25
+ ------------------------------------
+     16 +  8 + 0 + 0 + 0 + 0.5 + 0.25  = 24.75</code></pre>
+<p>The value is <span class="math inline">\(24.75\)</span> in base 10.</p></li>
+</ol>
+</section>
+<section id="example-4" class="level3">
+<h3 class="anchored" data-anchor-id="example-4">Example 4</h3>
+<p>Convert the following 32-bit IEEE 754 normalized form value to decimal.</p>
+<pre><code>S    Exponent    Mantissa (23 bits total)
+--   ----------  ----------------------------
+1    1000 0011   0011 1000 0000 0000 0000 000</code></pre>
+<ol type="1">
+<li><p><strong>Convert the Exponent to Decimal</strong></p>
+<p>Convert the exponent to decimal by multiplying by the appropriate powers of two and adding the sums.</p>
+<pre><code>      1    0   0   0   0   0   1   1
+ x  128   64  32  16   8   4   2   1
+ ------------------------------------
+    128 +  0 + 0 + 0 + 0 + 0 + 2 + 1  = 131</code></pre></li>
+<li><p><strong>Unbias the Exponent</strong></p>
+<p>Recall the exponent field holds a biased exponent, thus we need to unbias it. For 32-bit values, the bias is 127. We subtract 127 from the biased exponent.</p>
+<p><span class="math display">\[
+\begin{align}
+\text{TrueExponent} &amp;= \text{BiasedExponent} - 127\\
+\text{TrueExponent} &amp;= 131 - 127\\
+\text{TrueExponent} &amp;= 4\\
+\end{align}
+\]</span></p></li>
+<li><p><strong>Use the Formula to Express the Value as Fractional Binary</strong></p>
+<p>We can use the following formula where <span class="math inline">\(MF\)</span> is the mantissa field, <span class="math inline">\(TE\)</span> is the true exponent, and <span class="math inline">\(S\)</span> is the sign to get a fractional binary form.</p>
+<p><span class="math display">\[(-1)^S \times 1.MF \times 2^{TE}\]</span></p>
+<p>Recall that the mantissa field is <code>00111</code> without the trailing 0s.</p>
+<p>We get the following:</p>
+<p><span class="math display">\[(-1)^1 \times 1.00111 \times 2^{4}\]</span></p>
+<p>Simplifying this expression gives <span class="math inline">\(-10011.1\)</span> as a fractional binary expression.</p></li>
+<li><p><strong>Convert the Fractional Binary Expression to Base 10</strong></p>
+<p>Convert the fractional binary expression <span class="math inline">\(10011.1\)</span> to decimal by multiplying by the appropriate powers of two and adding the sums.</p>
+<pre><code>       1   0   0   1   1 .   1
+ x    16   8   4   2   1   0.5
+ --------------------------------
+     16 +  0 + 0 + 2 + 1 + 0.5  = 19.5</code></pre>
+<p>Applying the negative sign from step 3, the value is <span class="math inline">\(-19.5\)</span> in base 10.</p></li>
+</ol>
+</section>
+</section>
+<section id="knowledge-check" class="level2">
+<h2 class="anchored" data-anchor-id="knowledge-check">Knowledge Check</h2>
+<p>Convert the following base 10 values to single precision IEEE 754.</p>
+<p><strong>1.</strong> <span class="math inline">\(-7.5\)</span></p>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Did you know?
+<span class="screen-reader-only">Note</span>Answer
 </div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>It is interesting to note that some fractions that can be expressed precisely in decimal notation, such as 1/10 = 0.1, do not have an exact floating point representation. This is due to the fact that floating point numbers are represented using base two. One-tenth can be approximated in binary as 0.0001100110011001… (where 1001 repeats indefinitely). It can never be represented exactly. This result should not be surprising. After all, many factions (e.g., 1/3) cannot be represented exactly as decimal values. This is one reason why computed results that involve fractions are not always 100% accurate. They sometimes suffer from round off error as a result of the base ten to base two conversion process.</p>
+<p><strong>Step 1 — Convert to binary</strong></p>
+<p>Whole part (7): <code>7/2=3r1</code>, <code>3/2=1r1</code>, <code>1/2=0r1</code> → <span class="math inline">\(111\)</span></p>
+<p>Fractional part (0.5): <code>0.5×2=1.0</code> → <span class="math inline">\(1\)</span></p>
+<p>Combined: <span class="math inline">\(111.1\)</span></p>
+<p><strong>Step 2 — Normalize</strong></p>
+<pre><code>111.1
+11.11   // shifted left 1
+1.111   // shifted left 2 total → TrueExponent = 2, Mantissa = 111</code></pre>
+<p><strong>Step 3 — Bias the exponent</strong></p>
+<p><span class="math display">\[\text{BiasedExponent} = 2 + 127 = 129\]</span></p>
+<p><strong>Step 4 — Convert biased exponent to binary</strong></p>
+<p><span class="math display">\[129 - 2^7 = 1, \quad 1 - 2^0 = 0 \implies 1000\ 0001\]</span></p>
+<p><strong>Step 5 — Final result</strong></p>
+<pre><code>S    Exponent    Mantissa (23 bits total)
+--   ----------  ----------------------------
+1    1000 0001   1110 0000 0000 0000 0000 000</code></pre>
+<p>True result: <code>11000000111100000000000000000000</code></p>
 </div>
 </div>
+</div>
+<p><strong>2.</strong> <span class="math inline">\(+22.375\)</span></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Step 1 — Convert to binary</strong></p>
+<p>Whole part (22): <code>22/2=11r0</code>, <code>11/2=5r1</code>, <code>5/2=2r1</code>, <code>2/2=1r0</code>, <code>1/2=0r1</code> → <span class="math inline">\(10110\)</span></p>
+<p>Fractional part (0.375):</p>
+<pre><code>0.375 × 2 = 0.75  → 0
+0.75  × 2 = 1.5   → 1
+0.5   × 2 = 1.0   → 1  (stop)</code></pre>
+<p>Fractional binary: <span class="math inline">\(011\)</span></p>
+<p>Combined: <span class="math inline">\(10110.011\)</span></p>
+<p><strong>Step 2 — Normalize</strong></p>
+<pre><code>10110.011
+1.0110011   // shifted left 4 total → TrueExponent = 4, Mantissa = 0110011</code></pre>
+<p><strong>Step 3 — Bias the exponent</strong></p>
+<p><span class="math display">\[\text{BiasedExponent} = 4 + 127 = 131\]</span></p>
+<p><strong>Step 4 — Convert biased exponent to binary</strong></p>
+<p><span class="math display">\[131 - 2^7 = 3, \quad 3 - 2^1 = 1, \quad 1 - 2^0 = 0 \implies 1000\ 0011\]</span></p>
+<p><strong>Step 5 — Final result</strong></p>
+<pre><code>S    Exponent    Mantissa (23 bits total)
+--   ----------  ----------------------------
+0    1000 0011   0110 0110 0000 0000 0000 000</code></pre>
+<p>True result: <code>01000001101100110000000000000000</code></p>
+</div>
+</div>
+</div>
+<p>Convert the following single precision IEEE 754 values to base 10.</p>
+<p><strong>3.</strong></p>
+<pre><code>S    Exponent    Mantissa (23 bits total)
+--   ----------  ----------------------------
+0    1000 0010   1100 0000 0000 0000 0000 000</code></pre>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Step 1 — Convert exponent to decimal</strong></p>
+<pre><code>      1   0   0   0   0   0   1   0
+x   128  64  32  16   8   4   2   1
+------------------------------------
+    128 + 0 + 0 + 0 + 0 + 0 + 2 + 0  = 130</code></pre>
+<p><strong>Step 2 — Unbias the exponent</strong></p>
+<p><span class="math display">\[\text{TrueExponent} = 130 - 127 = 3\]</span></p>
+<p><strong>Step 3 — Express as fractional binary</strong></p>
+<p>Mantissa field (dropping trailing 0s): <code>11</code></p>
+<p><span class="math display">\[(-1)^0 \times 1.11 \times 2^3 = 1110.0\]</span></p>
+<p><strong>Step 4 — Convert to base 10</strong></p>
+<pre><code>     1   1   1   0
+x    8   4   2   1
+------------------
+     8 + 4 + 2 + 0  = 14</code></pre>
+<p>The value is <span class="math inline">\(14.0\)</span> in base 10.</p>
+</div>
+</div>
+</div>
+<p><strong>4.</strong></p>
+<pre><code>S    Exponent    Mantissa (23 bits total)
+--   ----------  ----------------------------
+1    0111 1110   0100 0000 0000 0000 0000 000</code></pre>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Step 1 — Convert exponent to decimal</strong></p>
+<pre><code>      0   1   1   1   1   1   1   0
+x   128  64  32  16   8   4   2   1
+------------------------------------
+      0 + 64 + 32 + 16 + 8 + 4 + 2 + 0  = 126</code></pre>
+<p><strong>Step 2 — Unbias the exponent</strong></p>
+<p><span class="math display">\[\text{TrueExponent} = 126 - 127 = -1\]</span></p>
+<p><strong>Step 3 — Express as fractional binary</strong></p>
+<p>Mantissa field (dropping trailing 0s): <code>01</code></p>
+<p><span class="math display">\[(-1)^1 \times 1.01 \times 2^{-1} = -0.101\]</span></p>
+<p><strong>Step 4 — Convert to base 10</strong></p>
+<pre><code>     0 .  1     0     1
+x    1   0.5  0.25  0.125
+-------------------------
+     0 + 0.5 + 0 + 0.125  = 0.625</code></pre>
+<p>Applying the negative sign, the value is <span class="math inline">\(-0.625\)</span> in base 10.</p>
+</div>
+</div>
+</div>
+<p>For more practice with normalized form, try using the linked <a href="https://www.h-schmidt.net/FloatConverter/IEEE754.html">IEEE-754 Floating Point Convert</a>.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

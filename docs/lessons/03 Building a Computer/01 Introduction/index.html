@@ -75,6 +75,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../../../styles.css">
 </head>
@@ -423,7 +452,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../lessons/03 Building a Computer/04 Floating Point Numbers/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Floating Point Numbers</span></a>
+ <span class="menu-text">IEEE 754 Floating Point Representation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -549,8 +578,14 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#review" id="toc-review" class="nav-link active" data-scroll-target="#review">Review</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -587,9 +622,374 @@ ul.task-list li input[type="checkbox"] {
 <li><p>Binary arithmetic (addition and multiplication); and</p></li>
 <li><p>Half and full adders, and chaining full adders together to add larger binary numbers.</p></li>
 </ul>
-<p>In this lesson, we will first discuss how numbers and characters are represented in computers. So far, all of the numbers that we have looked at have been <em>unsigned</em> ( i.e., assumed to be positive). For example, the number 1001001<sub>2</sub> is equivalent to 73<sub>10</sub>. However, in order to be able to handle negative numbers, we need a way to represent the sign of a number. Subsequently, we will cover several more combinational circuits that prove quite useful in the design of computing systems. In addition, several important sequential circuits that serve as the building blocks for computer memory will be discussed. Finally, we will show how a Central Processing Unit (CPU) is built from the primitive components discussed in the lessons on computer architecture.</p>
+<p>In this lesson, we will first discuss how numbers and characters are represented in computers. So far, all of the binary values that we have seen have represented <em>unsigned</em> values ( i.e., assumed to be positive). For example, the number <span class="math inline">\(1001001_2\)</span> is equivalent to <span class="math inline">\(73_{10}\)</span>. In order to be able to handle negative numbers, we need a way to represent the sign of a number.</p>
+<p>Subsequently, we will cover several more combinational circuits that prove quite useful in the design of computing systems. In addition, several important sequential circuits that serve as the building blocks for computer memory will be discussed. Finally, we will show how a Central Processing Unit (CPU) is built from the primitive components discussed in the lessons on computer architecture.</p>
+<section id="review" class="level2">
+<h2 class="anchored" data-anchor-id="review">Review</h2>
+<p>Convert the following unsigned binary numbers to decimal (base 10).</p>
+<p><strong>1.</strong> <span class="math inline">\(1010_2\)</span></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Bit</th>
+<th style="text-align: center;">1</th>
+<th style="text-align: center;">0</th>
+<th style="text-align: center;">1</th>
+<th style="text-align: center;">0</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Place Value</td>
+<td style="text-align: center;"><span class="math inline">\(2^3\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(2^2\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(2^1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(2^0\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Decimal</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Value</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">0</td>
+</tr>
+</tbody>
+</table>
+<p><span class="math display">\[8 + 0 + 2 + 0 = 10_{10}\]</span></p>
+</div>
+</div>
+</div>
+<p><strong>2.</strong> <span class="math inline">\(11011_2\)</span></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Bit</th>
+<th style="text-align: center;">1</th>
+<th style="text-align: center;">1</th>
+<th style="text-align: center;">0</th>
+<th style="text-align: center;">1</th>
+<th style="text-align: center;">1</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Place Value</td>
+<td style="text-align: center;"><span class="math inline">\(2^4\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(2^3\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(2^2\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(2^1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(2^0\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Decimal</td>
+<td style="text-align: center;">16</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Value</td>
+<td style="text-align: center;">16</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">1</td>
+</tr>
+</tbody>
+</table>
+<p><span class="math display">\[16 + 8 + 0 + 2 + 1 = 27_{10}\]</span></p>
+</div>
+</div>
+</div>
+<p><strong>3.</strong> <span class="math inline">\(10110100_2\)</span></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 11%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Bit</th>
+<th style="text-align: center;">1</th>
+<th style="text-align: center;">0</th>
+<th style="text-align: center;">1</th>
+<th style="text-align: center;">1</th>
+<th style="text-align: center;">0</th>
+<th style="text-align: center;">1</th>
+<th style="text-align: center;">0</th>
+<th style="text-align: center;">0</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Place Value</td>
+<td style="text-align: center;"><span class="math inline">\(2^7\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(2^6\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(2^5\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(2^4\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(2^3\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(2^2\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(2^1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(2^0\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Decimal</td>
+<td style="text-align: center;">128</td>
+<td style="text-align: center;">64</td>
+<td style="text-align: center;">32</td>
+<td style="text-align: center;">16</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Value</td>
+<td style="text-align: center;">128</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">32</td>
+<td style="text-align: center;">16</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+</tr>
+</tbody>
+</table>
+<p><span class="math display">\[128 + 0 + 32 + 16 + 0 + 4 + 0 + 0 = 180_{10}\]</span></p>
+</div>
+</div>
+</div>
+<p>Convert the following decimal (base 10) numbers to unsigned binary.</p>
+<p><strong>4.</strong> <span class="math inline">\(13_{10}\)</span></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Repeatedly divide by 2 and record the remainders, then read them from bottom to top.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;">Division</th>
+<th style="text-align: center;">Quotient</th>
+<th style="text-align: center;">Remainder</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">13 ÷ 2</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">6 ÷ 2</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3 ÷ 2</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">1 ÷ 2</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;"><strong>1</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Reading remainders from bottom to top: <span class="math inline">\(1101_2\)</span></p>
+</div>
+</div>
+</div>
+<p><strong>5.</strong> <span class="math inline">\(46_{10}\)</span></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;">Division</th>
+<th style="text-align: center;">Quotient</th>
+<th style="text-align: center;">Remainder</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">46 ÷ 2</td>
+<td style="text-align: center;">23</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">23 ÷ 2</td>
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">11 ÷ 2</td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">5 ÷ 2</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">2 ÷ 2</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">1 ÷ 2</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;"><strong>1</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Reading remainders from bottom to top: <span class="math inline">\(101110_2\)</span></p>
+</div>
+</div>
+</div>
+<p><strong>6.</strong> <span class="math inline">\(195_{10}\)</span></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;">Division</th>
+<th style="text-align: center;">Quotient</th>
+<th style="text-align: center;">Remainder</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">195 ÷ 2</td>
+<td style="text-align: center;">97</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">97 ÷ 2</td>
+<td style="text-align: center;">48</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">48 ÷ 2</td>
+<td style="text-align: center;">24</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">24 ÷ 2</td>
+<td style="text-align: center;">12</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">12 ÷ 2</td>
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">6 ÷ 2</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3 ÷ 2</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">1 ÷ 2</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;"><strong>1</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Reading remainders from bottom to top: <span class="math inline">\(11000011_2\)</span></p>
+</div>
+</div>
+</div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

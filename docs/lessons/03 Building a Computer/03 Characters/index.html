@@ -452,7 +452,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../../lessons/03 Building a Computer/04 Floating Point Numbers/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Floating Point Numbers</span></a>
+ <span class="menu-text">IEEE 754 Floating Point Representation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -663,9 +663,13 @@ window.Quarto = {
 </tbody>
 </table>
 <p>Control characters refer to <em>nonprinting</em> characters (e.g., return/enter, linefeed, delete, and so on). Punctuation refers to any printable character that is not a digit or letter (e.g., [, {, |, \, and so on).</p>
-<p>The following table contains the hexadecimal representations of all of the printable ASCII characters. These range from the space character (with an ASCII value of <span class="math inline">\(20_{16} = 32_{10}\)</span>) to the tilde (with an ASCII value of <span class="math inline">\(7E_{16} = 126_{10}\)</span>). The ASCII value for a character may be found in the table below by locating the row and column in which the character appears. The row specifies the high-order (leftmost) hexadecimal digit, and the column specifies the low-order (rightmost) hexadecimal digit. For example, the ASCII value for the uppercase letter H is <span class="math inline">\(48_{16}\)</span>, since it appears in row 4 and column 8. To determine the decimal version of the ASCII value, you must perform the conversion from hexadecimal to decimal (e.g., <span class="math inline">\(48_{16} = 72_{10}\)</span>).</p>
+<p>The following table contains the hexadecimal representations of all of the printable ASCII characters. These range from the space character (with an ASCII value of <span class="math inline">\(20_{16} = 32_{10}\)</span>) to the tilde (with an ASCII value of <span class="math inline">\(7E_{16} = 126_{10}\)</span>).</p>
+<p>The ASCII value for a character may be found in the table below by locating the row and column in which the character appears. The row specifies the high-order (leftmost) hexadecimal digit, and the column specifies the low-order (rightmost) hexadecimal digit.</p>
+<p>For example, the ASCII value for the uppercase letter H is <span class="math inline">\(48_{16}\)</span>, since it appears in row 4 and column 8. To determine the decimal version of the ASCII value, you must perform the conversion from hexadecimal to decimal (e.g., <span class="math inline">\(48_{16} = 72_{10}\)</span>).</p>
 <p><img src="images/image2.png" class="img-fluid"></p>
-<p>While any assignment of bit patterns to characters would accomplish the primary task of enabling computers to store character data, a lot of thought went into the design of ASCII. For example, uppercase and lowercase characters differ in ASCII by exactly one bit (e.g., <span class="math inline">\(A = 41_{16} = 01000001_2\)</span>, and <span class="math inline">\(a = 61_{16} = 01100001_2\)</span>). Therefore, any lowercase character can be changed to upper case by simply setting bit six to 0. Conversion from uppercase to lowercase is just as easy: set bit six to 1! The concept of mapping characters to bit patterns is logical; however, characters typed on a keyboard don’t show up on the screen as ASCII values. This is because ASCII values are hidden from the computer user. When you type “patootie” on your keyboard, you first hit a key marked “p”. This causes the keyboard circuitry to generate the ASCII code 7016. Next, you strike the key marked “a”, causing the keyboard circuitry to generate the ASCII code 6116. This process occurs for the entire word. The display circuitry built into your computer’s video card then displays the characters of the word as it receives the ASCII values for each character. Since the internal circuitry of both the keyboard and video card handle the translation and processing of ASCII values, you never see the ASCII values.</p>
+<p>While any assignment of bit patterns to characters would accomplish the primary task of enabling computers to store character data, a lot of thought went into the design of ASCII. For example, uppercase and lowercase characters differ in ASCII by exactly one bit (e.g., <span class="math inline">\(A = 41_{16} = 01000001_2\)</span>, and <span class="math inline">\(a = 61_{16} = 01100001_2\)</span>). Therefore, any lowercase character can be changed to upper case by simply setting bit six to 0. Conversion from uppercase to lowercase is just as easy: set bit six to 1!</p>
+<p>The concept of mapping characters to bit patterns is logical; however, characters typed on a keyboard don’t show up on the screen as ASCII values. This is because ASCII values are hidden from the computer user. When you type “patootie” on your keyboard, you first hit a key marked “p”. This causes the keyboard circuitry to generate the ASCII code <code>7016</code>.</p>
+<p>Next, you strike the key marked <code>a</code>, causing the keyboard circuitry to generate the ASCII code <code>6116</code>. This process occurs for the entire word. The display circuitry built into your computer’s video card then displays the characters of the word as it receives the ASCII values for each character. Since the internal circuitry of both the keyboard and video card handle the translation and processing of ASCII values, you never see the ASCII values.</p>
 <p>It is interesting to note what happens when the shift key is held down as, for example, the word “patootie” is typed. What the shift key actually does (at least for the keys marked with letters of the alphabet) is to set bit six to 0. Thus, the combination of shift and p (which is <span class="math inline">\(70_{16} = 01110000_2\)</span>) produces <span class="math inline">\(50_{16} = 01010000_2\)</span> (which is the ASCII value for P).</p>
 
 
@@ -1091,8 +1095,8 @@ window.Quarto = {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../../lessons/03 Building a Computer/04 Floating Point Numbers/index.html" class="pagination-link" aria-label="Floating Point Numbers">
-        <span class="nav-page-text">Floating Point Numbers</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../../lessons/03 Building a Computer/04 Floating Point Numbers/index.html" class="pagination-link" aria-label="IEEE 754 Floating Point Representation">
+        <span class="nav-page-text">IEEE 754 Floating Point Representation</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

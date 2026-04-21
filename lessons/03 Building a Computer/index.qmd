@@ -1,3 +1,19 @@
 ---
 title: "Building a Computer"
 ---
+
+- [Introduction](01%20Introduction/)
+
+- [Signed Integer Encodings](02%20Signed%20Numbers/)
+
+- [Character Encodings](03%20Characters/)
+
+- [Floating Point Number Encodings](04%20Floating%20Point%20Numbers/)
+
+- [Decoders and Encoders](05%20Decoders%20and%20Encoders/)
+
+- [Multiplexers and Demultiplexers](06%20Multiplexers%20and%20Demultiplexers/)
+
+- [Flip Flops](07%20Flip%20Flops/)
+
+- [A Simple Computer](08%20A%20Simple%20Computer/)

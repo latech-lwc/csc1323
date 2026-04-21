@@ -47,33 +47,56 @@ Let's see how +5 and -5 can be added using two's complement notation:
 
 ![](images/image6.png){width="375" fig-align="center"}
 
-Notice that while we get a correct answer (0000), this problem also generated a carry bit (the italicized leftmost 1). We will discuss this anomaly later. While the idea of two's complement notation may seem a little strange at first, it has a unique representation for zero (0000, given four bits) and straightforward arithmetic operations. Notice that, for positive numbers, all three representations (signed magnitude, one's complement, and two's complement) have the same pattern as unsigned numbers.
+Notice that while we get a correct answer of `0000`, this problem also generated a carry bit (the italicized leftmost 1). We will discuss this anomaly later. While the idea of two's complement notation may seem a little strange at first, it has a unique representation for zero as `0000`, given four bits, and straight forward arithmetic operations. Notice that, for positive numbers, all three representations (signed magnitude, one's complement, and two's complement) have the same pattern as unsigned numbers.
 
 The following table presents the sixteen signed numbers that can be represented using two's complement notation and four bits of storage. Notice that the numbers range from negative eight to positive seven. In two's complement notation, the range of numbers that can be represented given a fixed number of bits will always include one more negative value than there are positive values. This is because the representation of zero includes a 0 in the leftmost bit position, thus taking up one of the “positive” slots.
 
-/// a table goes here, cant do the image
+| Binary | Decimal |
+|:------:|:-------:|
+| 0111   |  +7     |
+| 0110   |  +6     |
+| 0101   |  +5     |
+| 0100   |  +4     |
+| 0011   |  +3     |
+| 0010   |  +2     |
+| 0001   |  +1     |
+| 0000   |   0     |
+| 1111   |  −1     |
+| 1110   |  −2     |
+| 1101   |  −3     |
+| 1100   |  −4     |
+| 1011   |  −5     |
+| 1010   |  −6     |
+| 1001   |  −7     |
+| 1000   |  −8     |
 
-For n bits of storage the range of numbers that can be represented in two's complement notation extends from $−2n−1$ to $+2n−1−1$ . In the table above, four bits of storage were used; therefore, the range of numbers was from $−24−1 = −23 = −8$ to $24−1−1 = 23−1 = 7$. Most modern computers use 32 bits to represent integers. Thus, they are capable of representing values in the range $−231 = − 2,147,483,648$ to $231−1 = 2,147,483,647$.
+For $n$ bits of storage the range of numbers that can be represented in two's complement notation extends from $−2^{n−1}$ to $+2^{n−1}−1$ . In the table above, four bits of storage were used; therefore, the range of numbers was from $$−2^{4−1} = −2^{3} = −8$$ to $$2^{4−1}−1 = 2^3−1 = 7$$ 
 
-What do you suppose happens if 1 is added to 7? In other words, how does the computer handle 0111 + 0001? Performing binary addition, the result is 1000. In the table, this is -8! Does this mean that 7 + 1 = -8? If the computer stored integers using only four bits, then indeed this would be the case! Counting essentially wraps around the table. That is, 7 + 1 = -8 and -8 – 1 = 7. The four bits of storage only allow numbers in this range.
+Most modern computers use 32 bits to represent integers. Thus, they are capable of representing values in the range $$−2^{31} = − 2,147,483,648$$ to $$2^{31}−1 = 2,147,483,647$$.
 
-In order to understand why two's complement is the preferred method for representing signed numbers at the machine level, we will look at a number of addition problems involving both positive and negative numbers. As we will see, what makes two's complement so great is that the sign of a number can essentially be ignored when performing addition (since positive and negative numbers are treated in an identical manner). An added bonus is that we get the subtraction operations for “free” once we have addition: a problem such as X – Y can be recast as the following two step process:
+What do you suppose happens if 1 is added to 7? In other words, how does the computer handle `0111 + 0001`? Performing binary addition, the result is `1000`. In the table, this is $-8$! 
 
-1. Swap the sign of Y 
+Does this mean that $7 + 1 = -8$? If the computer stored integers using only four bits, then indeed this would be the case! Counting essentially wraps around the table. That is, $7 + 1 = -8$ and $-8 – 1 = 7$. The four bits of storage only allow numbers in this range.
 
-2. Add X and Y.
+In order to understand why two's complement is the preferred method for representing signed numbers at the machine level, we will look at a number of addition problems involving both positive and negative numbers. As we will see, what makes two's complement so great is that the sign of a number can essentially be ignored when performing addition (since positive and negative numbers are treated in an identical manner). An added bonus is that we get the subtraction operations for “free” once we have addition: a problem such as `X – Y` can be recast as the following two step process:
+
+1. Swap the sign of `Y` 
+
+2. Add `X` and `Y`.
 
 
-Let's begin by examining the summation of numbers with opposite signs. First, the sum of +2 and -3 (which should sum to -1). Assuming four bits of storage, the two's complement binary representation of +2 is 0010. The two's complement representation of -3 is 1101. Why? To obtain -3, we begin with +3 (0011), complement the bits (1100), and add one (1101). Here's the addition of +2 and -3:
+Let's begin by examining the summation of numbers with opposite signs. First, the sum of `+2` and `-3` (which should sum to `-1`).
+
+Assuming four bits of storage, the two's complement binary representation of `+2` is `0010`. The two's complement representation of `-3` is `1101`. Why? To obtain `-3`, we begin with `+3` as `0011`, complement the bits to result in `1100`, and add one to result in `1101`. Here's the addition of `+2` and `-3`:
 
 
 ![](images/image7.png){width="375" fig-align="center"}
 
 
-The 1 in the leftmost column of the result tells us that the number is negative. Its magnitude can be determined by complementing each bit (0000) and adding one (0001). Thus, the addition of +2 and -3 is 1111 (or -1).
+The 1 in the leftmost column of the result tells us that the number is negative. Its magnitude can be determined by complementing each bit `0000` and adding one `0001`. Thus, the addition of `+2` and `-3` is `1111` (or `-1`).
 
 
-Next, let's look at the addition of -2 and +3. The two's complement binary representation of -2 is 1110 (start with +2 which is 0010, complement the bits to obtain 1101, and add one to obtain 1110). The representation of +3 is 0011. Adding these two values together gives +1 or 0001 in binary two's complement, as is illustrated below:
+Next, let's look at the addition of `-2` and `+3`. The two's complement binary representation of `-2` is `1110` (start with +2 which is `0010`, complement the bits to obtain `1101`, and add one to obtain `1110`). The representation of `+3` is `0011`. Adding these two values together gives `+1` or `0001` in binary two's complement, as is illustrated below:
 
 ![](images/image8.png){width="375" fig-align="center"}
 
@@ -82,15 +105,15 @@ Note that this particular addition of two four-bit numbers results in a carry to
 
 ## Overflow
 
-Let's now turn our attention to addition problems involving numbers of the same sign. Here is an illustration of the addition of two positive numbers: +2 (0010) and +3 (0011):
+Let's now turn our attention to addition problems involving numbers of the same sign. Here is an illustration of the addition of two positive numbers: +2 (`0010`) and +3 (`0011`):
 
 ![](images/image9.png){width="375" fig-align="center"}
 
-To show that the system handles the addition of negative numbers properly, consider adding -2 (0010 → 1101 → 1110) and -3 (0011 → 1100 → 1101). The result should be -5 (0101 → 1010 → 1011):
+To show that the system handles the addition of negative numbers properly, consider adding -2 (`0010 → 1101 → 1110`) and -3 (`0011 → 1100 → 1101`). The result should be -5 (`0101 → 1010 → 1011`):
 
 ![](images/image10.png){width="375" fig-align="center"}
 
-The result is indeed 1011. The 1 in the leftmost bit indicates that the result is a negative number. We can determine its magnitude by implementing the two's complement operations on it: complement the bits 1011 to obtain 0100, and add one to obtain 0101.
+The result is indeed `1011`. The 1 in the leftmost bit indicates that the result is a negative number. We can determine its magnitude by implementing the two's complement operations on it: complement the bits `1011` to obtain `0100`, and add one to obtain `0101`.
 
 Notice that while we get a correct answer, this problem also generated a carry bit that is discarded. One problem that can arise when representing numeric values via a fixed number of bits is the problem of overflow.
 
@@ -103,13 +126,13 @@ Notice that while we get a correct answer, this problem also generated a carry b
 The only way around overflow is to add more bits to the representation, thus increasing the range of permissible values. The best we can do in place of this is to detect when overflow occurs.
 
 
-Two's complement notation makes it easy to spot when overflow occurs: when two numbers of the same sign are added together and the result has the opposite sign. Here are two examples; first, the sum of +4 and +5 (which are both positive numbers):
+Two's complement notation makes it easy to spot when overflow occurs: when two numbers of the same sign are added together and the result has the opposite sign. Here are two examples; first, the sum of `+4` and `+5` (which are both positive numbers):
 
 
 ![](images/image11.png){width="375" fig-align="center"}
 
 
-Clearly, the result is not -7. Note that the result (-7) has a different sign than the two numbers (+4 and +5). Here's another example:
+Clearly, the result is not `-7`. Note that the result (`-7`) has a different sign than the two numbers (`+4` and `+5`). Here's another example:
 
 ![](images/image12.png){width="375" fig-align="center"}
 
@@ -117,7 +140,7 @@ Clearly, the result is not -7. Note that the result (-7) has a different sign th
 Overflow in two's complement can be spotted when the sign bits of both numbers being added are the same, yet the sign bit of the answer is different. Note that overflow can only occur when adding numbers of like sign. It can never occur when numbers of opposite signs are added.
 
 
-When an overflow is detected, the answer is incorrect, as shown above by the question marks, and must be discarded. There is no way to get the correct answer if the number of bits available does not allow us to express that answer. There is no way to express +9 or -9 (the correct results to the examples above) using a four-bit two's complement number, since both are outside the range of permissible values.
+When an overflow is detected, the answer is incorrect, as shown above by the question marks, and must be discarded. There is no way to get the correct answer if the number of bits available does not allow us to express that answer. There is no way to express +9 or `-9` (the correct results to the examples above) using a four-bit two's complement number, since both are outside the range of permissible values.
 
 
 
