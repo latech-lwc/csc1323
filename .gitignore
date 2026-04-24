@@ -45,3 +45,8 @@ venv/
 *.log
 
 **/*.quarto_ipynb
+
+
+# Other 
+*.ai
+03 Building a Computer-9.pdf

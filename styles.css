@@ -1,1 +1,7 @@
 /* css styles */
+
+
+
+tr.row-invalid {
+  background-color: rgba(128, 128, 128, 0.15);
+}

@@ -549,8 +549,15 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#decoders" id="toc-decoders" class="nav-link active" data-scroll-target="#decoders">Decoders</a></li>
+  <li><a href="#encoders" id="toc-encoders" class="nav-link" data-scroll-target="#encoders">Encoders</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -575,8 +582,1190 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<p>Recall that combinational circuits are digital circuits that do not involve any kind of feedback. In other words, the output of a combinational circuit cannot be fed back into that circuit as input. Previously, only three types of combinational circuits were covered: the <em>xor</em> gate, comparators (for equality, less than, and greater than), and adders (half adder, full adder, chaining full adders). There are several more types of combinational circuits that are important, particularly in the design of computers.</p>
+<section id="decoders" class="level2">
+<h2 class="anchored" data-anchor-id="decoders">Decoders</h2>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>Definition</strong>: A <strong>decoder</strong> is a type of circuit that takes in a number (in unsigned binary form) and generates a 1 (high) on the output line that corresponds to the input number. All other output lines are set to 0 (low).</p>
+</div>
+</div>
+</div>
+<p>For example, given an input of 00<sub>2</sub>, a 1 would be generated on output line zero. Likewise, given 01<sub>2</sub> as input, a 1 would be placed on output line one. You will see later how decoders form an integral part of memory and register addressing circuitry.</p>
+<p>Every decoder with <em>n</em> input lines will have exactly 2<sup>n</sup> output lines. Therefore, a <em>two-to-four</em> decoder will have <em>two</em> input lines and <em>four</em> output lines, while a <em>three-to-eight</em> decoder will have <em>three</em> input lines and <em>eight</em> output lines. Both the input and output lines of decoders are numbered, with the <em>n</em> inputs ranging from 0 to <em>n</em>-1, and the 2<sup>n</sup> outputs ranging from 0 to 2<sup>n</sup> − 1.</p>
+<p>Here is the truth table for a two-to-four decoder:</p>
+<table class="table table-bordered" style="width:auto; margin: auto;">
+<thead>
+<tr>
+<th style="text-align:center">
+A<sub>1</sub>
+</th>
+<th style="text-align:center; border-right: 2px solid;">
+A<sub>0</sub>
+</th>
+<th style="text-align:center">
+D<sub>3</sub>
+</th>
+<th style="text-align:center">
+D<sub>2</sub>
+</th>
+<th style="text-align:center">
+D<sub>1</sub>
+</th>
+<th style="text-align:center">
+D<sub>0</sub>
+</th>
+</tr>
+</thead>
+<tbody style="text-align:center">
+<tr>
+<td>
+0
+</td>
+<td style="border-right:2px solid;">
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+1
+</td>
+</tr>
+<tr>
+<td>
+0
+</td>
+<td style="border-right:2px solid;">
+1
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+1
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+1
+</td>
+<td style="border-right:2px solid;">
+0
+</td>
+<td>
+0
+</td>
+<td>
+1
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+1
+</td>
+<td style="border-right:2px solid;">
+1
+</td>
+<td>
+1
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+</tr>
+</tbody>
+</table>
+<p>Here is the truth table for a three-to-eight decoder:</p>
+<table class="table table-bordered" style="width:auto; margin: auto;">
+<thead>
+<tr>
+<th style="text-align:center">
+A<sub>2</sub>
+</th>
+<th style="text-align:center">
+A<sub>1</sub>
+</th>
+<th style="text-align:center; border-right: 2px solid;">
+A<sub>0</sub>
+</th>
+<th style="text-align:center">
+D<sub>7</sub>
+</th>
+<th style="text-align:center">
+D<sub>6</sub>
+</th>
+<th style="text-align:center">
+D<sub>5</sub>
+</th>
+<th style="text-align:center">
+D<sub>4</sub>
+</th>
+<th style="text-align:center">
+D<sub>3</sub>
+</th>
+<th style="text-align:center">
+D<sub>2</sub>
+</th>
+<th style="text-align:center">
+D<sub>1</sub>
+</th>
+<th style="text-align:center">
+D<sub>0</sub>
+</th>
+</tr>
+</thead>
+<tbody style="text-align:center">
+<tr>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td style="border-right:2px solid;">
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+1
+</td>
+</tr>
+<tr>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td style="border-right:2px solid;">
+1
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+1
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+0
+</td>
+<td>
+1
+</td>
+<td style="border-right:2px solid;">
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+1
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+0
+</td>
+<td>
+1
+</td>
+<td style="border-right:2px solid;">
+1
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+1
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+1
+</td>
+<td>
+0
+</td>
+<td style="border-right:2px solid;">
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+1
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+1
+</td>
+<td>
+0
+</td>
+<td style="border-right:2px solid;">
+1
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+1
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+1
+</td>
+<td>
+1
+</td>
+<td style="border-right:2px solid;">
+0
+</td>
+<td>
+0
+</td>
+<td>
+1
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+1
+</td>
+<td>
+1
+</td>
+<td style="border-right:2px solid;">
+1
+</td>
+<td>
+1
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+</tr>
+</tbody>
+</table>
+<p>The inputs are labeled A<sub>0</sub> to A<sub>2</sub> and represent the bits of a three-bit unsigned binary number. The outputs are labeled D<sub>0</sub> through D<sub>7</sub>. As the table shows, an input number (such as 110<sub>2</sub> = 6<sub>10</sub>) results in the corresponding data line (D<sub>6</sub> in this case) being set to 1, with all other lines held at 0.</p>
+<p>The following circuit illustrates an implementation of a three-to-eight decoder. The circuit diagram uses eight three-input <em>and</em> gates (one for each data line), together with a total of three <em>not</em> gates. If you don’t happen to have access to three-input <em>and</em> gates, remember that they can easily be constructed from two standard two-input <em>and</em> gates.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/decoder-circuit.png" class="img-fluid figure-img"></p>
+<figcaption>Three-to-eight decoder circuit</figcaption>
+</figure>
+</div>
+<p>Carefully tracing the lines in the circuit diagram, we see that all three of the inputs to the D<sub>0</sub> <em>and</em> gate are negated. Thus, when inputs A<sub>2</sub>, A<sub>1</sub>, and A<sub>0</sub> each have a value of 0, D<sub>0</sub>’s three-input <em>and</em> gate receives three 1s (i.e., <em>not</em> A<sub>2</sub>, <em>not</em> A<sub>1</sub>, and <em>not</em> A<sub>0</sub>) and generates a 1 as output. The result is that a 1 (high) is placed on output line zero when the number 000<sub>2</sub> is given as input to the circuit.</p>
+<p>Let’s continue to the <em>and</em> gate for D<sub>1</sub>. Note that two of the three inputs (A<sub>2</sub> and A<sub>1</sub>) are negated, but the third input (A<sub>0</sub>) is not. Thus, when inputs A<sub>2</sub> and A<sub>1</sub> are 0, but A<sub>0</sub> is 1 (corresponding to the input number 001<sub>2</sub> — or 1<sub>10</sub>) the <em>and</em> gate will receive three 1s and generate a 1 on line D<sub>1</sub>. Skipping ahead to the final case, note that the three-input <em>and</em> gate for D<sub>7</sub> receives all of its inputs directly from A<sub>2</sub>, A<sub>1</sub>, and A<sub>0</sub> without negation. Thus, when A<sub>2</sub>, A<sub>1</sub>, and A<sub>0</sub> each contain 1 (corresponding to the number 111<sub>2</sub> — or 7<sub>10</sub>) the gate will generate a 1 on data line D<sub>7</sub>. The other cases are handled in a similar manner.</p>
+<p>The three-to-eight decoder may be encapsulated using a “black box” as follows.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/decoder-blackbox.png" class="img-fluid figure-img"></p>
+<figcaption>Three-to-eight decoder black box and general decoder form</figcaption>
+</figure>
+</div>
+<p>In general, since an <em>n</em> input decoder will always have 2<sup>n</sup> outputs, its “black box” can be expressed using the <em>n</em>-to-2<sup>n</sup> notation shown below.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/decoder-general.png" class="img-fluid figure-img"></p>
+<figcaption>Three-to-eight decoder black box and general decoder form</figcaption>
+</figure>
+</div>
+<p>The following symbol (along with a number or variable) is frequently used as a shorthand in circuit design to represent the indicated number of lines without actually drawing them. Since modern computers are based on 32-bit buses, this compact representation is very important.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/bus-symbol.png" class="img-fluid figure-img"></p>
+<figcaption>Bus shorthand symbol</figcaption>
+</figure>
+</div>
+</section>
+<section id="encoders" class="level2">
+<h2 class="anchored" data-anchor-id="encoders">Encoders</h2>
+<p>It is natural to wonder at this point if there is a circuit that does the exact opposite of a decoder. Of course there is!</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>Definition</strong>: An <strong>encoder</strong> is a type of circuit with 2<sup>n</sup> input lines, only one of which can be high at any given time, that produces an <em>n</em>-bit unsigned binary number that corresponds to the raised input line.</p>
+</div>
+</div>
+</div>
+<p>A four-to-two encoder is defined by the following truth table:</p>
+<table class="table table-bordered" style="width:auto; margin: auto;">
+<thead>
+<tr>
+<th style="text-align:center">
+D<sub>3</sub>
+</th>
+<th style="text-align:center">
+D<sub>2</sub>
+</th>
+<th style="text-align:center">
+D<sub>1</sub>
+</th>
+<th style="text-align:center; border-right: 2px solid;">
+D<sub>0</sub>
+</th>
+<th style="text-align:center">
+A<sub>1</sub>
+</th>
+<th style="text-align:center">
+A<sub>0</sub>
+</th>
+</tr>
+</thead>
+<tbody style="text-align:center">
+<tr class="row-invalid">
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td style="border-right:2px solid;">
+0
+</td>
+<td>
+?
+</td>
+<td>
+?
+</td>
+</tr>
+<tr>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td style="border-right:2px solid;">
+1
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+1
+</td>
+<td style="border-right:2px solid;">
+0
+</td>
+<td>
+0
+</td>
+<td>
+1
+</td>
+</tr>
+<tr class="row-invalid">
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+1
+</td>
+<td style="border-right:2px solid;">
+1
+</td>
+<td>
+?
+</td>
+<td>
+?
+</td>
+</tr>
+<tr>
+<td>
+0
+</td>
+<td>
+1
+</td>
+<td>
+0
+</td>
+<td style="border-right:2px solid;">
+0
+</td>
+<td>
+1
+</td>
+<td>
+0
+</td>
+</tr>
+<tr class="row-invalid">
+<td>
+0
+</td>
+<td>
+1
+</td>
+<td>
+0
+</td>
+<td style="border-right:2px solid;">
+1
+</td>
+<td>
+?
+</td>
+<td>
+?
+</td>
+</tr>
+<tr class="row-invalid">
+<td>
+0
+</td>
+<td>
+1
+</td>
+<td>
+1
+</td>
+<td style="border-right:2px solid;">
+0
+</td>
+<td>
+?
+</td>
+<td>
+?
+</td>
+</tr>
+<tr class="row-invalid">
+<td>
+0
+</td>
+<td>
+1
+</td>
+<td>
+1
+</td>
+<td style="border-right:2px solid;">
+1
+</td>
+<td>
+?
+</td>
+<td>
+?
+</td>
+</tr>
+<tr>
+<td>
+1
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td style="border-right:2px solid;">
+0
+</td>
+<td>
+1
+</td>
+<td>
+1
+</td>
+</tr>
+<tr class="row-invalid">
+<td>
+1
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td style="border-right:2px solid;">
+1
+</td>
+<td>
+?
+</td>
+<td>
+?
+</td>
+</tr>
+<tr class="row-invalid">
+<td>
+1
+</td>
+<td>
+0
+</td>
+<td>
+1
+</td>
+<td style="border-right:2px solid;">
+0
+</td>
+<td>
+?
+</td>
+<td>
+?
+</td>
+</tr>
+<tr class="row-invalid">
+<td>
+1
+</td>
+<td>
+0
+</td>
+<td>
+1
+</td>
+<td style="border-right:2px solid;">
+1
+</td>
+<td>
+?
+</td>
+<td>
+?
+</td>
+</tr>
+<tr class="row-invalid">
+<td>
+1
+</td>
+<td>
+1
+</td>
+<td>
+0
+</td>
+<td style="border-right:2px solid;">
+0
+</td>
+<td>
+?
+</td>
+<td>
+?
+</td>
+</tr>
+<tr class="row-invalid">
+<td>
+1
+</td>
+<td>
+1
+</td>
+<td>
+0
+</td>
+<td style="border-right:2px solid;">
+1
+</td>
+<td>
+?
+</td>
+<td>
+?
+</td>
+</tr>
+<tr class="row-invalid">
+<td>
+1
+</td>
+<td>
+1
+</td>
+<td>
+1
+</td>
+<td style="border-right:2px solid;">
+0
+</td>
+<td>
+?
+</td>
+<td>
+?
+</td>
+</tr>
+<tr class="row-invalid">
+<td>
+1
+</td>
+<td>
+1
+</td>
+<td>
+1
+</td>
+<td style="border-right:2px solid;">
+1
+</td>
+<td>
+?
+</td>
+<td>
+?
+</td>
+</tr>
+</tbody>
+</table>
+<p>Note that twelve of the sixteen rows of the truth table are invalid. These rows represent input configurations that are disallowed because either no input line is high, or multiple input lines are high. In these cases, there is no single high input line for the circuit to return the corresponding binary number of.</p>
+<p>How are we to deal with these <em>undefined</em> configurations when constructing the corresponding circuit? One way is to simply ignore the disallowed input configurations. This approach will work fine as long as we can be <em>sure</em> that the illegal states can never occur.</p>
+<p>The following presents an implementation of an eight-to-three encoder that assumes that disallowed states will never be encountered. The circuit works fine as long as this limitation is respected. For example, placing a 1 on line D<sub>6</sub>, while holding all other lines low, causes the number 110<sub>2</sub> (or 6<sub>10</sub>) to be generated. An invalid configuration of inputs generates an erroneous output. For example, setting both D<sub>1</sub> and D<sub>2</sub> to 1 causes the circuit to output 011<sub>2</sub> (or 3<sub>10</sub>).</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/encoder-circuit.png" class="img-fluid figure-img"></p>
+<figcaption>Eight-to-three encoder circuit</figcaption>
+</figure>
+</div>
+<p>One odd feature of this circuit is that input line D<sub>0</sub> is not connected to anything. It is, in a sense, ignored. Although this may seem strange at first, it is precisely what we want the circuit to do. Setting line D<sub>0</sub> to 1 (and all other input lines to 0) is supposed to cause all of the output lines to be set to 0 in order to represent the number 000<sub>2</sub>.</p>
+<p>The truth table for the eight-to-three encoder would be similar to the one shown above for the four-to-two encoder. However, the full truth table would consist of 256 rows (since it has eight input lines and therefore 2<sup>8</sup> = 256 possible input configurations). All but eight of these input configurations would be disallowed. In order for the circuit’s truth table to fit on a page, only the allowed rows are presented below:</p>
+<table class="table table-bordered" style="width:auto; margin: auto;">
+<thead>
+<tr>
+<th style="text-align:center">
+D<sub>7</sub>
+</th>
+<th style="text-align:center">
+D<sub>6</sub>
+</th>
+<th style="text-align:center">
+D<sub>5</sub>
+</th>
+<th style="text-align:center">
+D<sub>4</sub>
+</th>
+<th style="text-align:center">
+D<sub>3</sub>
+</th>
+<th style="text-align:center">
+D<sub>2</sub>
+</th>
+<th style="text-align:center">
+D<sub>1</sub>
+</th>
+<th style="text-align:center; border-right: 2px solid;">
+D<sub>0</sub>
+</th>
+<th style="text-align:center">
+A<sub>2</sub>
+</th>
+<th style="text-align:center">
+A<sub>1</sub>
+</th>
+<th style="text-align:center">
+A<sub>0</sub>
+</th>
+</tr>
+</thead>
+<tbody style="text-align:center">
+<tr>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td style="border-right:2px solid;">
+1
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+1
+</td>
+<td style="border-right:2px solid;">
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+1
+</td>
+</tr>
+<tr>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+1
+</td>
+<td>
+0
+</td>
+<td style="border-right:2px solid;">
+0
+</td>
+<td>
+0
+</td>
+<td>
+1
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+1
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td style="border-right:2px solid;">
+0
+</td>
+<td>
+0
+</td>
+<td>
+1
+</td>
+<td>
+1
+</td>
+</tr>
+<tr>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+1
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td style="border-right:2px solid;">
+0
+</td>
+<td>
+1
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+1
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td style="border-right:2px solid;">
+0
+</td>
+<td>
+1
+</td>
+<td>
+0
+</td>
+<td>
+1
+</td>
+</tr>
+<tr>
+<td>
+0
+</td>
+<td>
+1
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td style="border-right:2px solid;">
+0
+</td>
+<td>
+1
+</td>
+<td>
+1
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+1
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td style="border-right:2px solid;">
+0
+</td>
+<td>
+1
+</td>
+<td>
+1
+</td>
+<td>
+1
+</td>
+</tr>
+</tbody>
+</table>
+<p>As you can see, this truth table is the exact inverse of the truth table for the three-to-eight decoder presented earlier. The eight-to-three encoder can be encapsulated into a “black box” as follows. In general, a 2<sup>n</sup> to <em>n</em> encoder can be drawn as shown below.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/encoder-blackbox.png" class="img-fluid figure-img"></p>
+<figcaption>Eight-to-three encoder black box</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/encoder-general.png" class="img-fluid figure-img" style="width:75.0%"></p>
+<figcaption>General 2<sup>n</sup>-to-n encoder form</figcaption>
+</figure>
+</div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
