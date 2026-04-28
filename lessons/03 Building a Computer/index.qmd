@@ -17,3 +17,5 @@ title: "Building a Computer"
 - [Flip Flops](07%20Flip%20Flops/)
 
 - [A Simple Computer](08%20A%20Simple%20Computer/)
+
+- [Practice](99%20Practice/)

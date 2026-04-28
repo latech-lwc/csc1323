@@ -1,0 +1,361 @@
+---
+title: "Practice"
+---
+
+This page contains practice problems that span topics from the this section. For each type of problem, click **New Problem** to get another one, type your answer in the box, and click **Check** to see how you did. If you get stuck, click **Show Answer** to reveal a worked result.
+
+```{=html}
+<style>
+  .practice-card {
+    border: 1px solid var(--bs-border-color, #ccc);
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    margin: 1rem 0 1.5rem 0;
+    background: var(--bs-tertiary-bg, #f8f9fa);
+  }
+  .practice-card .prompt {
+    font-size: 1.05rem;
+    margin-bottom: 0.5rem;
+  }
+  .practice-card .prompt code,
+  .practice-card .answer-box code {
+    font-size: 1rem;
+  }
+  .practice-card input[type="text"] {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    padding: 0.4rem 0.6rem;
+    border: 1px solid var(--bs-border-color, #ccc);
+    border-radius: 4px;
+    width: min(100%, 30rem);
+    margin-right: 0.5rem;
+  }
+  .practice-card button {
+    padding: 0.4rem 0.8rem;
+    border: 1px solid var(--bs-border-color, #ccc);
+    border-radius: 4px;
+    background: var(--bs-body-bg, #fff);
+    cursor: pointer;
+    margin-right: 0.25rem;
+  }
+  .practice-card button:hover {
+    background: var(--bs-secondary-bg, #e9ecef);
+  }
+  .practice-card .feedback {
+    margin-top: 0.6rem;
+    min-height: 1.2rem;
+    font-weight: 500;
+  }
+  .practice-card .feedback.correct { color: #198754; }
+  .practice-card .feedback.incorrect { color: #dc3545; }
+  .practice-card .answer-box {
+    margin-top: 0.6rem;
+    padding: 0.6rem 0.8rem;
+    background: var(--bs-body-bg, #fff);
+    border-left: 3px solid #0d6efd;
+    border-radius: 4px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    white-space: pre-wrap;
+  }
+  .practice-card .controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    align-items: center;
+  }
+</style>
+```
+
+## Base 10 → Two's Complement (8-bit)
+
+Convert the given decimal integer to its **8-bit two's complement** binary representation. Spaces in your answer are ignored, so `10110011` and `1011 0011` are both accepted.
+
+```{=html}
+<div class="practice-card" id="tc-encode">
+  <div class="prompt">Convert <code id="tc-encode-value">42</code> to 8-bit two's complement.</div>
+  <div class="controls">
+    <input type="text" id="tc-encode-input" placeholder="e.g. 0010 1010" autocomplete="off" />
+    <button onclick="checkTcEncode()">Check</button>
+    <button onclick="newTcEncode()">New Problem</button>
+    <button onclick="showTcEncode()">Show Answer</button>
+  </div>
+  <div class="feedback" id="tc-encode-feedback"></div>
+  <div class="answer-box" id="tc-encode-answer" style="display:none;"></div>
+</div>
+```
+
+## Two's Complement → Base 10 (8-bit)
+
+The given binary value is an **8-bit two's complement** number. Convert it to decimal (it may be negative).
+
+```{=html}
+<div class="practice-card" id="tc-decode">
+  <div class="prompt">Convert <code id="tc-decode-value">1101 0110</code> from 8-bit two's complement to decimal.</div>
+  <div class="controls">
+    <input type="text" id="tc-decode-input" placeholder="e.g. -42" autocomplete="off" />
+    <button onclick="checkTcDecode()">Check</button>
+    <button onclick="newTcDecode()">New Problem</button>
+    <button onclick="showTcDecode()">Show Answer</button>
+  </div>
+  <div class="feedback" id="tc-decode-feedback"></div>
+  <div class="answer-box" id="tc-decode-answer" style="display:none;"></div>
+</div>
+```
+
+## Base 10 → IEEE 754 Single Precision
+
+Convert the given decimal value to its **32-bit IEEE 754 single precision** binary representation (in normalized form). Spaces are ignored. You may give the full 32 bits as one string, or grouped as `S Exponent Mantissa`.
+
+```{=html}
+<div class="practice-card" id="ieee-encode">
+  <div class="prompt">Convert <code id="ieee-encode-value">-4.25</code> to single precision IEEE 754.</div>
+  <div class="controls">
+    <input type="text" id="ieee-encode-input" placeholder="32 bits, e.g. 1 10000001 00010000000000000000000" autocomplete="off" />
+    <button onclick="checkIeeeEncode()">Check</button>
+    <button onclick="newIeeeEncode()">New Problem</button>
+    <button onclick="showIeeeEncode()">Show Answer</button>
+  </div>
+  <div class="feedback" id="ieee-encode-feedback"></div>
+  <div class="answer-box" id="ieee-encode-answer" style="display:none;"></div>
+</div>
+```
+
+## IEEE 754 Single Precision → Base 10
+
+The given 32 bits represent a **single precision IEEE 754** value (in normalized form). Convert it to decimal.
+
+```{=html}
+<div class="practice-card" id="ieee-decode">
+  <div class="prompt">Convert the value below to decimal.</div>
+  <div class="answer-box" id="ieee-decode-value" style="border-left-color:#6c757d;"></div>
+  <div class="controls" style="margin-top:0.6rem;">
+    <input type="text" id="ieee-decode-input" placeholder="e.g. -4.25" autocomplete="off" />
+    <button onclick="checkIeeeDecode()">Check</button>
+    <button onclick="newIeeeDecode()">New Problem</button>
+    <button onclick="showIeeeDecode()">Show Answer</button>
+  </div>
+  <div class="feedback" id="ieee-decode-feedback"></div>
+  <div class="answer-box" id="ieee-decode-answer" style="display:none;"></div>
+</div>
+```
+
+```{=html}
+<script>
+  // ---------- Helpers ----------
+  function stripBin(s) { return (s || "").replace(/\s+/g, ""); }
+  function isBinary(s, len) {
+    return s.length === len && /^[01]+$/.test(s);
+  }
+  function groupBits(bits, n) {
+    const out = [];
+    for (let i = 0; i < bits.length; i += n) out.push(bits.slice(i, i + n));
+    return out.join(" ");
+  }
+  function randInt(lo, hi) { // inclusive
+    return Math.floor(Math.random() * (hi - lo + 1)) + lo;
+  }
+  function setFeedback(id, text, ok) {
+    const el = document.getElementById(id);
+    el.textContent = text;
+    el.className = "feedback " + (ok === true ? "correct" : ok === false ? "incorrect" : "");
+  }
+
+  // ---------- Two's Complement (8-bit) ----------
+  function toTwosComplement8(n) {
+    if (n < 0) n = 256 + n;
+    return n.toString(2).padStart(8, "0");
+  }
+  function fromTwosComplement8(bits) {
+    let n = parseInt(bits, 2);
+    if (n >= 128) n -= 256;
+    return n;
+  }
+
+  // --- Base 10 -> Two's Complement
+  let tcEncodeAnswer = "";
+  function newTcEncode() {
+    const value = randInt(-128, 127);
+    document.getElementById("tc-encode-value").textContent = value;
+    tcEncodeAnswer = toTwosComplement8(value);
+    document.getElementById("tc-encode-input").value = "";
+    document.getElementById("tc-encode-answer").style.display = "none";
+    setFeedback("tc-encode-feedback", "", null);
+  }
+  function checkTcEncode() {
+    const guess = stripBin(document.getElementById("tc-encode-input").value);
+    if (!isBinary(guess, 8)) {
+      setFeedback("tc-encode-feedback", "Please enter exactly 8 binary digits (0 or 1).", false);
+      return;
+    }
+    if (guess === tcEncodeAnswer) {
+      setFeedback("tc-encode-feedback", "Correct! " + groupBits(tcEncodeAnswer, 4), true);
+    } else {
+      setFeedback("tc-encode-feedback", "Not quite. Try again, or click Show Answer.", false);
+    }
+  }
+  function showTcEncode() {
+    const value = document.getElementById("tc-encode-value").textContent;
+    const box = document.getElementById("tc-encode-answer");
+    box.style.display = "block";
+    box.textContent =
+`${value} in 8-bit two's complement is:
+  ${groupBits(tcEncodeAnswer, 4)}`;
+  }
+
+  // --- Two's Complement -> Base 10
+  let tcDecodeAnswer = 0;
+  function newTcDecode() {
+    const bits = toTwosComplement8(randInt(-128, 127));
+    document.getElementById("tc-decode-value").textContent = groupBits(bits, 4);
+    tcDecodeAnswer = fromTwosComplement8(bits);
+    document.getElementById("tc-decode-input").value = "";
+    document.getElementById("tc-decode-answer").style.display = "none";
+    setFeedback("tc-decode-feedback", "", null);
+  }
+  function checkTcDecode() {
+    const raw = document.getElementById("tc-decode-input").value.trim();
+    if (!/^-?\d+$/.test(raw)) {
+      setFeedback("tc-decode-feedback", "Please enter an integer (e.g. -42 or 17).", false);
+      return;
+    }
+    if (parseInt(raw, 10) === tcDecodeAnswer) {
+      setFeedback("tc-decode-feedback", "Correct!", true);
+    } else {
+      setFeedback("tc-decode-feedback", "Not quite. Try again, or click Show Answer.", false);
+    }
+  }
+  function showTcDecode() {
+    const bits = stripBin(document.getElementById("tc-decode-value").textContent);
+    const box = document.getElementById("tc-decode-answer");
+    box.style.display = "block";
+    if (tcDecodeAnswer >= 0) {
+      box.textContent =
+`The leading bit is 0, so the value is positive.
+Reading ${groupBits(bits, 4)} as an unsigned binary number:
+  = ${tcDecodeAnswer}`;
+    } else {
+      const positiveBits = toTwosComplement8(-tcDecodeAnswer);
+      box.textContent =
+`The leading bit is 1, so the value is negative.
+Flip the bits and add 1 to find the magnitude:
+  start:    ${groupBits(bits, 4)}
+  flipped:  ${groupBits(bits.split("").map(b => b === "0" ? "1" : "0").join(""), 4)}
+  + 1   :   ${groupBits(positiveBits, 4)}  =  ${-tcDecodeAnswer}
+Apply the negative sign:  ${tcDecodeAnswer}`;
+    }
+  }
+
+  // ---------- IEEE 754 Single Precision ----------
+  function floatToIEEE754(f) {
+    const buf = new ArrayBuffer(4);
+    new Float32Array(buf)[0] = f;
+    const i = new Uint32Array(buf)[0];
+    return i.toString(2).padStart(32, "0");
+  }
+  function ieee754ToFloat(bits) {
+    const i = parseInt(bits, 2);
+    const buf = new ArrayBuffer(4);
+    new Uint32Array(buf)[0] = i >>> 0;
+    return new Float32Array(buf)[0];
+  }
+  function formatIEEE(bits) {
+    const s = bits.slice(0, 1);
+    const e = bits.slice(1, 9);
+    const m = bits.slice(9);
+    return `S    Exponent    Mantissa (23 bits total)
+--   ----------  ----------------------------
+${s}    ${e.slice(0,4)} ${e.slice(4)}   ${m.slice(0,4)} ${m.slice(4,8)} ${m.slice(8,12)} ${m.slice(12,16)} ${m.slice(16,20)} ${m.slice(20)}`;
+  }
+
+  // Generate a "clean" float that has a finite, short binary expansion in normalized form.
+  // Strategy: pick a random sign, an integer numerator, and a power-of-two denominator.
+  function generateCleanFloat() {
+    const sign = Math.random() < 0.5 ? -1 : 1;
+    // Numerator chosen so the value is comfortably in the normalized range and not 0.
+    let num = randInt(1, 511);          // up to 9 significant bits
+    const denomPow = randInt(0, 4);     // /1, /2, /4, /8, or /16
+    const denom = 1 << denomPow;
+    return sign * (num / denom);
+  }
+
+  // --- Base 10 -> IEEE 754
+  let ieeeEncodeAnswer = "";
+  function newIeeeEncode() {
+    const value = generateCleanFloat();
+    ieeeEncodeAnswer = floatToIEEE754(value);
+    document.getElementById("ieee-encode-value").textContent = value;
+    document.getElementById("ieee-encode-input").value = "";
+    document.getElementById("ieee-encode-answer").style.display = "none";
+    setFeedback("ieee-encode-feedback", "", null);
+  }
+  function checkIeeeEncode() {
+    const guess = stripBin(document.getElementById("ieee-encode-input").value);
+    if (!isBinary(guess, 32)) {
+      setFeedback("ieee-encode-feedback", "Please enter exactly 32 binary digits (0 or 1). Spaces are OK.", false);
+      return;
+    }
+    if (guess === ieeeEncodeAnswer) {
+      setFeedback("ieee-encode-feedback", "Correct!", true);
+    } else {
+      setFeedback("ieee-encode-feedback", "Not quite. Try again, or click Show Answer.", false);
+    }
+  }
+  function showIeeeEncode() {
+    const value = document.getElementById("ieee-encode-value").textContent;
+    const box = document.getElementById("ieee-encode-answer");
+    box.style.display = "block";
+    box.textContent = `${value} in single precision IEEE 754:\n\n${formatIEEE(ieeeEncodeAnswer)}\n\nRaw 32 bits: ${ieeeEncodeAnswer}`;
+  }
+
+  // --- IEEE 754 -> Base 10
+  let ieeeDecodeAnswer = 0;
+  let ieeeDecodeBits = "";
+  function newIeeeDecode() {
+    const value = generateCleanFloat();
+    ieeeDecodeBits = floatToIEEE754(value);
+    ieeeDecodeAnswer = ieee754ToFloat(ieeeDecodeBits);
+    document.getElementById("ieee-decode-value").textContent = formatIEEE(ieeeDecodeBits);
+    document.getElementById("ieee-decode-input").value = "";
+    document.getElementById("ieee-decode-answer").style.display = "none";
+    setFeedback("ieee-decode-feedback", "", null);
+  }
+  function checkIeeeDecode() {
+    const raw = document.getElementById("ieee-decode-input").value.trim();
+    const num = Number(raw);
+    if (raw === "" || Number.isNaN(num)) {
+      setFeedback("ieee-decode-feedback", "Please enter a decimal number (e.g. -4.25).", false);
+      return;
+    }
+    // Compare with a tiny tolerance to allow for rounding in student input.
+    const tol = Math.max(1e-6, Math.abs(ieeeDecodeAnswer) * 1e-6);
+    if (Math.abs(num - ieeeDecodeAnswer) <= tol) {
+      setFeedback("ieee-decode-feedback", "Correct!", true);
+    } else {
+      setFeedback("ieee-decode-feedback", "Not quite. Try again, or click Show Answer.", false);
+    }
+  }
+  function showIeeeDecode() {
+    const box = document.getElementById("ieee-decode-answer");
+    box.style.display = "block";
+    const sign = ieeeDecodeBits[0];
+    const expBits = ieeeDecodeBits.slice(1, 9);
+    const mantBits = ieeeDecodeBits.slice(9).replace(/0+$/, "") || "0";
+    const biased = parseInt(expBits, 2);
+    const trueExp = biased - 127;
+    box.textContent =
+`Sign bit: ${sign}  ->  ${sign === "0" ? "+" : "-"}
+Exponent: ${expBits} = ${biased},  unbiased = ${biased} - 127 = ${trueExp}
+Mantissa (without trailing zeros): ${mantBits}
+
+Value = (-1)^${sign} x 1.${mantBits} x 2^${trueExp}
+      = ${ieeeDecodeAnswer}`;
+  }
+
+  // ---------- Initialize all problems on page load ----------
+  document.addEventListener("DOMContentLoaded", function() {
+    newTcEncode();
+    newTcDecode();
+    newIeeeEncode();
+    newIeeeDecode();
+  });
+</script>
+```

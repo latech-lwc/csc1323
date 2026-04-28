@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Flip Flops – The Science of Computing III</title>
+<title>Practice – The Science of Computing III</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../../">
-<link href="../../../lessons/03 Building a Computer/08 A Simple Computer/index.html" rel="next">
-<link href="../../../lessons/03 Building a Computer/06 Multiplexers and Demultiplexers/index.html" rel="prev">
+<link href="../../../lessons/04 Beam - Problem Solving with Computers/index.html" rel="next">
+<link href="../../../lessons/03 Building a Computer/08 A Simple Computer/index.html" rel="prev">
 <script src="../../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -250,7 +250,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../lessons/index.html">Lessons</a></li><li class="breadcrumb-item"><a href="../../../lessons/03 Building a Computer/index.html">03 Building a Computer</a></li><li class="breadcrumb-item"><a href="../../../lessons/03 Building a Computer/07 Flip Flops/index.html">Flip Flops</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../lessons/index.html">Lessons</a></li><li class="breadcrumb-item"><a href="../../../lessons/03 Building a Computer/index.html">03 Building a Computer</a></li><li class="breadcrumb-item"><a href="../../../lessons/03 Building a Computer/99 Practice/index.html">Practice</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -440,7 +440,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../lessons/03 Building a Computer/07 Flip Flops/index.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../../lessons/03 Building a Computer/07 Flip Flops/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Flip Flops</span></a>
   </div>
 </li>
@@ -452,7 +452,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../../lessons/03 Building a Computer/99 Practice/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../../lessons/03 Building a Computer/99 Practice/index.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Practice</span></a>
   </div>
 </li>
@@ -560,9 +560,10 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#sequential-circuits" id="toc-sequential-circuits" class="nav-link active" data-scroll-target="#sequential-circuits">Sequential Circuits</a></li>
-  <li><a href="#the-r-s-flip-flop" id="toc-the-r-s-flip-flop" class="nav-link" data-scroll-target="#the-r-s-flip-flop">The R-S Flip-Flop</a></li>
-  <li><a href="#the-clocked-r-s-flip-flop" id="toc-the-clocked-r-s-flip-flop" class="nav-link" data-scroll-target="#the-clocked-r-s-flip-flop">The Clocked R-S Flip-Flop</a></li>
+  <li><a href="#base-10-twos-complement-8-bit" id="toc-base-10-twos-complement-8-bit" class="nav-link active" data-scroll-target="#base-10-twos-complement-8-bit">Base 10 → Two’s Complement (8-bit)</a></li>
+  <li><a href="#twos-complement-base-10-8-bit" id="toc-twos-complement-base-10-8-bit" class="nav-link" data-scroll-target="#twos-complement-base-10-8-bit">Two’s Complement → Base 10 (8-bit)</a></li>
+  <li><a href="#base-10-ieee-754-single-precision" id="toc-base-10-ieee-754-single-precision" class="nav-link" data-scroll-target="#base-10-ieee-754-single-precision">Base 10 → IEEE 754 Single Precision</a></li>
+  <li><a href="#ieee-754-single-precision-base-10" id="toc-ieee-754-single-precision-base-10" class="nav-link" data-scroll-target="#ieee-754-single-precision-base-10">IEEE 754 Single Precision → Base 10</a></li>
   </ul>
 </nav>
     </div>
@@ -570,9 +571,9 @@ ul.task-list li input[type="checkbox"] {
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../lessons/index.html">Lessons</a></li><li class="breadcrumb-item"><a href="../../../lessons/03 Building a Computer/index.html">03 Building a Computer</a></li><li class="breadcrumb-item"><a href="../../../lessons/03 Building a Computer/07 Flip Flops/index.html">Flip Flops</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../../lessons/index.html">Lessons</a></li><li class="breadcrumb-item"><a href="../../../lessons/03 Building a Computer/index.html">03 Building a Computer</a></li><li class="breadcrumb-item"><a href="../../../lessons/03 Building a Computer/99 Practice/index.html">Practice</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Flip Flops</h1>
+<h1 class="title">Practice</h1>
 </div>
 
 
@@ -589,224 +590,344 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="sequential-circuits" class="level2">
-<h2 class="anchored" data-anchor-id="sequential-circuits">Sequential Circuits</h2>
-<p>All of the circuits discussed up to this point have been combinational circuits whose outputs depended solely on their inputs. Such circuits do not incorporate feedback and have no “memory” of their previous state. In order to construct a general-purpose computer, circuits capable of remembering instructions, data, and the results of computations are needed.</p>
-<p>It is possible to design circuits that exhibit memory by incorporating feedback, in the sense that the outputs of a circuit can be made to depend not only on the circuit’s current inputs, but also on its past outputs as well. Such circuits are referred to as <strong>sequential circuits</strong>, since their output may be viewed as a function of a sequence of past inputs.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<p>This page contains practice problems that span topics from the this section. For each type of problem, click <strong>New Problem</strong> to get another one, type your answer in the box, and click <strong>Check</strong> to see how you did. If you get stuck, click <strong>Show Answer</strong> to reveal a worked result.</p>
+<style>
+  .practice-card {
+    border: 1px solid var(--bs-border-color, #ccc);
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    margin: 1rem 0 1.5rem 0;
+    background: var(--bs-tertiary-bg, #f8f9fa);
+  }
+  .practice-card .prompt {
+    font-size: 1.05rem;
+    margin-bottom: 0.5rem;
+  }
+  .practice-card .prompt code,
+  .practice-card .answer-box code {
+    font-size: 1rem;
+  }
+  .practice-card input[type="text"] {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    padding: 0.4rem 0.6rem;
+    border: 1px solid var(--bs-border-color, #ccc);
+    border-radius: 4px;
+    width: min(100%, 30rem);
+    margin-right: 0.5rem;
+  }
+  .practice-card button {
+    padding: 0.4rem 0.8rem;
+    border: 1px solid var(--bs-border-color, #ccc);
+    border-radius: 4px;
+    background: var(--bs-body-bg, #fff);
+    cursor: pointer;
+    margin-right: 0.25rem;
+  }
+  .practice-card button:hover {
+    background: var(--bs-secondary-bg, #e9ecef);
+  }
+  .practice-card .feedback {
+    margin-top: 0.6rem;
+    min-height: 1.2rem;
+    font-weight: 500;
+  }
+  .practice-card .feedback.correct { color: #198754; }
+  .practice-card .feedback.incorrect { color: #dc3545; }
+  .practice-card .answer-box {
+    margin-top: 0.6rem;
+    padding: 0.6rem 0.8rem;
+    background: var(--bs-body-bg, #fff);
+    border-left: 3px solid #0d6efd;
+    border-radius: 4px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    white-space: pre-wrap;
+  }
+  .practice-card .controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    align-items: center;
+  }
+</style>
+<section id="base-10-twos-complement-8-bit" class="level2">
+<h2 class="anchored" data-anchor-id="base-10-twos-complement-8-bit">Base 10 → Two’s Complement (8-bit)</h2>
+<p>Convert the given decimal integer to its <strong>8-bit two’s complement</strong> binary representation. Spaces in your answer are ignored, so <code>10110011</code> and <code>1011 0011</code> are both accepted.</p>
+<div class="practice-card" id="tc-encode">
+  <div class="prompt">Convert <code id="tc-encode-value">42</code> to 8-bit two's complement.</div>
+  <div class="controls">
+    <input type="text" id="tc-encode-input" placeholder="e.g. 0010 1010" autocomplete="off">
+    <button onclick="checkTcEncode()">Check</button>
+    <button onclick="newTcEncode()">New Problem</button>
+    <button onclick="showTcEncode()">Show Answer</button>
+  </div>
+  <div class="feedback" id="tc-encode-feedback"></div>
+  <div class="answer-box" id="tc-encode-answer" style="display:none;"></div>
 </div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Sequential Circuits
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>Definition</strong>: <em>Sequential circuits</em> have memory because one or more of their outputs are fed back to serve as input. Therefore, a sequential circuit’s next output will, in a sense, be a function of its present inputs and its previous outputs.</p>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Flip Flops
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>Definition</strong>: The term <em>flip-flop</em> is a generic term applied to devices having two stable states.</p>
-</div>
-</div>
-<p>The primary function of a flip-flop is to store a binary digit, 0 or 1. Therefore, a flip-flop can be used to implement the most basic unit of memory, the bit. A flip-flop is implemented as a set of logic gates that make use of feedback to remain in one of two stable states, thereby <em>remembering</em> a binary digit.</p>
 </section>
-<section id="the-r-s-flip-flop" class="level2">
-<h2 class="anchored" data-anchor-id="the-r-s-flip-flop">The R-S Flip-Flop</h2>
-<p>An R-S flip-flop can be constructed from two interconnected <em>nor</em> gates. The following figure illustrates such an R-S flip-flop. As discussed in a previous lesson, a <em>nor</em> gate is simply an <em>or</em> gate followed by a <em>not</em> gate. For clarity, the following figures shows the two <em>nor</em> gates of the flip-flop as having been decomposed into their underlying <em>or</em> and <em>not</em> gates:</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="figures/rs-flipflop-circuit.png" class="img-fluid figure-img"></p>
-<figcaption>R-S flip-flop circuit</figcaption>
-</figure>
+<section id="twos-complement-base-10-8-bit" class="level2">
+<h2 class="anchored" data-anchor-id="twos-complement-base-10-8-bit">Two’s Complement → Base 10 (8-bit)</h2>
+<p>The given binary value is an <strong>8-bit two’s complement</strong> number. Convert it to decimal (it may be negative).</p>
+<div class="practice-card" id="tc-decode">
+  <div class="prompt">Convert <code id="tc-decode-value">1101 0110</code> from 8-bit two's complement to decimal.</div>
+  <div class="controls">
+    <input type="text" id="tc-decode-input" placeholder="e.g. -42" autocomplete="off">
+    <button onclick="checkTcDecode()">Check</button>
+    <button onclick="newTcDecode()">New Problem</button>
+    <button onclick="showTcDecode()">Show Answer</button>
+  </div>
+  <div class="feedback" id="tc-decode-feedback"></div>
+  <div class="answer-box" id="tc-decode-answer" style="display:none;"></div>
 </div>
-<p>Here’s a “black box” representation of the R-S flip-flop:</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="figures/rs-flipflop-blackbox.png" class="img-fluid figure-img"></p>
-<figcaption>R-S flip-flop black box</figcaption>
-</figure>
-</div>
-<p>R-S flip-flops have two inputs and two outputs. The inputs are usually labeled R for <strong>Reset</strong> and S for <strong>Set</strong>. The outputs are traditionally labeled Q and Q̄ (<em>not</em> Q). Q̄ is the complement (or opposite) of Q; therefore, if Q is 1 then Q̄ should be 0 (and vice versa). The Q output of the flip-flop determines its state. In other words, examining the Q output is the same as seeing what is stored in the bit. The state can be a binary 1 (Set) or a binary 0 (Reset). When a flip-flop is in the Reset (0) state, Q is 0 and Q̄ should be 1. The ability of a flip-flop to hold the Q output constant until a signal is given to change the state is what makes flip-flops considered basic memory devices.</p>
-<p>We begin our detailed analysis of the R-S flip-flop assuming that Q is initially high (1), and both R and S are low (0), as shown in the following figure. Since both of the inputs to the top <em>or</em> gate are 0, its output is low; and the output of the top <em>not</em> gate is high. This high output is fed back into the bottom <em>or</em> gate, making its output high and the output of the bottom <em>not</em> gate low. While R and S remain low, Q will continue to hold the value 1. The bit is thus holding a 1:</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="figures/rs-state-initial.png" class="img-fluid figure-img"></p>
-<figcaption>R-S flip-flop: initial state (R = 0, S = 0, Q = 1)</figcaption>
-</figure>
-</div>
-<p>If we apply a 1 to R in order to place a 0 into the bit (Q), the following events occur: (1) the output of the top <em>nor</em> gate (the Q signal) goes low; (2) this is fed back to the input of the bottom <em>nor</em> gate, which causes its output (the Q̄ signal) to go high; and (3) this signal is fed back to the top <em>nor</em> gate, but since it already has another high input, there is no change in the output (i.e., it remains low). This is a stable circuit, as shown in the following figure (note that the flip-flop has been reset to 0):</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="figures/rs-state-reset.png" class="img-fluid figure-img"></p>
-<figcaption>R-S flip-flop: applying R = 1 resets Q to 0</figcaption>
-</figure>
-</div>
-<p>If R is set to low, the flip-flop remains in the Reset (0) state since there is still a 1 input to the top <em>nor</em> gate from the Q̄ input. This is shown in the following figure. Note that this is exactly the behavior we desire. In order for the flip-flop to be useful, it must be able to <em>remember</em> that it has been reset to 0 even after the reset signal is removed:</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="figures/rs-state-reset-held.png" class="img-fluid figure-img"></p>
-<figcaption>R-S flip-flop: R returns to 0, flip-flop holds reset state</figcaption>
-</figure>
-</div>
-<p>Next, we apply a high signal to the S input in order to set the bit to 1. This action causes the following events to occur: (1) the output of the bottom <em>nor</em> gate becomes 0 since one of its inputs is now high; (2) this low signal is applied as an input to the top <em>nor</em> gate, where the R input is also low; and (3) the output of the top <em>nor</em> is forced high, and this high output is fed back into the bottom <em>nor</em> gate, which does not change its state (since its other input was already high). The flip-flop has been set to 1, as can be seen in the following figure:</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="figures/rs-state-set.png" class="img-fluid figure-img"></p>
-<figcaption>R-S flip-flop: applying S = 1 sets Q to 1</figcaption>
-</figure>
-</div>
-<p>Next, we remove the Set signal. In other words, we change the S input to low. This action does not change the output of the bottom <em>nor</em> gate since its other input is already high and the circuit remains in the set state. This is shown in the following figure. Note that this is exactly the behavior we desire. Once an R-S flip-flop receives a pulse (or 1) down its set line, it will continue to hold that 1 until a reset signal (i.e., 1 down the reset line) is received:</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="figures/rs-state-set-held.png" class="img-fluid figure-img"></p>
-<figcaption>R-S flip-flop: S returns to 0, flip-flop holds set state</figcaption>
-</figure>
-</div>
-<p>Notice that state of the flip-flop shown above is identical to its original state (shown at the very beginning of these examples). They both represent the flip-flop in the Set (1) state, with S set to 0 on both inputs. Comparing the figures to one another illustrates another feature of flip-flops: the value output by the circuit is not solely dependent on its current inputs. When the R and S inputs are both 0, the value output on the Q line depends on whether the most recent 1 input was on the set line or the reset line.</p>
-<p>There is one other possible configuration of inputs we have not yet considered. What happens if both the R and S inputs are set to high at the same time (corresponding to an attempt to simultaneously store both a 0 and a 1 into a single bit)? This is pictured in the following figure. The outputs do remain constant, but the R-S flip-flop is not in a valid state because Q and Q̄ have identical values, yet they are always supposed to be the opposite of one another:</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="figures/rs-state-invalid.png" class="img-fluid figure-img"></p>
-<figcaption>R-S flip-flop: R = S = 1 is an invalid (disallowed) state</figcaption>
-</figure>
-</div>
-<p>To conclude the introduction to the R-S flip-flop, here is its truth table:</p>
-<table class="table table-bordered" style="width:auto; margin: auto;">
-<thead>
-<tr>
-<th style="text-align:center">
-S
-</th>
-<th style="text-align:center; border-right: 2px solid;">
-R
-</th>
-<th style="text-align:center">
-Q
-</th>
-<th style="text-align:center">
-Q̅
-</th>
-</tr>
-</thead>
-<tbody style="text-align:center">
-<tr>
-<td>
-0
-</td>
-<td style="border-right:2px solid;">
-0
-</td>
-<td colspan="2">
-no change
-</td>
-</tr>
-<tr>
-<td>
-0
-</td>
-<td style="border-right:2px solid;">
-1
-</td>
-<td>
-0
-</td>
-<td>
-1
-</td>
-</tr>
-<tr>
-<td>
-1
-</td>
-<td style="border-right:2px solid;">
-0
-</td>
-<td>
-1
-</td>
-<td>
-0
-</td>
-</tr>
-<tr>
-<td>
-1
-</td>
-<td style="border-right:2px solid;">
-1
-</td>
-<td colspan="2">
-<strong>disallowed</strong>
-</td>
-</tr>
-</tbody>
-</table>
 </section>
-<section id="the-clocked-r-s-flip-flop" class="level2">
-<h2 class="anchored" data-anchor-id="the-clocked-r-s-flip-flop">The Clocked R-S Flip-Flop</h2>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<section id="base-10-ieee-754-single-precision" class="level2">
+<h2 class="anchored" data-anchor-id="base-10-ieee-754-single-precision">Base 10 → IEEE 754 Single Precision</h2>
+<p>Convert the given decimal value to its <strong>32-bit IEEE 754 single precision</strong> binary representation (in normalized form). Spaces are ignored. You may give the full 32 bits as one string, or grouped as <code>S Exponent Mantissa</code>.</p>
+<div class="practice-card" id="ieee-encode">
+  <div class="prompt">Convert <code id="ieee-encode-value">-4.25</code> to single precision IEEE 754.</div>
+  <div class="controls">
+    <input type="text" id="ieee-encode-input" placeholder="32 bits, e.g. 1 10000001 00010000000000000000000" autocomplete="off">
+    <button onclick="checkIeeeEncode()">Check</button>
+    <button onclick="newIeeeEncode()">New Problem</button>
+    <button onclick="showIeeeEncode()">Show Answer</button>
+  </div>
+  <div class="feedback" id="ieee-encode-feedback"></div>
+  <div class="answer-box" id="ieee-encode-answer" style="display:none;"></div>
 </div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Clock
+</section>
+<section id="ieee-754-single-precision-base-10" class="level2">
+<h2 class="anchored" data-anchor-id="ieee-754-single-precision-base-10">IEEE 754 Single Precision → Base 10</h2>
+<p>The given 32 bits represent a <strong>single precision IEEE 754</strong> value (in normalized form). Convert it to decimal.</p>
+<div class="practice-card" id="ieee-decode">
+  <div class="prompt">Convert the value below to decimal.</div>
+  <div class="answer-box" id="ieee-decode-value" style="border-left-color:#6c757d;"></div>
+  <div class="controls" style="margin-top:0.6rem;">
+    <input type="text" id="ieee-decode-input" placeholder="e.g. -4.25" autocomplete="off">
+    <button onclick="checkIeeeDecode()">Check</button>
+    <button onclick="newIeeeDecode()">New Problem</button>
+    <button onclick="showIeeeDecode()">Show Answer</button>
+  </div>
+  <div class="feedback" id="ieee-decode-feedback"></div>
+  <div class="answer-box" id="ieee-decode-answer" style="display:none;"></div>
 </div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>Definition</strong>: A <em>clock</em> is a device that generates a signal that periodically cycles between a high state and a low state.</p>
-</div>
-</div>
-<p>Clocks ensure that the operations performed by a computer proceed in an orderly manner. They do so by enabling certain operations to occur only at specific points in time.</p>
-<p>Clocks divide time into <strong>cycles</strong> that consist of two phases: a high phase and a low phase.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Clock Cycle
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>Definition</strong>: A <em>clock cycle</em> is defined as the interval of time beginning when the clock goes to a high state, lasting through the return to a low state, and ending with the start of the transition back to the high state again.</p>
-</div>
-</div>
-<p>The following figure illustrates four complete cycles of a clock:</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="figures/clock-diagram.png" class="img-fluid figure-img"></p>
-<figcaption>Four complete clock cycles</figcaption>
-</figure>
-</div>
-<p>Each clock cycle lasts for only a brief instant of time. The CPU of a modern PC, for example, runs at billions of clock cycles per second (or gigahertz). The clock speeds of other components, such as the system bus, are usually somewhat slower but still in the range of hundreds of millions of clock cycles per second (or megahertz). The various operations that a computer can perform require one or more clock cycles to complete. The exact number of cycles depends upon the complexity of the particular operation.</p>
-<p>As mentioned earlier, flip-flops can be used to implement the most basic unit of storage, the bit. Memory devices based on R-S flip-flops read operations by retrieving the contents of the Q outputs of a number of selected bits. Similarly, the write operation stores bit patterns into memory by placing 1s on either the S (Set) or R (Reset) inputs of various bits.</p>
-<p>The clock ensures that these operations happen in an orderly manner. During one phase of the clock cycle (e.g., low) the contents of memory can be examined but not modified. During the opposite phase of the clock cycle, the contents of memory can be updated. This sort of timing is critical for the reliable operation of a computer because it allows time after a <em>write</em> operation for the flip-flops to settle into their stable configurations before <em>read</em> operations can be attempted.</p>
-<p>The following figure presents the circuit diagram of a clocked R-S flip-flop. In addition to the R and S inputs, these circuits also receive the clock signal. In the clocked R-S flip-flop, the Q output will be unaffected by any change in R or S as long as the clock (C) is 0. That is, during the <em>read</em> phase of the clock cycle, the contents of memory cannot be changed. When the clock input goes to 1, designating the <em>write</em> phase of the clock cycle, the Q output will change depending upon the values of R and S.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="figures/clocked-rs-circuit.png" class="img-fluid figure-img"></p>
-<figcaption>Clocked R-S flip-flop circuit</figcaption>
-</figure>
-</div>
-<p>Lastly, the following is a “black box” representation of the clocked R-S flip-flop:</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="figures/clocked-rs-blackbox.png" class="img-fluid figure-img"></p>
-<figcaption>Clocked R-S flip-flop black box</figcaption>
-</figure>
-</div>
+<script>
+  // ---------- Helpers ----------
+  function stripBin(s) { return (s || "").replace(/\s+/g, ""); }
+  function isBinary(s, len) {
+    return s.length === len && /^[01]+$/.test(s);
+  }
+  function groupBits(bits, n) {
+    const out = [];
+    for (let i = 0; i < bits.length; i += n) out.push(bits.slice(i, i + n));
+    return out.join(" ");
+  }
+  function randInt(lo, hi) { // inclusive
+    return Math.floor(Math.random() * (hi - lo + 1)) + lo;
+  }
+  function setFeedback(id, text, ok) {
+    const el = document.getElementById(id);
+    el.textContent = text;
+    el.className = "feedback " + (ok === true ? "correct" : ok === false ? "incorrect" : "");
+  }
+
+  // ---------- Two's Complement (8-bit) ----------
+  function toTwosComplement8(n) {
+    if (n < 0) n = 256 + n;
+    return n.toString(2).padStart(8, "0");
+  }
+  function fromTwosComplement8(bits) {
+    let n = parseInt(bits, 2);
+    if (n >= 128) n -= 256;
+    return n;
+  }
+
+  // --- Base 10 -> Two's Complement
+  let tcEncodeAnswer = "";
+  function newTcEncode() {
+    const value = randInt(-128, 127);
+    document.getElementById("tc-encode-value").textContent = value;
+    tcEncodeAnswer = toTwosComplement8(value);
+    document.getElementById("tc-encode-input").value = "";
+    document.getElementById("tc-encode-answer").style.display = "none";
+    setFeedback("tc-encode-feedback", "", null);
+  }
+  function checkTcEncode() {
+    const guess = stripBin(document.getElementById("tc-encode-input").value);
+    if (!isBinary(guess, 8)) {
+      setFeedback("tc-encode-feedback", "Please enter exactly 8 binary digits (0 or 1).", false);
+      return;
+    }
+    if (guess === tcEncodeAnswer) {
+      setFeedback("tc-encode-feedback", "Correct! " + groupBits(tcEncodeAnswer, 4), true);
+    } else {
+      setFeedback("tc-encode-feedback", "Not quite. Try again, or click Show Answer.", false);
+    }
+  }
+  function showTcEncode() {
+    const value = document.getElementById("tc-encode-value").textContent;
+    const box = document.getElementById("tc-encode-answer");
+    box.style.display = "block";
+    box.textContent =
+`${value} in 8-bit two's complement is:
+  ${groupBits(tcEncodeAnswer, 4)}`;
+  }
+
+  // --- Two's Complement -> Base 10
+  let tcDecodeAnswer = 0;
+  function newTcDecode() {
+    const bits = toTwosComplement8(randInt(-128, 127));
+    document.getElementById("tc-decode-value").textContent = groupBits(bits, 4);
+    tcDecodeAnswer = fromTwosComplement8(bits);
+    document.getElementById("tc-decode-input").value = "";
+    document.getElementById("tc-decode-answer").style.display = "none";
+    setFeedback("tc-decode-feedback", "", null);
+  }
+  function checkTcDecode() {
+    const raw = document.getElementById("tc-decode-input").value.trim();
+    if (!/^-?\d+$/.test(raw)) {
+      setFeedback("tc-decode-feedback", "Please enter an integer (e.g. -42 or 17).", false);
+      return;
+    }
+    if (parseInt(raw, 10) === tcDecodeAnswer) {
+      setFeedback("tc-decode-feedback", "Correct!", true);
+    } else {
+      setFeedback("tc-decode-feedback", "Not quite. Try again, or click Show Answer.", false);
+    }
+  }
+  function showTcDecode() {
+    const bits = stripBin(document.getElementById("tc-decode-value").textContent);
+    const box = document.getElementById("tc-decode-answer");
+    box.style.display = "block";
+    if (tcDecodeAnswer >= 0) {
+      box.textContent =
+`The leading bit is 0, so the value is positive.
+Reading ${groupBits(bits, 4)} as an unsigned binary number:
+  = ${tcDecodeAnswer}`;
+    } else {
+      const positiveBits = toTwosComplement8(-tcDecodeAnswer);
+      box.textContent =
+`The leading bit is 1, so the value is negative.
+Flip the bits and add 1 to find the magnitude:
+  start:    ${groupBits(bits, 4)}
+  flipped:  ${groupBits(bits.split("").map(b => b === "0" ? "1" : "0").join(""), 4)}
+  + 1   :   ${groupBits(positiveBits, 4)}  =  ${-tcDecodeAnswer}
+Apply the negative sign:  ${tcDecodeAnswer}`;
+    }
+  }
+
+  // ---------- IEEE 754 Single Precision ----------
+  function floatToIEEE754(f) {
+    const buf = new ArrayBuffer(4);
+    new Float32Array(buf)[0] = f;
+    const i = new Uint32Array(buf)[0];
+    return i.toString(2).padStart(32, "0");
+  }
+  function ieee754ToFloat(bits) {
+    const i = parseInt(bits, 2);
+    const buf = new ArrayBuffer(4);
+    new Uint32Array(buf)[0] = i >>> 0;
+    return new Float32Array(buf)[0];
+  }
+  function formatIEEE(bits) {
+    const s = bits.slice(0, 1);
+    const e = bits.slice(1, 9);
+    const m = bits.slice(9);
+    return `S    Exponent    Mantissa (23 bits total)
+--   ----------  ----------------------------
+${s}    ${e.slice(0,4)} ${e.slice(4)}   ${m.slice(0,4)} ${m.slice(4,8)} ${m.slice(8,12)} ${m.slice(12,16)} ${m.slice(16,20)} ${m.slice(20)}`;
+  }
+
+  // Generate a "clean" float that has a finite, short binary expansion in normalized form.
+  // Strategy: pick a random sign, an integer numerator, and a power-of-two denominator.
+  function generateCleanFloat() {
+    const sign = Math.random() < 0.5 ? -1 : 1;
+    // Numerator chosen so the value is comfortably in the normalized range and not 0.
+    let num = randInt(1, 511);          // up to 9 significant bits
+    const denomPow = randInt(0, 4);     // /1, /2, /4, /8, or /16
+    const denom = 1 << denomPow;
+    return sign * (num / denom);
+  }
+
+  // --- Base 10 -> IEEE 754
+  let ieeeEncodeAnswer = "";
+  function newIeeeEncode() {
+    const value = generateCleanFloat();
+    ieeeEncodeAnswer = floatToIEEE754(value);
+    document.getElementById("ieee-encode-value").textContent = value;
+    document.getElementById("ieee-encode-input").value = "";
+    document.getElementById("ieee-encode-answer").style.display = "none";
+    setFeedback("ieee-encode-feedback", "", null);
+  }
+  function checkIeeeEncode() {
+    const guess = stripBin(document.getElementById("ieee-encode-input").value);
+    if (!isBinary(guess, 32)) {
+      setFeedback("ieee-encode-feedback", "Please enter exactly 32 binary digits (0 or 1). Spaces are OK.", false);
+      return;
+    }
+    if (guess === ieeeEncodeAnswer) {
+      setFeedback("ieee-encode-feedback", "Correct!", true);
+    } else {
+      setFeedback("ieee-encode-feedback", "Not quite. Try again, or click Show Answer.", false);
+    }
+  }
+  function showIeeeEncode() {
+    const value = document.getElementById("ieee-encode-value").textContent;
+    const box = document.getElementById("ieee-encode-answer");
+    box.style.display = "block";
+    box.textContent = `${value} in single precision IEEE 754:\n\n${formatIEEE(ieeeEncodeAnswer)}\n\nRaw 32 bits: ${ieeeEncodeAnswer}`;
+  }
+
+  // --- IEEE 754 -> Base 10
+  let ieeeDecodeAnswer = 0;
+  let ieeeDecodeBits = "";
+  function newIeeeDecode() {
+    const value = generateCleanFloat();
+    ieeeDecodeBits = floatToIEEE754(value);
+    ieeeDecodeAnswer = ieee754ToFloat(ieeeDecodeBits);
+    document.getElementById("ieee-decode-value").textContent = formatIEEE(ieeeDecodeBits);
+    document.getElementById("ieee-decode-input").value = "";
+    document.getElementById("ieee-decode-answer").style.display = "none";
+    setFeedback("ieee-decode-feedback", "", null);
+  }
+  function checkIeeeDecode() {
+    const raw = document.getElementById("ieee-decode-input").value.trim();
+    const num = Number(raw);
+    if (raw === "" || Number.isNaN(num)) {
+      setFeedback("ieee-decode-feedback", "Please enter a decimal number (e.g. -4.25).", false);
+      return;
+    }
+    // Compare with a tiny tolerance to allow for rounding in student input.
+    const tol = Math.max(1e-6, Math.abs(ieeeDecodeAnswer) * 1e-6);
+    if (Math.abs(num - ieeeDecodeAnswer) <= tol) {
+      setFeedback("ieee-decode-feedback", "Correct!", true);
+    } else {
+      setFeedback("ieee-decode-feedback", "Not quite. Try again, or click Show Answer.", false);
+    }
+  }
+  function showIeeeDecode() {
+    const box = document.getElementById("ieee-decode-answer");
+    box.style.display = "block";
+    const sign = ieeeDecodeBits[0];
+    const expBits = ieeeDecodeBits.slice(1, 9);
+    const mantBits = ieeeDecodeBits.slice(9).replace(/0+$/, "") || "0";
+    const biased = parseInt(expBits, 2);
+    const trueExp = biased - 127;
+    box.textContent =
+`Sign bit: ${sign}  ->  ${sign === "0" ? "+" : "-"}
+Exponent: ${expBits} = ${biased},  unbiased = ${biased} - 127 = ${trueExp}
+Mantissa (without trailing zeros): ${mantBits}
+
+Value = (-1)^${sign} x 1.${mantBits} x 2^${trueExp}
+      = ${ieeeDecodeAnswer}`;
+  }
+
+  // ---------- Initialize all problems on page load ----------
+  document.addEventListener("DOMContentLoaded", function() {
+    newTcEncode();
+    newTcDecode();
+    newIeeeEncode();
+    newIeeeDecode();
+  });
+</script>
 
 
 </section>
@@ -1227,13 +1348,13 @@ no change
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../../lessons/03 Building a Computer/06 Multiplexers and Demultiplexers/index.html" class="pagination-link" aria-label="Multiplexers and Demultiplexers">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Multiplexers and Demultiplexers</span>
+      <a href="../../../lessons/03 Building a Computer/08 A Simple Computer/index.html" class="pagination-link" aria-label="A Simple Computer">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">A Simple Computer</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../../lessons/03 Building a Computer/08 A Simple Computer/index.html" class="pagination-link" aria-label="A Simple Computer">
-        <span class="nav-page-text">A Simple Computer</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../../lessons/04 Beam - Problem Solving with Computers/index.html" class="pagination-link" aria-label="04 Beam - Problem Solving with Computers">
+        <span class="nav-page-text">04 Beam - Problem Solving with Computers</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

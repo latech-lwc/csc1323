@@ -54,6 +54,7 @@ website:
               - "lessons/03 Building a Computer/06 Multiplexers and Demultiplexers/index.qmd"
               - "lessons/03 Building a Computer/07 Flip Flops/index.qmd"
               - "lessons/03 Building a Computer/08 A Simple Computer/index.qmd"
+              - "lessons/03 Building a Computer/99 Practice/index.qmd"
           - section: "04 Beam - Problem Solving with Computers"
             href: "lessons/04 Beam - Problem Solving with Computers/index.qmd"
           - section: "05 Beam - Software Engineering"
