@@ -62,6 +62,37 @@ This page contains practice problems that span topics from the this section. For
     gap: 0.25rem;
     align-items: center;
   }
+  .practice-card .mc-options {
+    margin: 0.5rem 0 0.75rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  .practice-card .mc-options label {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    padding: 0.3rem 0.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .practice-card .mc-options label:hover {
+    background: var(--bs-secondary-bg, #e9ecef);
+  }
+  .practice-card .mc-options input[type="radio"] {
+    margin-top: 0.3rem;
+  }
+  .practice-card .data-table {
+    border-collapse: collapse;
+    margin: 0.4rem 0;
+  }
+  .practice-card .data-table td,
+  .practice-card .data-table th {
+    border: 1px solid var(--bs-border-color, #ccc);
+    padding: 0.25rem 0.6rem;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    text-align: center;
+  }
 </style>
 ```
 
@@ -135,6 +166,133 @@ The given 32 bits represent a **single precision IEEE 754** value (in normalized
   </div>
   <div class="feedback" id="ieee-decode-feedback"></div>
   <div class="answer-box" id="ieee-decode-answer" style="display:none;"></div>
+</div>
+```
+
+## Decoder Output
+
+Recall: an *n*-to-2^*n*^ **decoder** raises the single output line whose index matches the unsigned binary input. Given the decoder size and input pattern below, identify which output line is high.
+
+```{=html}
+<div class="practice-card" id="dec-out">
+  <div class="prompt" id="dec-out-prompt"></div>
+  <div class="controls">
+    <input type="text" id="dec-out-input" placeholder="output line number, e.g. 5" autocomplete="off" />
+    <button onclick="checkDecOut()">Check</button>
+    <button onclick="newDecOut()">New Problem</button>
+    <button onclick="showDecOut()">Show Answer</button>
+  </div>
+  <div class="feedback" id="dec-out-feedback"></div>
+  <div class="answer-box" id="dec-out-answer" style="display:none;"></div>
+</div>
+```
+
+## Encoder Output
+
+Recall: a 2^*n*^-to-*n* **encoder** outputs the *n*-bit unsigned binary number that corresponds to the single high input line. Given which input line is high, give the encoder's output bits.
+
+```{=html}
+<div class="practice-card" id="enc-out">
+  <div class="prompt" id="enc-out-prompt"></div>
+  <div class="controls">
+    <input type="text" id="enc-out-input" placeholder="binary, e.g. 101" autocomplete="off" />
+    <button onclick="checkEncOut()">Check</button>
+    <button onclick="newEncOut()">New Problem</button>
+    <button onclick="showEncOut()">Show Answer</button>
+  </div>
+  <div class="feedback" id="enc-out-feedback"></div>
+  <div class="answer-box" id="enc-out-answer" style="display:none;"></div>
+</div>
+```
+
+## Multiplexer Output
+
+Recall: a multiplexer (MUX) routes the value of the data line selected by its selector bits to the single output. Below are the data line values and selector bits. Give the value at the MUX output.
+
+```{=html}
+<div class="practice-card" id="mux-out">
+  <div class="prompt" id="mux-out-prompt"></div>
+  <div id="mux-out-table"></div>
+  <div class="controls">
+    <input type="text" id="mux-out-input" placeholder="0 or 1" autocomplete="off" />
+    <button onclick="checkMuxOut()">Check</button>
+    <button onclick="newMuxOut()">New Problem</button>
+    <button onclick="showMuxOut()">Show Answer</button>
+  </div>
+  <div class="feedback" id="mux-out-feedback"></div>
+  <div class="answer-box" id="mux-out-answer" style="display:none;"></div>
+</div>
+```
+
+## Demultiplexer Output
+
+Recall: a demultiplexer (DEMUX) copies its single data input *A* to the output line chosen by the selector bits; all other outputs are 0. Given the selector bits, identify which output line carries the input value.
+
+```{=html}
+<div class="practice-card" id="demux-out">
+  <div class="prompt" id="demux-out-prompt"></div>
+  <div class="controls">
+    <input type="text" id="demux-out-input" placeholder="output line number, e.g. 2" autocomplete="off" />
+    <button onclick="checkDemuxOut()">Check</button>
+    <button onclick="newDemuxOut()">New Problem</button>
+    <button onclick="showDemuxOut()">Show Answer</button>
+  </div>
+  <div class="feedback" id="demux-out-feedback"></div>
+  <div class="answer-box" id="demux-out-answer" style="display:none;"></div>
+</div>
+```
+
+## R-S Flip-Flop Next State
+
+Recall the R-S flip-flop truth table: `R=0,S=0` holds the current state, `R=0,S=1` sets *Q* to 1, `R=1,S=0` resets *Q* to 0, and `R=1,S=1` is disallowed. Given the current state and inputs, give the next *Q*.
+
+```{=html}
+<div class="practice-card" id="rs-next">
+  <div class="prompt" id="rs-next-prompt"></div>
+  <div class="controls">
+    <input type="text" id="rs-next-input" placeholder="0 or 1" autocomplete="off" />
+    <button onclick="checkRsNext()">Check</button>
+    <button onclick="newRsNext()">New Problem</button>
+    <button onclick="showRsNext()">Show Answer</button>
+  </div>
+  <div class="feedback" id="rs-next-feedback"></div>
+  <div class="answer-box" id="rs-next-answer" style="display:none;"></div>
+</div>
+```
+
+## Instruction Cycle
+
+The five-step instruction cycle is the heart of every register-based computer. Pick the correct answer to the question below.
+
+```{=html}
+<div class="practice-card" id="instr-cycle">
+  <div class="prompt" id="instr-cycle-prompt"></div>
+  <div class="mc-options" id="instr-cycle-options"></div>
+  <div class="controls">
+    <button onclick="checkInstrCycle()">Check</button>
+    <button onclick="newInstrCycle()">New Problem</button>
+    <button onclick="showInstrCycle()">Show Answer</button>
+  </div>
+  <div class="feedback" id="instr-cycle-feedback"></div>
+  <div class="answer-box" id="instr-cycle-answer" style="display:none;"></div>
+</div>
+```
+
+## Definitions
+
+Match the term to its definition (or the definition to its term). 
+
+```{=html}
+<div class="practice-card" id="defs">
+  <div class="prompt" id="defs-prompt"></div>
+  <div class="mc-options" id="defs-options"></div>
+  <div class="controls">
+    <button onclick="checkDefs()">Check</button>
+    <button onclick="newDefs()">New Problem</button>
+    <button onclick="showDefs()">Show Answer</button>
+  </div>
+  <div class="feedback" id="defs-feedback"></div>
+  <div class="answer-box" id="defs-answer" style="display:none;"></div>
 </div>
 ```
 
@@ -350,12 +508,376 @@ Value = (-1)^${sign} x 1.${mantBits} x 2^${trueExp}
       = ${ieeeDecodeAnswer}`;
   }
 
+  // ---------- Multiple-choice helpers ----------
+  function shuffle(arr) {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+  function pickRandom(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
+  }
+  function pickDistinct(arr, k, excludePred) {
+    const pool = arr.filter(x => !excludePred || !excludePred(x));
+    return shuffle(pool).slice(0, k);
+  }
+  function renderMC(containerId, name, optionsText) {
+    const cont = document.getElementById(containerId);
+    cont.innerHTML = "";
+    optionsText.forEach((text, i) => {
+      const lbl = document.createElement("label");
+      const radio = document.createElement("input");
+      radio.type = "radio";
+      radio.name = name;
+      radio.value = String(i);
+      const span = document.createElement("span");
+      span.textContent = text;
+      lbl.appendChild(radio);
+      lbl.appendChild(span);
+      cont.appendChild(lbl);
+    });
+  }
+  function getMCSelected(name) {
+    const sel = document.querySelector(`input[name="${name}"]:checked`);
+    return sel ? parseInt(sel.value, 10) : -1;
+  }
+
+  // ---------- Decoder Output ----------
+  let decOutN = 0, decOutValue = 0;
+  function newDecOut() {
+    decOutN = randInt(2, 4);
+    decOutValue = randInt(0, (1 << decOutN) - 1);
+    const bits = decOutValue.toString(2).padStart(decOutN, "0");
+    document.getElementById("dec-out-prompt").innerHTML =
+      `An <strong>${decOutN}-to-${1 << decOutN}</strong> decoder receives input ` +
+      `A<sub>${decOutN-1}</sub>...A<sub>0</sub> = <code>${bits}</code>. ` +
+      `Which output line D<sub>x</sub> goes high? (Enter the index x.)`;
+    document.getElementById("dec-out-input").value = "";
+    document.getElementById("dec-out-answer").style.display = "none";
+    setFeedback("dec-out-feedback", "", null);
+  }
+  function checkDecOut() {
+    const raw = document.getElementById("dec-out-input").value.trim();
+    if (!/^\d+$/.test(raw)) {
+      setFeedback("dec-out-feedback", "Please enter a non-negative integer.", false);
+      return;
+    }
+    if (parseInt(raw, 10) === decOutValue) {
+      setFeedback("dec-out-feedback", "Correct!", true);
+    } else {
+      setFeedback("dec-out-feedback", "Not quite. Try again, or click Show Answer.", false);
+    }
+  }
+  function showDecOut() {
+    const bits = decOutValue.toString(2).padStart(decOutN, "0");
+    const box = document.getElementById("dec-out-answer");
+    box.style.display = "block";
+    box.textContent =
+`Input ${bits} (binary) = ${decOutValue} (decimal).
+Output line D${decOutValue} is set to 1; all other outputs are 0.`;
+  }
+
+  // ---------- Encoder Output ----------
+  let encOutN = 0, encOutLine = 0;
+  function newEncOut() {
+    encOutN = randInt(2, 4);
+    encOutLine = randInt(0, (1 << encOutN) - 1);
+    document.getElementById("enc-out-prompt").innerHTML =
+      `In a <strong>${1 << encOutN}-to-${encOutN}</strong> encoder, only line ` +
+      `D<sub>${encOutLine}</sub> is high (all other inputs are 0). ` +
+      `What ${encOutN}-bit value does the encoder output?`;
+    document.getElementById("enc-out-input").value = "";
+    document.getElementById("enc-out-answer").style.display = "none";
+    setFeedback("enc-out-feedback", "", null);
+  }
+  function checkEncOut() {
+    const guess = stripBin(document.getElementById("enc-out-input").value);
+    const expected = encOutLine.toString(2).padStart(encOutN, "0");
+    if (!isBinary(guess, encOutN)) {
+      setFeedback("enc-out-feedback", `Please enter exactly ${encOutN} binary digits (0 or 1).`, false);
+      return;
+    }
+    if (guess === expected) {
+      setFeedback("enc-out-feedback", "Correct!", true);
+    } else {
+      setFeedback("enc-out-feedback", "Not quite. Try again, or click Show Answer.", false);
+    }
+  }
+  function showEncOut() {
+    const expected = encOutLine.toString(2).padStart(encOutN, "0");
+    const box = document.getElementById("enc-out-answer");
+    box.style.display = "block";
+    box.textContent =
+`Line D${encOutLine} is high, so the encoder outputs the ${encOutN}-bit unsigned binary representation of ${encOutLine}:
+  ${expected}`;
+  }
+
+  // ---------- Multiplexer Output ----------
+  let muxOutN = 0, muxOutData = [], muxOutSel = 0;
+  function newMuxOut() {
+    muxOutN = randInt(1, 3);
+    const numLines = 1 << muxOutN;
+    muxOutData = Array.from({length: numLines}, () => randInt(0, 1));
+    muxOutSel = randInt(0, numLines - 1);
+    const selBits = muxOutSel.toString(2).padStart(muxOutN, "0");
+    document.getElementById("mux-out-prompt").innerHTML =
+      `A <strong>${numLines}-input multiplexer</strong> has selector bits ` +
+      `S<sub>${muxOutN-1}</sub>...S<sub>0</sub> = <code>${selBits}</code>. ` +
+      `The data lines hold the values shown below. What does the MUX output?`;
+    let html = "<table class='data-table'><tr>";
+    for (let i = numLines - 1; i >= 0; i--) html += `<th>D<sub>${i}</sub></th>`;
+    html += "</tr><tr>";
+    for (let i = numLines - 1; i >= 0; i--) html += `<td>${muxOutData[i]}</td>`;
+    html += "</tr></table>";
+    document.getElementById("mux-out-table").innerHTML = html;
+    document.getElementById("mux-out-input").value = "";
+    document.getElementById("mux-out-answer").style.display = "none";
+    setFeedback("mux-out-feedback", "", null);
+  }
+  function checkMuxOut() {
+    const raw = document.getElementById("mux-out-input").value.trim();
+    if (raw !== "0" && raw !== "1") {
+      setFeedback("mux-out-feedback", "Please enter 0 or 1.", false);
+      return;
+    }
+    if (parseInt(raw, 10) === muxOutData[muxOutSel]) {
+      setFeedback("mux-out-feedback", "Correct!", true);
+    } else {
+      setFeedback("mux-out-feedback", "Not quite. Try again, or click Show Answer.", false);
+    }
+  }
+  function showMuxOut() {
+    const selBits = muxOutSel.toString(2).padStart(muxOutN, "0");
+    const box = document.getElementById("mux-out-answer");
+    box.style.display = "block";
+    box.textContent =
+`Selector bits ${selBits} = ${muxOutSel} (decimal), so the MUX listens to D${muxOutSel}.
+D${muxOutSel} = ${muxOutData[muxOutSel]}, so the output is ${muxOutData[muxOutSel]}.`;
+  }
+
+  // ---------- Demultiplexer Output ----------
+  let demuxN = 0, demuxSel = 0;
+  function newDemuxOut() {
+    demuxN = randInt(2, 3);
+    const numOut = 1 << demuxN;
+    demuxSel = randInt(0, numOut - 1);
+    const selBits = demuxSel.toString(2).padStart(demuxN, "0");
+    document.getElementById("demux-out-prompt").innerHTML =
+      `A <strong>${numOut}-output demultiplexer</strong> has selector bits ` +
+      `S<sub>${demuxN-1}</sub>...S<sub>0</sub> = <code>${selBits}</code>. ` +
+      `Which output line D<sub>x</sub> does the input A get routed to? (Enter the index x.)`;
+    document.getElementById("demux-out-input").value = "";
+    document.getElementById("demux-out-answer").style.display = "none";
+    setFeedback("demux-out-feedback", "", null);
+  }
+  function checkDemuxOut() {
+    const raw = document.getElementById("demux-out-input").value.trim();
+    if (!/^\d+$/.test(raw)) {
+      setFeedback("demux-out-feedback", "Please enter a non-negative integer.", false);
+      return;
+    }
+    if (parseInt(raw, 10) === demuxSel) {
+      setFeedback("demux-out-feedback", "Correct!", true);
+    } else {
+      setFeedback("demux-out-feedback", "Not quite. Try again, or click Show Answer.", false);
+    }
+  }
+  function showDemuxOut() {
+    const selBits = demuxSel.toString(2).padStart(demuxN, "0");
+    const box = document.getElementById("demux-out-answer");
+    box.style.display = "block";
+    box.textContent =
+`Selector bits ${selBits} = ${demuxSel} (decimal).
+The input A is routed to D${demuxSel}; all other outputs stay at 0.`;
+  }
+
+  // ---------- R-S Flip-Flop ----------
+  let rsCurQ = 0, rsR = 0, rsS = 0;
+  function rsNextQ(curQ, r, s) {
+    if (r === 1 && s === 1) return null; // disallowed
+    if (r === 0 && s === 0) return curQ;
+    if (s === 1) return 1;
+    return 0;
+  }
+  function newRsNext() {
+    rsCurQ = randInt(0, 1);
+    // Pick (R,S) from {(0,0),(0,1),(1,0)} — exclude (1,1).
+    const pairs = [[0,0],[0,1],[1,0]];
+    const p = pickRandom(pairs);
+    rsR = p[0]; rsS = p[1];
+    document.getElementById("rs-next-prompt").innerHTML =
+      `An R-S flip-flop currently holds Q = <code>${rsCurQ}</code>. ` +
+      `The inputs are R = <code>${rsR}</code> and S = <code>${rsS}</code>. ` +
+      `What is the next value of Q?`;
+    document.getElementById("rs-next-input").value = "";
+    document.getElementById("rs-next-answer").style.display = "none";
+    setFeedback("rs-next-feedback", "", null);
+  }
+  function checkRsNext() {
+    const raw = document.getElementById("rs-next-input").value.trim();
+    if (raw !== "0" && raw !== "1") {
+      setFeedback("rs-next-feedback", "Please enter 0 or 1.", false);
+      return;
+    }
+    const next = rsNextQ(rsCurQ, rsR, rsS);
+    if (parseInt(raw, 10) === next) {
+      setFeedback("rs-next-feedback", "Correct!", true);
+    } else {
+      setFeedback("rs-next-feedback", "Not quite. Try again, or click Show Answer.", false);
+    }
+  }
+  function showRsNext() {
+    const next = rsNextQ(rsCurQ, rsR, rsS);
+    const box = document.getElementById("rs-next-answer");
+    box.style.display = "block";
+    let reason = "";
+    if (rsR === 0 && rsS === 0) reason = "R = 0 and S = 0, so the flip-flop holds its current state.";
+    else if (rsR === 1 && rsS === 0) reason = "R = 1 forces a reset, so Q goes to 0.";
+    else if (rsR === 0 && rsS === 1) reason = "S = 1 forces a set, so Q goes to 1.";
+    box.textContent =
+`${reason}
+Next Q = ${next}.`;
+  }
+
+  // ---------- Instruction Cycle ----------
+  const INSTR_STEPS = [
+    "Fetch the next instruction from memory (using the program counter).",
+    "Increment the program counter by 1.",
+    "Decode the current instruction (identify op-code and operands).",
+    "Execute the instruction (perform the operation in hardware).",
+    "Return to step 1."
+  ];
+  const INSTR_QUESTIONS = [
+    () => {
+      const idx = randInt(0, 4);
+      return {
+        prompt: `Which of the following is <strong>step ${idx+1}</strong> of the instruction cycle?`,
+        correct: INSTR_STEPS[idx],
+        distractors: INSTR_STEPS.filter((_, i) => i !== idx)
+      };
+    },
+    () => {
+      const idx = randInt(0, 3); // ask "what comes after step idx"
+      return {
+        prompt: `Which step comes <strong>immediately after</strong> "${INSTR_STEPS[idx]}"?`,
+        correct: INSTR_STEPS[idx + 1],
+        distractors: INSTR_STEPS.filter((_, i) => i !== idx + 1)
+      };
+    },
+ 
+  ];
+
+  let instrCorrectIdx = 0, instrCorrectText = "";
+  function newInstrCycle() {
+    const q = INSTR_QUESTIONS[randInt(0, INSTR_QUESTIONS.length - 1)]();
+    document.getElementById("instr-cycle-prompt").innerHTML = q.prompt;
+    const distractors = pickDistinct(q.distractors, Math.min(3, q.distractors.length));
+    const all = shuffle([q.correct, ...distractors]);
+    instrCorrectIdx = all.indexOf(q.correct);
+    instrCorrectText = q.correct;
+    renderMC("instr-cycle-options", "instr-cycle-mc", all);
+    document.getElementById("instr-cycle-answer").style.display = "none";
+    setFeedback("instr-cycle-feedback", "", null);
+  }
+  function checkInstrCycle() {
+    const sel = getMCSelected("instr-cycle-mc");
+    if (sel < 0) {
+      setFeedback("instr-cycle-feedback", "Please select an answer.", false);
+      return;
+    }
+    if (sel === instrCorrectIdx) {
+      setFeedback("instr-cycle-feedback", "Correct!", true);
+    } else {
+      setFeedback("instr-cycle-feedback", "Not quite. Try again, or click Show Answer.", false);
+    }
+  }
+  function showInstrCycle() {
+    const box = document.getElementById("instr-cycle-answer");
+    box.style.display = "block";
+    box.textContent = `Correct answer: ${instrCorrectText}`;
+  }
+
+  // ---------- Definitions ----------
+  const DEFINITIONS = [
+    {term: "decoder", def: "A circuit that takes an unsigned binary number on its input lines and raises the single output line whose index matches that number."},
+    {term: "encoder", def: "A circuit with 2^n input lines (only one high at a time) that produces the n-bit unsigned binary number corresponding to the raised input line."},
+    {term: "multiplexer (MUX)", def: "A circuit that transfers the value of one selected input data line to its single output line, based on the selector bits."},
+    {term: "demultiplexer (DEMUX)", def: "A circuit with one data input, n selector lines, and 2^n output lines that copies the input value to the selected output and holds the others at 0."},
+    {term: "flip-flop", def: "A device with two stable states, used to store a single bit."},
+    {term: "sequential circuit", def: "A circuit whose outputs depend on its current inputs and its previous outputs (i.e., it incorporates feedback / memory)."},
+    {term: "combinational circuit", def: "A digital circuit whose outputs depend only on its current inputs, with no feedback."},
+    {term: "clock", def: "A device that generates a signal that periodically cycles between a high state and a low state."},
+    {term: "clock cycle", def: "The interval of time beginning when the clock goes high, lasting through the return to low, and ending with the start of the transition back to high."},
+    {term: "register", def: "A small, fast storage location inside the CPU that can be directly manipulated by its arithmetic and logic units."},
+    {term: "word", def: "The base unit of data that is supported by a CPU."},
+    {term: "op-code", def: "The part of a machine language instruction that defines what operation is to be performed."},
+    {term: "operand", def: "The part of a machine language instruction that the op-code is applied to."},
+    {term: "instruction register", def: "The special-purpose register that holds a copy of the instruction the CPU is currently executing."},
+    {term: "program counter", def: "The special-purpose register that holds the address of the next instruction to execute."},
+    {term: "status bits", def: "Bits that hold information about the most recently performed computation, such as carry, zero, negative, or overflow."},
+    {term: "ALU", def: "The component of the CPU responsible for performing arithmetic and logic operations."},
+    {term: "architecture", def: "The general organization of a machine."},
+    {term: "overflow", def: "A condition that occurs when a value to be stored is outside the range of permissible values for the available bits."},
+    {term: "two's complement", def: "A signed-integer encoding with a single representation for zero, in which negation is performed by flipping the bits and adding one."},
+
+  ];
+  let defsCorrectIdx = 0, defsCorrectText = "", defsTermAsked = "";
+  function newDefs() {
+    const askForDef = Math.random() < 0.5;
+    const correct = pickRandom(DEFINITIONS);
+    const distractors = pickDistinct(DEFINITIONS, 3, x => x.term === correct.term);
+    let promptText, optionsText, correctText;
+    if (askForDef) {
+      promptText = `Which of the following is the best definition of <strong>${correct.term}</strong>?`;
+      optionsText = shuffle([correct.def, ...distractors.map(d => d.def)]);
+      correctText = correct.def;
+    } else {
+      promptText = `Which term best matches this definition: <em>"${correct.def}"</em>?`;
+      optionsText = shuffle([correct.term, ...distractors.map(d => d.term)]);
+      correctText = correct.term;
+    }
+    defsCorrectIdx = optionsText.indexOf(correctText);
+    defsCorrectText = correctText;
+    defsTermAsked = correct.term;
+    document.getElementById("defs-prompt").innerHTML = promptText;
+    renderMC("defs-options", "defs-mc", optionsText);
+    document.getElementById("defs-answer").style.display = "none";
+    setFeedback("defs-feedback", "", null);
+  }
+  function checkDefs() {
+    const sel = getMCSelected("defs-mc");
+    if (sel < 0) {
+      setFeedback("defs-feedback", "Please select an answer.", false);
+      return;
+    }
+    if (sel === defsCorrectIdx) {
+      setFeedback("defs-feedback", "Correct!", true);
+    } else {
+      setFeedback("defs-feedback", "Not quite. Try again, or click Show Answer.", false);
+    }
+  }
+  function showDefs() {
+    const box = document.getElementById("defs-answer");
+    box.style.display = "block";
+    box.textContent = `Correct answer: ${defsCorrectText}`;
+  }
+
   // ---------- Initialize all problems on page load ----------
   document.addEventListener("DOMContentLoaded", function() {
     newTcEncode();
     newTcDecode();
     newIeeeEncode();
     newIeeeDecode();
+    newDecOut();
+    newEncOut();
+    newMuxOut();
+    newDemuxOut();
+    newRsNext();
+    newInstrCycle();
+    newDefs();
   });
 </script>
 ```

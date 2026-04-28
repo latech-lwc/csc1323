@@ -187,6 +187,90 @@
     ]
   },
   {
+    "objectID": "lessons/03 Building a Computer/99 Practice/index.html#decoder-output",
+    "href": "lessons/03 Building a Computer/99 Practice/index.html#decoder-output",
+    "title": "Practice",
+    "section": "Decoder Output",
+    "text": "Decoder Output\nRecall: an n-to-2n decoder raises the single output line whose index matches the unsigned binary input. Given the decoder size and input pattern below, identify which output line is high.\n\n  \n  \n    \n    Check\n    New Problem\n    Show Answer",
+    "crumbs": [
+      "Lessons",
+      "03 Building a Computer",
+      "Practice"
+    ]
+  },
+  {
+    "objectID": "lessons/03 Building a Computer/99 Practice/index.html#encoder-output",
+    "href": "lessons/03 Building a Computer/99 Practice/index.html#encoder-output",
+    "title": "Practice",
+    "section": "Encoder Output",
+    "text": "Encoder Output\nRecall: a 2n-to-n encoder outputs the n-bit unsigned binary number that corresponds to the single high input line. Given which input line is high, give the encoder’s output bits.\n\n  \n  \n    \n    Check\n    New Problem\n    Show Answer",
+    "crumbs": [
+      "Lessons",
+      "03 Building a Computer",
+      "Practice"
+    ]
+  },
+  {
+    "objectID": "lessons/03 Building a Computer/99 Practice/index.html#multiplexer-output",
+    "href": "lessons/03 Building a Computer/99 Practice/index.html#multiplexer-output",
+    "title": "Practice",
+    "section": "Multiplexer Output",
+    "text": "Multiplexer Output\nRecall: a multiplexer (MUX) routes the value of the data line selected by its selector bits to the single output. Below are the data line values and selector bits. Give the value at the MUX output.\n\n  \n  \n  \n    \n    Check\n    New Problem\n    Show Answer",
+    "crumbs": [
+      "Lessons",
+      "03 Building a Computer",
+      "Practice"
+    ]
+  },
+  {
+    "objectID": "lessons/03 Building a Computer/99 Practice/index.html#demultiplexer-output",
+    "href": "lessons/03 Building a Computer/99 Practice/index.html#demultiplexer-output",
+    "title": "Practice",
+    "section": "Demultiplexer Output",
+    "text": "Demultiplexer Output\nRecall: a demultiplexer (DEMUX) copies its single data input A to the output line chosen by the selector bits; all other outputs are 0. Given the selector bits, identify which output line carries the input value.\n\n  \n  \n    \n    Check\n    New Problem\n    Show Answer",
+    "crumbs": [
+      "Lessons",
+      "03 Building a Computer",
+      "Practice"
+    ]
+  },
+  {
+    "objectID": "lessons/03 Building a Computer/99 Practice/index.html#r-s-flip-flop-next-state",
+    "href": "lessons/03 Building a Computer/99 Practice/index.html#r-s-flip-flop-next-state",
+    "title": "Practice",
+    "section": "R-S Flip-Flop Next State",
+    "text": "R-S Flip-Flop Next State\nRecall the R-S flip-flop truth table: R=0,S=0 holds the current state, R=0,S=1 sets Q to 1, R=1,S=0 resets Q to 0, and R=1,S=1 is disallowed. Given the current state and inputs, give the next Q.\n\n  \n  \n    \n    Check\n    New Problem\n    Show Answer",
+    "crumbs": [
+      "Lessons",
+      "03 Building a Computer",
+      "Practice"
+    ]
+  },
+  {
+    "objectID": "lessons/03 Building a Computer/99 Practice/index.html#instruction-cycle",
+    "href": "lessons/03 Building a Computer/99 Practice/index.html#instruction-cycle",
+    "title": "Practice",
+    "section": "Instruction Cycle",
+    "text": "Instruction Cycle\nThe five-step instruction cycle is the heart of every register-based computer. Pick the correct answer to the question below.\n\n  \n  \n  \n    Check\n    New Problem\n    Show Answer",
+    "crumbs": [
+      "Lessons",
+      "03 Building a Computer",
+      "Practice"
+    ]
+  },
+  {
+    "objectID": "lessons/03 Building a Computer/99 Practice/index.html#definitions",
+    "href": "lessons/03 Building a Computer/99 Practice/index.html#definitions",
+    "title": "Practice",
+    "section": "Definitions",
+    "text": "Definitions\nMatch the term to its definition (or the definition to its term).\n\n  \n  \n  \n    Check\n    New Problem\n    Show Answer",
+    "crumbs": [
+      "Lessons",
+      "03 Building a Computer",
+      "Practice"
+    ]
+  },
+  {
     "objectID": "lessons/03 Building a Computer/06 Multiplexers and Demultiplexers/index.html",
     "href": "lessons/03 Building a Computer/06 Multiplexers and Demultiplexers/index.html",
     "title": "Multiplexers and Demultiplexers",
