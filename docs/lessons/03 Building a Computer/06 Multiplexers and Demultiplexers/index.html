@@ -549,8 +549,15 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#multiplexers" id="toc-multiplexers" class="nav-link active" data-scroll-target="#multiplexers">Multiplexers</a></li>
+  <li><a href="#demultiplexers" id="toc-demultiplexers" class="nav-link" data-scroll-target="#demultiplexers">Demultiplexers</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -575,8 +582,242 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="multiplexers" class="level2">
+<h2 class="anchored" data-anchor-id="multiplexers">Multiplexers</h2>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>Definition</strong>: <strong>Multiplexers</strong> are circuits that are used to transfer the contents of an input data line to an output line based on the value of one or more input selector lines.</p>
+</div>
+</div>
+</div>
+<p>While that definition sounds a bit intimidating, multiplexers really aren’t that complex. Essentially, a multiplexer is a kind of switch. It has two types of inputs: data lines and selector lines; it has a single output line. The purpose of a multiplexer is to transfer the contents of one of the input lines to the circuit’s single output line. The values placed on the selector lines determine which data line will have its contents transferred to the output line. Thus, the selector lines allow the multiplexer circuit to switch its “attention” between the various input data lines when determining the value to be output.</p>
+<p>Generally, a multiplexer (MUX) will have 2<sup>n</sup> data lines for <em>n</em> selector lines. The data lines are numbered 0 to 2<sup>n</sup> − 1, and the selector lines are numbered 0 to <em>n</em> − 1. The bit pattern placed on the selector lines, when interpreted as an unsigned binary number, determines the active data line. Therefore, an eight-input MUX will have eight data lines and three selector lines, while a two-input MUX will have two data lines and a single selector line. Remember that, regardless of the number of input data and selector lines, every MUX has only one output line.</p>
+<p>The following presents an implementation of a two-input multiplexer. It has two data lines, one selector line, and a single output. When the selector line, S, is set to 0, the current value of D<sub>0</sub> (either a 1 or a 0) becomes the output of the circuit, regardless of the value of line D<sub>1</sub>. The circuit is, in a sense, <em>listening</em> to D<sub>0</sub> and ignoring D<sub>1</sub>. When S is 1, the opposite situation exists: the output of the multiplexer becomes the current value of D<sub>1</sub>, and D<sub>0</sub> is ignored.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/mux-two-input-circuit.png" class="img-fluid figure-img"></p>
+<figcaption>Two-input multiplexer circuit</figcaption>
+</figure>
+</div>
+<p>The behavior of the two-input multiplexer is summarized in the following truth table:</p>
+<table class="table table-bordered" style="width:auto; margin: auto;">
+<thead>
+<tr>
+<th style="text-align:center">
+S
+</th>
+<th style="text-align:center">
+D<sub>1</sub>
+</th>
+<th style="text-align:center; border-right: 2px solid;">
+D<sub>0</sub>
+</th>
+<th style="text-align:center">
+Z
+</th>
+</tr>
+</thead>
+<tbody style="text-align:center">
+<tr>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td style="border-right:2px solid;">
+0
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+0
+</td>
+<td>
+0
+</td>
+<td style="border-right:2px solid;">
+1
+</td>
+<td>
+1
+</td>
+</tr>
+<tr>
+<td>
+0
+</td>
+<td>
+1
+</td>
+<td style="border-right:2px solid;">
+0
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+0
+</td>
+<td>
+1
+</td>
+<td style="border-right:2px solid;">
+1
+</td>
+<td>
+1
+</td>
+</tr>
+<tr>
+<td>
+1
+</td>
+<td>
+0
+</td>
+<td style="border-right:2px solid;">
+0
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+1
+</td>
+<td>
+0
+</td>
+<td style="border-right:2px solid;">
+1
+</td>
+<td>
+0
+</td>
+</tr>
+<tr>
+<td>
+1
+</td>
+<td>
+1
+</td>
+<td style="border-right:2px solid;">
+0
+</td>
+<td>
+1
+</td>
+</tr>
+<tr>
+<td>
+1
+</td>
+<td>
+1
+</td>
+<td style="border-right:2px solid;">
+1
+</td>
+<td>
+1
+</td>
+</tr>
+</tbody>
+</table>
+<p>The following illustrates a somewhat more complex multiplexer, a four-input MUX. It has two selector lines, four data lines, and a single output line. Placing a 0 on both S<sub>1</sub> and S<sub>0</sub>, corresponding to 00<sub>2</sub>, causes the value of D<sub>0</sub> to be transferred to the output line. Setting S<sub>1</sub> to 0 and S<sub>0</sub> to 1, corresponding to 01<sub>2</sub>, causes D<sub>1</sub> to be transferred to the output line. Likewise, setting S<sub>1</sub> to 1 and S<sub>0</sub> to 0, corresponding to 10<sub>2</sub>, causes D<sub>2</sub> to be transferred to the output line. Finally, setting S<sub>1</sub> to 1 and S<sub>0</sub> to 1, corresponding to 11<sub>2</sub>, causes D<sub>3</sub> to be transferred to the output line:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/mux-four-input-circuit.png" class="img-fluid figure-img"></p>
+<figcaption>Four-input multiplexer circuit</figcaption>
+</figure>
+</div>
+<p>An inspection of the circuit diagram for the four-input MUX reveals that it contains four three-input <em>and</em> gates, two single-input <em>not</em> gates, and one four-input <em>or</em> gate. Each <em>and</em> has one of the data lines running into it, plus two selector signals. Some of the selector signals have been routed directly from the selector input lines, while others have been negated before being sent on to the <em>and</em> gates. The outputs of all four of the <em>and</em> gates are routed into the four-input <em>or</em>. The output of this <em>or</em> becomes the output of the MUX circuit. If any one of the <em>and</em> gates generate a 1, the circuit will output a 1. If all of the <em>and</em> gates produce 0, the circuit will output a 0.</p>
+<p>In order to better understand the behavior of this multiplexer, let’s examine the conditions under which each of the <em>and</em> gates could fire. A three-input <em>and</em> gate can produce a 1 only if all of its inputs are 1. Thus, the two selector signals and the data value reaching the <em>and</em> gate must be 1 for that gate to generate a 1.</p>
+<p>The selector signals reaching the gate that is connected to D<sub>0</sub> are <em>not</em> S<sub>1</sub> and <em>not</em> S<sub>0</sub>. This gate can produce a 1 only when S<sub>1</sub> = 0, S<sub>0</sub> = 0, and D<sub>0</sub> = 1. Under any other circumstances (e.g., if D<sub>0</sub> is 0 or if either S<sub>1</sub> or S<sub>0</sub> is 1) this <em>and</em> gate produces a 0. Hence, this part of the circuit faithfully transfers the value of D<sub>0</sub> when the S<sub>1</sub>,S<sub>0</sub> bit pattern is 00. Just as importantly, this <em>and</em> gate stays low when the selector bit pattern is not 00, regardless of the value of D<sub>0</sub>.</p>
+<p>The other <em>and</em> gates act in a similar manner. The gate for D<sub>1</sub> is attached to <em>not</em> S<sub>1</sub> and S<sub>0</sub>; therefore, it only generates a 1 when S<sub>1</sub> = 0, S<sub>0</sub> = 1, and D<sub>1</sub> = 1. Other selector bit patterns keep it low. The <em>and</em> gate that receives the D<sub>2</sub> signal is connected to S<sub>1</sub> and <em>not</em> S<sub>0</sub>. This gate produces a 1 only when S<sub>1</sub> = 1, S<sub>0</sub> = 0, and D<sub>2</sub> = 1. It generates a 0 at all other times. Finally, the <em>and</em> gate for D<sub>3</sub> is attached directly to S<sub>1</sub> and S<sub>0</sub>. Thus, it generates a 1 when S<sub>1</sub> = 1, S<sub>0</sub> = 1, and D<sub>3</sub> = 1.</p>
+<p>Because of the way the selector signals are routed to the various <em>and</em> gates, it is impossible for more than one of them to produce a 1 at the same time. For this reason, the results of the <em>and</em> gates can be safely combined via an <em>or</em> gate without worrying that signals from multiple data lines will be accidentally combined.</p>
+<p>The four-input multiplexer can be represented by a “black box” as follows:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/mux-four-input-blackbox.png" class="img-fluid figure-img"></p>
+<figcaption>Four-input MUX black box</figcaption>
+</figure>
+</div>
+<p>The following figures illustrate the behavior of the four-input MUX over time. The input lines and output lines are labeled with the data streams flowing down them. During the period of time illustrated in the following figure, selector lines S<sub>1</sub> and S<sub>0</sub> are both held at zero, making D<sub>0</sub> the <em>active</em> data channel:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/mux-datastream-d0.png" class="img-fluid figure-img"></p>
+<figcaption>Four-input MUX with D<sub>0</sub> active (S<sub>1</sub> = 0, S<sub>0</sub> = 0)</figcaption>
+</figure>
+</div>
+<p>In the following figure, S<sub>1</sub> is held at zero and S<sub>0</sub> at one, thereby activating D<sub>1</sub>:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/mux-datastream-d1.png" class="img-fluid figure-img"></p>
+<figcaption>Four-input MUX with D<sub>1</sub> active (S<sub>1</sub> = 0, S<sub>0</sub> = 1)</figcaption>
+</figure>
+</div>
+<p>While the selector lines are held steady, the current state of each of the data lines varies over time as data moves across the lines (from left-to-right; therefore, the data on the lines is read from right-to-left). For example, in both of the previous figures, line D<sub>0</sub> first contains a 0, then its value changes to 1, then back to 0, then to 1, then 0, then 1, and so on. Line D<sub>1</sub> begins by broadcasting four consecutive 1s followed by four consecutive 0s. Notice that when D<sub>0</sub> is active (i.e., S<sub>1</sub> = 0, S<sub>0</sub> = 0), its bit pattern, 01010101, is copied to the output channel. Likewise, when D<sub>1</sub> is active (i.e., S<sub>1</sub> = 0, S<sub>0</sub> = 1), its bit pattern, 11110000, is copied to the output channel.</p>
+</section>
+<section id="demultiplexers" class="level2">
+<h2 class="anchored" data-anchor-id="demultiplexers">Demultiplexers</h2>
+<p>Just as with the decoder above, the multiplexer has an exact opposite circuit: the demultiplexer (DEMUX).</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>Definition</strong>: A <strong>demultiplexer</strong> has a single data input line, <em>n</em> selector input lines, and 2<sup>n</sup> output data lines. Demultiplexers generate a copy of their input data value on the output data line specified by their selector lines.</p>
+</div>
+</div>
+</div>
+<p>As was the case with multiplexers, the <em>n</em> selector lines are numbered from 0 to <em>n</em> − 1, and the 2<sup>n</sup> output data lines from 0 to 2<sup>n</sup> − 1.</p>
+<p>Demultiplexers are often referred to using their number of output lines. The following illustrates an implementation of a four-output demultiplexer:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/demux-four-output-circuit.png" class="img-fluid figure-img"></p>
+<figcaption>Four-output demultiplexer circuit</figcaption>
+</figure>
+</div>
+<p>The value of the input data line labeled A is transferred to one of the output data lines, D<sub>0</sub> through D<sub>3</sub>, based on an interpretation of the bit pattern in S<sub>1</sub>,S<sub>0</sub> as a two-bit unsigned binary number. For example, if S<sub>1</sub> = 1 and S<sub>0</sub> = 0, corresponding to 10<sub>2</sub> (or 2<sub>10</sub>), then the current state of the input line would be transferred to D<sub>2</sub>. The design of this circuit is quite similar to the one used for the decoder circuit shown earlier. The only difference is that a copy of the input data value is routed to each of the <em>and</em> gates so that, instead of simply setting the selected output line high, its value will instead be determined by the input data value.</p>
+<p>The following is a “black box” representation of the four-output demultiplexer:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/demux-four-output-blackbox.png" class="img-fluid figure-img"></p>
+<figcaption>Four-output DEMUX black box</figcaption>
+</figure>
+</div>
+<p>The following figures illustrate the behavior of the four-output DEMUX over time. The input lines and output lines are labeled with the data streams flowing down them. During the period of time illustrated in the following figure, selector line S<sub>1</sub> is held at one and S<sub>0</sub> is held at zero, making D<sub>2</sub> the active data channel:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/demux-datastream-d2.png" class="img-fluid figure-img"></p>
+<figcaption>Four-output DEMUX with D<sub>2</sub> active (S<sub>1</sub> = 1, S<sub>0</sub> = 0)</figcaption>
+</figure>
+</div>
+<p>In the following figure, S<sub>1</sub> and S<sub>0</sub> are both held at one, activating D<sub>3</sub>:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/demux-datastream-d3.png" class="img-fluid figure-img"></p>
+<figcaption>Four-output DEMUX with D<sub>3</sub> active (S<sub>1</sub> = 1, S<sub>0</sub> = 1)</figcaption>
+</figure>
+</div>
+<p>These examples illustrate how a demultiplexer can <em>broadcast</em> an input data stream down one of many different output channels. Changing S<sub>1</sub>,S<sub>0</sub> changes the broadcast to a different output channel.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
