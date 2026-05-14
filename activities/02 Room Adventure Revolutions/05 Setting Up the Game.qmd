@@ -1,0 +1,163 @@
+---
+title: "Setting Up the Game"
+---
+
+The `setupGame` method creates all the rooms, connects them to each other, populates them with items and lootables, and sets the starting room. Add it inside the `RoomAdventure` class.
+
+```java
+private static void setupGame() {
+
+
+}
+```
+
+## Creating Rooms
+
+Now let's create 2 rooms to start.
+
+```java
+private static void setupGame() {
+    Room room1 = new Room("Room 1");
+    Room room2 = new Room("Room 2");
+}
+```
+
+On the right hand side of the assignment operator `=`, we have `new Room("Room 1")`. This calls the `Room` constructor and returns a new `Room` object.
+
+On the left hand side of the assignment operator `=`, we have the local variable `room1` which is of type `Room`. The variable `room1` holds a reference to the object instantiated by `new Room("Room 1")`. 
+
+This similar to how Python variables hold references to objects.
+
+## Setting Up Room 1
+
+Now we add exits, items, and a lootable to Room 1.
+
+```java
+private static void setupGame() {
+    // previously written portions omitted for brevity 
+
+    // Room 1
+    // exits
+    String[] room1ExitDirections = {"east"};
+    Room[] room1ExitDestinations = {room2};
+
+    // items
+    String[] room1Items = {"chair", "cheese"};
+    String[] room1ItemDescriptions = {
+        "The chair has a leg.",
+        "The cheese has a curd."
+    };
+
+    // lootables
+    String[] room1Lootables = {"key"};
+
+    // assign to the room
+    room1.exitDirections = room1ExitDirections;
+    room1.exitDestinations = room1ExitDestinations;
+    room1.items = room1Items;
+    room1.itemDescriptions = room1ItemDescriptions;
+    room1.lootables = room1Lootables;
+
+}
+```
+
+Arrays in Java can be initialized using curly braces `{}` with comma-separated values. This differs from Python in the sense that Python uses the square brackets `[]` for lists.
+
+Note that `room1ExitDestinations` is of type `Room[]`. That is, it is an array of `Room` objects. Placing `room2` in this array means "going east from Room 1 leads to the `room2` object." Since `room1ExitDirections` and `room1ExitDestinations` are **parallel arrays**. That is index `0` in `room1ExitDestinations` corresponds to index `0` in `room1ExitDirections`, and so on.
+
+In addition, we have `items` and `itemDescriptions` as parallel arrays. 
+
+## Setting Up Room 2
+
+Now we add items, exits, and lootables to room 2.
+
+```java
+private static void setupGame() {
+    // previously written portions omitted for brevity 
+
+    // Room 2
+    // exits
+    String[] room2ExitDirections = {"west"};
+    Room[] room2ExitDestinations = {room1};
+
+    // items
+    String[] room2Items = {"cheesepuff", "cheeseball"};
+    String[] room2ItemDescriptions = {
+        "It is cheesy.",
+        "It is spherical."
+    };
+
+    // lootables
+    String[] room2Lootables = {"cheeseman"};
+
+    // assign to the room
+    room2.exitDirections = room2ExitDirections;
+    room2.exitDestinations = room2ExitDestinations;
+    room2.items = room2Items;
+    room2.itemDescriptions = room2ItemDescriptions;
+    room2.lootables = room2Lootables;
+
+}
+```
+
+## Setting the Starting Room
+
+The last step for setup game is to set the starting room for the game by setting the `currentRoom` class variable.
+
+```java
+private static void setupGame() {
+    // previously written portions omitted for brevity 
+
+    currentRoom = room1;
+}
+```
+
+
+## The Complete `setupGame` Method
+
+Here is a complete view of the `setupGame` method.
+
+```java
+private static void setupGame() {
+    Room room1 = new Room("Room 1");
+    Room room2 = new Room("Room 2");
+
+    // Room 1
+    String[] room1ExitDirections = {"east"};
+    Room[] room1ExitDestinations = {room2};
+
+    String[] room1Items = {"chair", "cheese"};
+    String[] room1ItemDescriptions = {
+        "The chair has a leg.",
+        "The cheese has a curd."
+    };
+
+    String[] room1Lootables = {"key"};
+
+    room1.exitDirections = room1ExitDirections;
+    room1.exitDestinations = room1ExitDestinations;
+    room1.items = room1Items;
+    room1.itemDescriptions = room1ItemDescriptions;
+    room1.lootables = room1Lootables;
+
+    // Room 2
+    String[] room2ExitDirections = {"west"};
+    Room[] room2ExitDestinations = {room1};
+
+    String[] room2Items = {"cheesepuff", "cheeseball"};
+    String[] room2ItemDescriptions = {
+        "It is cheesy.",
+        "It is spherical."
+    };
+
+    String[] room2Lootables = {"cheeseman"};
+
+    room2.exitDirections = room2ExitDirections;
+    room2.exitDestinations = room2ExitDestinations;
+    room2.items = room2Items;
+    room2.itemDescriptions = room2ItemDescriptions;
+    room2.lootables = room2Lootables;
+
+    currentRoom = room1;
+}
+```

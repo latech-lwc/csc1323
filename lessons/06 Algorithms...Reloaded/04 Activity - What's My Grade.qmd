@@ -1,0 +1,63 @@
+---
+title: "Activity - What's My Grade?"
+---
+
+::: {.callout-tip title="Activity 1: What's my grade?"}
+Let's write a simple program that calculates the letter grade corresponding to a student's score on a test. The program will contain two functions. The bulk of the code will be written in the main function; however, it will take advantage of a `calcGrade` function that takes the score (a double) as its parameter and returns the matching letter grade. Here is the source code:
+
+```java
+public class LetterGrade
+{
+    public static void main(String[] args)
+    {
+        double score = 87.5;
+        char letter_grade;
+
+        letter_grade = calcGrade(score);
+
+        System.out.println("Your grade is " + letter_grade);
+    }
+
+    public static char calcGrade(double d)
+    {
+        if (d >= 90.0)
+            return 'A';
+        else if (d >= 80.0)
+            return 'B';
+        else if (d >= 70.0)
+            return 'C';
+        else if (d >= 60.0)
+            return 'D';
+        else
+            return 'F';
+    }
+}
+```
+
+And here is the output:
+
+```default
+$ java LetterGrade
+Your grade is B
+```
+:::
+
+Although the syntax is different, you should be able to use your existing knowledge of Python in order to understand what is going on. In Java, we use `else if` instead of `elif` to add a condition to the else clause of an if statement. In fact, we can chain them (just as we do with `elif` in Python). Note that Java does not require a colon at the end of an if statement.
+
+If the true or false (else) part of an if statement only includes a single statement, then curly braces can be omitted. By default, a block contains a single statement. If, however, multiple statements were required, curly braces would be needed. Here's an example of a multi-line if else statement:
+
+```java
+if (d >= 90)
+{
+    System.out.println("Wow, good job!");
+    return 'A';
+}
+```
+
+Compare this with a similar block of statements in Python:
+
+```python
+if (d >= 90):
+    print("Wow, good job!")
+    return 'A'
+```

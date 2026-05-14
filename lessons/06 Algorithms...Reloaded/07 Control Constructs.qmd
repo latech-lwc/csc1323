@@ -1,0 +1,208 @@
+---
+title: "Control Constructs"
+---
+
+Similar to Python, Java uses **sequence** as a primary control construct. Statements are executed, one after another. Control flow is as expected. It can, however, be changed when, for example, functions are called.
+
+## Selection
+
+**Selection** in Java is very similar to Python and is implemented as an if statement. As shown earlier, if statements are nearly the same; however, no colon is used at the end of the if statement, braces are used to denote blocks, and `else if` is used instead of `elif`. Note that the conditions of if statements must be enclosed in parentheses:
+
+```java
+if (grade > 89.5)
+    letter_grade = 'A'
+else if (grade > 79.5)
+    letter_grade = 'B'
+else if (grade > 69.5)
+    letter_grade = 'C'
+else if (grade > 59.5)
+    letter_grade = 'D'
+else
+    letter_grade = 'F'
+```
+
+In Python, strings can be enclosed in single or double quotes. In Java, however, they must always be enclosed in double quotes; for example:
+
+```java
+"This is a string."
+```
+
+In Java, characters are always enclosed in single quotes; for example:
+
+```java
+'^'
+```
+
+## The switch-case Statement
+
+There is another selection construct in Java called a switch-case. Let's explain it by starting with an example:
+
+```java
+char grade = 'B';
+
+switch (grade)
+{
+    case 'A':
+        System.out.println("Excellent job!");
+        break;
+    case 'B':
+        System.out.println("Great job!");
+        break;
+    case 'C':
+        System.out.println("Good job!");
+        break;
+    case 'D':
+        System.out.println("Fair job!");
+        break;
+    case 'F':
+        System.out.println("Poor job!");
+        break;
+    default:
+        System.out.println("Invalid grade!");
+        break;
+}
+```
+
+A switch statement is very much like an if-else with many possible else-if clauses. The condition is restricted to variables of the type `int`, `char`, and `String` (among a few others that are not used often). In the example above, the variable that serves as the condition value is *grade*. If the grade is A, then the first case is *triggered* (and the string "Excellent job!" is echoed to the console). The break statement then exits the switch construct so that none of the other cases are executed. In a switch statement, cases can *fall through* each other. Here's an example, where earning an A or B yields the string "Great job!", a C yields the string "Good job!", and a D or F yields the string "Poor job!":
+
+```java
+char grade = 'B';
+
+switch (grade)
+{
+    case 'A':
+    case 'B':
+        System.out.println("Great job!");
+        break;
+    case 'C':
+        System.out.println("Good job!");
+        break;
+    case 'D':
+    case 'F':
+        System.out.println("Poor job!");
+        break;
+    default:
+        System.out.println("Invalid grade!");
+        break;
+}
+```
+
+The default case is a *catch-all* that executes if none of the other cases are evaluated to be true. If, for example, the grade provided was mistakenly entered as 'E', then the output would be "Invalid grade!"
+
+## Repetition
+
+**Repetition** in Java is somewhat similar to Python. There are three repetition constructs.
+
+### The while loop
+
+The while-do loop is similar to Python. It is formatted as follows:
+
+```java
+while (condition)
+{
+    loop_body
+}
+```
+
+Note that the braces are only required if there is more than one statement in the loop body. Here's an example of a single statement in the loop body that does not require braces:
+
+```java
+int sum = 0;
+while (sum > 0)
+    sum--;
+```
+
+In the example above, the loop body is never executed because the variable *sum* is initialized to 0.
+
+### The do-while loop
+
+There is a variation of the while-do loop called the do-while loop that is formatted as follows:
+
+```java
+do
+{
+    loop_body
+} while (condition);
+```
+
+The main differences of this form of the while loop are that (1) the loop body always executes at least one time; and (2) there is a semicolon after the condition at the bottom of the loop. Here's an example:
+
+```java
+int sum = 0;
+do
+{
+    sum--;
+} while (sum > 0);
+```
+
+In this example, the loop body executes once. When it does, the value of the variable *sum* is decremented by one (to -1), and the condition at the bottom of the loop becomes false (which breaks out of the while loop).
+
+### The for loop
+
+In Java, the for loop is drastically different than it is in Python. It is formatted as follows:
+
+```java
+for (initialization; condition; change)
+{
+    loop_body
+}
+```
+
+The initialization portion is used to initialize one or more variables (usually used as a counter). The condition portion is evaluated and decides if the loop body is to be executed (if the condition evaluates to true). The change portion changes the value of one or more of the variables in the initialization portion (e.g., increment or decrement). This occurs after each execution of the loop body. Here's an example:
+
+```java
+int i;
+
+for (i=0; i<10; i++)
+{
+    System.out.print((i * i) + " ");
+}
+```
+
+This example changes the value of the variable *i* from 0 to 10. The loop body is executed when *i* is between 0 and 9 inclusive. When its value is 10, the loop body is not executed. Initially, the value of *i* is initialized to 0. Since 0 is less than 10, the loop body is executed. After this, *i* is incremented (to 1). Since 1 is less than 10, the loop body is executed again. This continues. At one point, *i* has the value 9. Since 9 is less than 10, the loop body is executed. After this, *i* is incremented (to 10). Since 10 is not less than 10, the for loop is then terminated, and control continues to the statement that follows it.
+
+Formally, the initialization is done before the first iteration. The condition is evaluated before each iteration and determines whether the loop body is executed. The change is carried out at the end of each iteration. While the majority of your for loops will have initialization, condition, and change dealing with the same variable, this is not a rule. The change portion can vary greatly. Sometimes, it represents an increment (as in the example above). At other times, it could be a decrement or even an entirely different arithmetic expression. The condition portion, however, should always evaluate either to true or false. The for loop is exited when the condition evaluates to false.
+
+Additionally, it is possible to leave some or all of the parts of the for loop (i.e., initialization, condition, and change) empty. There must always be semicolons that delineate the three portions of the for loop, however, even if some are empty. If one selects to have one or more of the portions empty, a way to cater for the missing portion(s) must be specified. Here's an example:
+
+```java
+int i = 10;
+
+for (;;)
+{
+    i--;
+    if (i == 0)
+        break;
+}
+```
+
+The for loop header, `for (;;)`, is technically an infinite loop. Therefore, there must be some way to exit the loop in the loop body. This is accomplished as the variable *i* is decremented at each iteration of the loop. It will eventually reach the value 0; and when that occurs, the condition of the if statement will evaluate to true, and the `break` keyword will terminate the loop.
+
+Lastly, it is also possible to place more than one initialization in the initialization portion, more than one condition in the condition portion, and more than one change in the change portion. The only requirement is that the different components are separated by a comma. Also, variables can actually be declared in the initialization portion, eliminating the need to do so beforehand. Here is an example of both of these:
+
+```java
+System.out.println("Before loop");
+for (int i=0, j=10; i<=100 && j >= 0; i+=2, j-=2)
+{
+    System.out.println("In loop; i=" + i + ", j=" + j);
+}
+System.out.println("After loop");
+```
+
+Note that, if variables are declared in the initialization portion of the for loop, then they become local to the loop and are unavailable after the loop. Let's explain the snippet of code above. First, the variables *i* and *j* are declared and initialized to 0 and 10 respectively in the initialization portion of the for loop. Second, if *i* is less than or equal to 100 and *j* is greater than or equal to 0, then the loop body is executed. Third, after the loop body is executed, *i* is incremented by 2 and *j* is decremented by 2.
+
+Here is the output:
+
+```default
+$ java Loop
+Before loop
+In loop; i=0, j=10
+In loop; i=2, j=8
+In loop; i=4, j=6
+In loop; i=6, j=4
+In loop; i=8, j=2
+In loop; i=10, j=0
+After loop
+```
+
+There is another variation of the for loop, called the foreach loop, that will be discussed later in this lesson.

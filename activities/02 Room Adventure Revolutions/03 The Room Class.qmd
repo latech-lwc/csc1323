@@ -1,0 +1,156 @@
+---
+title: "The `Room` Class"
+---
+
+The `Room` class represents a single room in the game. It stores the room's name, what exits it has, what items are in it, and which items can be picked up.
+
+Scroll to the **bottom** of your `RoomAdventure.java` file, after the closing brace of the `RoomAdventure` class, and add a class named Room if you haven't already.
+
+```java
+class Room {
+
+}
+```
+
+We will fill it in one section at a time.
+
+## Instance Variables
+
+A `Room` needs to store several pieces of information. Add the following instance variables inside the class:
+
+```java
+class Room {
+
+    private String name;
+    public String[] exitDirections;
+    public Room[] exitDestinations;
+    public String[] items;
+    public String[] itemDescriptions;
+    public String[] lootables;
+
+}
+```
+
+A few things to note:
+
+- `private` means only code inside the `Room` class can directly access `name`. We will add a getter and setter for it.
+- `public` means code outside of this class, in particular in the `RoomAdventure` class, can access these arrays directly.
+- `String[]` is a Java array of strings. The brackets indicate that we will have an array. For now, we are simply declaring the existence of the variable. The values will be assigned when we set up the game.
+- `Room[]` is an array of `Room` objects. The brackets indicate that we will have an array.
+
+
+::: {.callout-tip}
+## Python Comparison
+Recall that in Python, instance variables are typically set inside the `__init__` method (the constructor). In Java, you can declare them at the class level (as above) and assign values later, or initialize them inside the constructor. Note that just because they are declared at the class level, they not class variables. Class variables require the use of the `static` keyword.
+:::
+
+## The Constructor
+
+The constructor sets up a new `Room` object when one is created. In Java, the constructor is a method with the **same name as the class** and **no return type**.
+
+Add this constructor inside the `Room` class:
+
+```java
+public Room(String name) {
+    this.name = name;
+}
+```
+
+`this.name = name` — Note that `this` is not usually required, to refer to our instance variables, however, the formal parameter is also called `name` here. Since the formal parameter would shadow the instance variable, we chose to write `this.name` to refer to the instance variable.
+
+::: {.callout-tip}
+## Python Comparison
+Python uses `self.name = name` inside `__init__`. Java uses `this.name = name` inside the constructor. Same concept, different keyword. Note that we do not create a formal parameter named `this` like we did with Python.
+:::
+
+## Getters and Setters
+
+Since `name` is `private`, other classes cannot read or modify it directly. We add a **getter** and a **setter**:
+
+```java
+public String getName() {
+    return name;
+}
+
+public void setName(String newName) {
+    name = newName;
+}
+```
+
+- `String` before the method name means this method returns a `String`.
+- `void` means the method returns nothing.
+
+## The `toString` Method
+
+The `toString` method controls how a `Room` is converted to a string. This is similar to Python's `__str__` method. Java calls `toString()` automatically when an object is used with `System.out.println()` or in string concatenation.
+
+Here is a simple implementation of a string method that would allow us to see the room name, the items in a room, and the exits for that room. Consider customizing this to produce a better looking output in the terminal.
+
+```java
+public String toString() {
+    String result = "\n";
+    result += "Location: " + name;
+
+    result += "\nYou See: ";
+    for (int i = 0; i < items.length; i++) {
+        result += items[i] + " ";
+    }
+
+    result += "\nExits:";
+    for (String direction : exitDirections) {
+        result += direction + " ";
+    }
+
+    return result + "\n";
+}
+```
+
+It is important to note that there are two types of **for** loops being used here. 
+
+- **Index-based for loop**: `for (int i = 0; i < items.length; i++)` — works like `for i in range(len(items)):` in Python.
+- **Enhanced for loop**: `for (String direction : exitDirections)` — works like `for direction in exit_directions:` in Python.
+
+`items.length` gives the number of elements in the array. Note that this is a **field**, not a method. There are no parentheses (unlike Python's `len()`).
+
+## The Completed `Room` Class
+
+```java
+class Room {
+
+    private String name;
+    public String[] exitDirections;
+    public Room[] exitDestinations;
+    public String[] items;
+    public String[] itemDescriptions;
+    public String[] lootables;
+
+    public Room(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String newName) {
+        name = newName;
+    }
+
+    public String toString() {
+        String result = "\n";
+        result += "Location: " + name;
+
+        result += "\nYou See: ";
+        for (int i = 0; i < items.length; i++) {
+            result += items[i] + " ";
+        }
+
+        result += "\nExits:";
+        for (String direction : exitDirections) {
+            result += direction + " ";
+        }
+
+        return result + "\n";
+    }
+}
+```

@@ -1,0 +1,232 @@
+---
+title: "The Main Loop"
+---
+
+The `main` method is the entry point for every Java program. When you run `java RoomAdventure`, the JVM (Java Virtual Machine) finds and calls this method first. Add it inside the `RoomAdventure` class.
+
+## The Method Signature
+
+```java
+public static void main(String[] args) {
+
+}
+```
+
+This exact signature is required by the JVM. `String[] args` holds any arguments passed from the command line, although we will not use them here.
+
+## Starting the Game
+
+The first thing `main` does is call `setupGame()` to build the rooms:
+
+```java
+public static void main(String[] args) {
+    setupGame();
+
+}
+```
+
+## The Game Loop
+
+The rest of `main` is an infinite loop:
+
+```java
+public static void main(String[] args) {
+
+    setupGame();
+
+    while (true) {
+
+    }
+}
+```
+
+In Java, the boolean value `true` is lowercase (as opposed to `True` in Python). This loop runs forever. The only way to stop the program is to close the terminal (or press `Ctrl+C`). Consider adding a way to lose the game when you do your customizations.
+
+## Displaying the Current State
+
+At the start of each loop iteration, print the current room and the player's inventory. 
+
+```java
+public static void main(String[] args) {
+
+    setupGame();
+
+    while (true) {
+        System.out.println(currentRoom);
+        System.out.print("Inventory: ");
+
+        for (int i = 0; i < inventory.length; i++) {
+            System.out.print(inventory[i] + " ");
+        }
+
+        System.out.println("\nWhat would you like to do? ");
+
+    }
+}
+```
+
+- `System.out.println()` prints a line followed by a newline — like Python's `print()`.
+- `System.out.print()` prints without adding a newline at the end.
+- `currentRoom.toString()` calls the `toString` method on the current room object.
+
+## Reading Input
+
+Now we setup the scanner to be able to take input from the user.
+
+```java
+
+public static void main(String[] args) {
+
+    setupGame();
+
+    while (true) {
+
+        // code omitted for brevity
+
+        Scanner s = new Scanner(System.in);
+        String input = s.nextLine();
+
+    }
+}
+
+```
+
+`Scanner` reads text from the keyboard. `s.nextLine()` reads one full line of input (everything the user typed before pressing Enter) and returns it as a `String`.
+
+## Parsing the Input
+
+Since we've taken input, let's parse the input for our two keywords: the `verb` and the `noun`. Recall that the verb will take on values such as `"go"`, `"look"`, and `"take"`. The noun will take on values that represent directions such as "east" and "west", items, or lootables.
+
+```java
+public static void main(String[] args) {
+
+    setupGame();
+
+    while (true) {
+
+        // code omitted for brevity
+
+        String[] words = input.split(" ");
+
+        if (words.length != 2) {
+            status = DEFAULT_STATUS;
+            System.out.println(status);
+            continue;
+        }
+
+        String verb = words[0];
+        String noun = words[1];
+
+    }
+}
+
+```
+
+- `input.split(" ")` splits the string on spaces and returns an array of strings.
+- If the player did not type exactly two words, we set `status` to the default error message, print it, and use `continue` to skip the rest of the loop body and jump back to the top.
+- `continue` causes the nearest enclosing loop to immediately begin its next iteration.
+
+
+
+## Routing Commands
+
+Since we've parsed the input, let's determine which handler function to execute based on the verb. We will pass the noun to the appropriate function.
+
+```java
+public static void main(String[] args) {
+
+    setupGame();
+
+    while (true) {
+
+        // code omitted for brevity
+
+        if (verb.equals("go")) {
+            handleGo(noun);
+        } else if (verb.equals("look")) {
+            handleLook(noun);
+        } else if (verb.equals("take")) {
+            handleTake(noun);
+        }
+
+        System.out.println(status);
+
+    }
+}
+```
+
+::: {.callout-warning}
+## String Comparison in Java
+In Java, **never use `==` to compare strings**. Use `.equals()` instead.
+
+`==` checks whether two variables point to the exact same object in memory. `.equals()` checks whether the two strings contain the same characters, which is what we want.
+:::
+
+## The Complete `main` Method
+
+Here is the complete view of the main() method.
+
+```java
+public static void main(String[] args) {
+    setupGame();
+
+    while (true) {
+        System.out.println(currentRoom.toString());
+        System.out.print("Inventory: ");
+
+        for (int i = 0; i < inventory.length; i++) {
+            System.out.print(inventory[i] + " ");
+        }
+
+        System.out.println("\nWhat would you like to do? ");
+
+        Scanner s = new Scanner(System.in);
+        String input = s.nextLine();
+
+        String[] words = input.split(" ");
+
+        if (words.length != 2) {
+            status = DEFAULT_STATUS;
+            System.out.println(status);
+            continue;
+        }
+
+        String verb = words[0];
+        String noun = words[1];
+
+        if (verb.equals("go")) {
+            handleGo(noun);
+        } else if (verb.equals("look")) {
+            handleLook(noun);
+        } else if (verb.equals("take")) {
+            handleTake(noun);
+        }
+
+        System.out.println(status);
+    }
+}
+```
+
+## Testing
+
+Before continuing, add temporary empty stubs for the three handler methods so the program will compile:
+
+```java
+private static void handleGo(String noun) { }
+private static void handleLook(String noun) { }
+private static void handleTake(String noun) { }
+```
+
+Then compile and run:
+
+```sh
+javac RoomAdventure.java
+java RoomAdventure
+```
+
+Expected behavior at this point:
+
+- The room name, items, exits, and inventory are printed
+- A prompt appears
+- Typing one word or three words prints the default error message
+- Typing two words does nothing yet since the handlers are empty. Consider placing print statements inside them to confirm they execute. 

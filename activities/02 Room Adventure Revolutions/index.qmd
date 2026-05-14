@@ -1,0 +1,27 @@
+---
+title: "Room Adventure...Revolutions"
+---
+
+## Overview
+
+In this activity, you will build a text-based adventure game in Java called **Room Adventure**. The game takes place in a small mansion made up of several rooms. The player can move between rooms, observe items in each room, and pick up items to add to their inventory.
+
+Unlike the previous Room Adventure activity, which was written in Python, you will build this entire game in a **single Java file** called `RoomAdventure.java`. That file will contain two classes:
+
+- **`Room`** — represents a single room in the mansion
+- **`RoomAdventure`** — contains the main game loop and all game logic
+
+This activity will help you become more familiar with the following:
+
+- Classes
+- Instance Variables
+- Defining Constructors
+- Static (class-level) variables and constants
+- Arrays
+- Loops
+- Conditionals
+- User input with the `Scanner` class
+
+::: {.callout-tip}
+Throughout this activity you will see notes comparing Java to Python. These are here to help you connect what you already know to what is new.
+:::

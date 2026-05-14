@@ -1,0 +1,307 @@
+---
+title: "Activity - Selection Sort and Binary Search"
+---
+
+::: {.callout-tip title="Activity 2: Selection sort followed by a binary search"}
+In this activity, we will implement the selection sort on an array, and subsequently search the sorted array for a specified value using the binary search.
+:::
+
+Since you should be quite familiar with both the selection sort and the binary search, we will skip their mechanics and just show their algorithms.
+
+## The Selection Sort Algorithm
+
+First, recall the selection sort:
+
+```default
+n ← length of the list
+for i ← 0..n-2
+    minPosition ← i
+    for j ← i+1..n-1
+        if item at j < item at minPosition
+        then
+            minPosition ← j
+        end
+    next
+    swap items at i and minPosition
+next
+```
+
+The selection sort maintains sorted and unsorted portions of the list. It repeatedly places the smallest value in the unsorted portion of the list at the end of the sorted portion (or the beginning of the unsorted portion) of the list. The algorithm stops when the unsorted portion of the list is empty.
+
+## The Binary Search Algorithm
+
+Second, recall the binary search:
+
+```default
+num ← number to search for
+first ← 0
+last ← number of items in the list - 1
+while first <= last
+    mid ← floor((first + last) / 2)
+    if num = item at mid of the list
+    then
+        return mid
+    else if num > item at mid of the list
+    then
+        first ← mid + 1
+    else
+        last ← mid - 1
+    end
+return -1
+```
+
+The binary search selects the middle value in the current portion of the list (initially, the entire list) and compares it to the specified value. If the values match, then the (middle) index is returned. If not, and the specified value is greater than the value in the middle, then the beginning of the list is shifted to the element to the right of the middle of the list. The rest of the list is effectively discarded. Otherwise, the specified value is less than the value in the middle, and the end of the list is shifted to the element to the left of the middle of the list. Note that the algorithm has been slightly modified to return the index of the specified value (if it is found in the list) or -1 (if it isn't found in the list).
+
+## Implementing the Program
+
+Let's write a program that generates an array of integers with random values from 10 to 99 (i.e., two digit numbers). Then, we will display the unsorted array, sort it with the selection sort, display the array again, and prompt the user for a value to search for. Finally, we will implement the binary search and return the index of the value specified (or -1 if the value is not found in the array).
+
+First, we can layout a shell of the program. To generate random numbers, we can use the Random class (`java.util.Random`), and to accept user input from stdin, we can use the Scanner class (`java.util.Scanner`), as was discussed earlier. We will also apply good design principles and reduce code duplication by encapsulating common behaviors in functions. Here's a first try:
+
+```java
+import java.util.Random;
+import java.util.Scanner;
+
+public class SortSearch
+{
+    public static void main(String[] args)
+    {
+        int[] values = new int[15];
+        Random r = new Random();
+        Scanner s = new Scanner(System.in);
+        int num;     // the value to search for
+        int index;   // the index of the specified value
+    }
+
+    public static void printArray(int[] list)
+    {
+    }
+
+    public static void sortArray(int[] list)
+    {
+    }
+
+    public static int searchArray(int[] list, int val)
+    {
+    }
+}
+```
+
+So far, most of the functions don't contain any source code. In the main function, we declare all of the variables that we will need: the array of 15 integers, a random number generator, a scanner to obtain user input, a number to represent some value to search for in the array, and a corresponding index (if the specified value is found).
+
+## Populating and Displaying the Array
+
+At this point, we can add statements that randomly populate the array to the main function. While we're at it, let's display the array. Here's the updated main function (new portions have been highlighted):
+
+```java
+public class SortSearch
+{
+    static final int MIN = 10;
+    static final int MAX = 99;
+    public static void main(String[] args)
+    {
+        int[] values = new int[15];
+        Random r = new Random();
+        Scanner s = new Scanner(System.in);
+        int num;     // the value to search for
+        int index;   // the index of the specified value
+
+        for (int i = 0; i < values.length; i++)
+            values[i] = r.nextInt(MAX - MIN + 1) + MIN;
+
+        System.out.print("Not sorted: ");
+        printArray(values);
+    }
+}
+```
+
+Let's explain the new statements. First, a for loop iterates over the elements of the array and assigns to each index a random integer within some range (defined by the new constants MIN and MAX that are declared and initialized at the class level).
+
+The `nextInt` method in the Random class generates a random integer from 0 to one less than a specified parameter. For example, `nextInt(5)` generates a random integer from 0 to 4. Similarly, `nextInt(MAX - MIN + 1)` generates a random integer from 0 to MAX -- MIN inclusive. Since MAX is 99 and MIN is 10, this is the same as `nextInt(90)`. Therefore, random integers from 0 to 89 are generated. We then add MIN to this random integer. Since MIN is 10, then the smallest integer generated is 0 + 10 = 10, and the largest integer generated is 89 + 10 = 99. This correctly generates random integers within the specified range of 10 to 99!
+
+Next, we display the unsorted array. Of course, we must now implement the `printArray` function:
+
+```java
+public static void printArray(int[] list)
+{
+    for (int i = 0; i < list.length; i++)
+        System.out.print(list[i] + " ");
+    System.out.println();
+}
+```
+
+All this new function does is iterate over the array, and displays each element followed by a space. Lastly, it adds a newline. To be clear, the actual parameter passed in to this function in the main method is the array, *values*. It is mapped to the formal parameter specified in the function, *list*. Both are arrays of integers.
+
+## Sorting and Searching
+
+At this point, we want to sort the array, display it again (now sorted), prompt the user for a value to search the array for, search the array for this specified value, and return the index of the specified value (or -1 if it is not found in the array). We can modify the main function as follows:
+
+```java
+public static void main(String[] args)
+{
+    int[] values = new int[15];
+    Random r = new Random();
+    Scanner s = new Scanner(System.in);
+    int num;     // the value to search for
+    int index;   // the index of the specified value
+
+    for (int i = 0; i < values.length; i++)
+        values[i] = r.nextInt((MAX - MIN) + 1) + MIN;
+
+    System.out.print("Not sorted: ");
+    printArray(values);
+    sortArray(values);
+    System.out.print("Sorted: ");
+    printArray(values);
+    System.out.println("Value to search for?");
+    num = s.nextInt();
+    index = searchArray(values, num);
+    System.out.print("Value ");
+    if (index == -1)
+        System.out.println("not found.");
+    else
+        System.out.println("found at index " + index +
+            "!");
+}
+```
+
+You have seen the `nextLine` function in the Scanner class. We are using the `nextInt` function in this program. It will convert user input to an integer. In this case, it will be interpreted as the value to search the array for. The index is then assigned by calling the `searchArray` function, which returns an index or -1. A final string that informs the user if the specified value was found is output to the console.
+
+Next, we will work on the `sortArray` function:
+
+```java
+public static void sortArray(int[] list)
+{
+    for (int i = 0; i < list.length - 1; i++)
+    {
+        int minPos = i;
+
+        for (int j = i + 1; j < list.length; j++)
+        {
+            if (list[j] < list[minPos])
+                minPos = j;
+        }
+
+        int temp = list[i];
+        list[i] = list[minPos];
+        list[minPos] = temp;
+    }
+}
+```
+
+This function is an almost direct implementation of the pseudocode shown above for the selection sort. The last three statements swap the values in the array at indexes *i* and *minPos*. The strategy is to declare a temporary variable and give it the value of one of the values in the array (say at index *i*). This position in the array can now be replaced with the value at index *minPos*. Finally, the element at index *minPos* can then be replaced with the value in the temporary variable.
+
+Lastly, we can work on the `searchArray` function that implements the binary search. Again, it is almost a direct implementation of the pseudocode shown above:
+
+```java
+public static int searchArray(int[] list, int val)
+{
+    int first = 0;
+    int last = list.length - 1;
+
+    while (first <= last)
+    {
+        int mid = (first + last) / 2;
+
+        if (val == list[mid])
+            return mid;
+        else if (val > list[mid])
+            first = mid + 1;
+        else
+            last = mid - 1;
+    }
+
+    return -1;
+}
+```
+
+The function takes two parameters: the array to search through, and the value to search the array for. The statement, `int mid = (first + last) / 2`, works fine because it results in integer division (since *first*, *last*, and 2 are integers). If the value is found at index *mid*, then *mid* is returned. This immediately terminates the function and returns control to the main function. If the value is never found, then *first* and *last* will eventually cross, which will terminate the while loop. The value returned is then -1.
+
+## The Complete Program
+
+For completeness, the entire source code is shown below:
+
+```java
+import java.util.Random;
+import java.util.Scanner;
+
+public class SortSearch
+{
+    static final int MIN = 10;
+    static final int MAX = 99;
+
+    public static void main(String[] args)
+    {
+        int[] values = new int[15];
+        Random r = new Random();
+        Scanner s = new Scanner(System.in);
+        int num;     // the value to search for
+        int index;   // the index of the specified value
+
+        for (int i = 0; i < values.length; i++)
+            values[i] = r.nextInt(MAX - MIN + 1) + MIN;
+
+        System.out.print("Not sorted: ");
+        printArray(values);
+        sortArray(values);
+        System.out.print("Sorted: ");
+        printArray(values);
+        System.out.println("Value to search for?");
+        num = s.nextInt();
+        index = searchArray(values, num);
+        System.out.print("Value ");
+        if (index == -1)
+            System.out.println("not found.");
+        else
+            System.out.println("found at index " + index +
+                "!");
+    }
+
+    public static void printArray(int[] list)
+    {
+        for (int i = 0; i < list.length; i++)
+            System.out.print(list[i] + " ");
+        System.out.println();
+    }
+
+    public static void sortArray(int[] list)
+    {
+        for (int i = 0; i < list.length - 1; i++)
+        {
+            int minPos = i;
+
+            for (int j = i + 1; j < list.length; j++)
+            {
+                if (list[j] < list[minPos])
+                    minPos = j;
+            }
+
+            int temp = list[i];
+            list[i] = list[minPos];
+            list[minPos] = temp;
+        }
+    }
+
+    public static int searchArray(int[] list, int val)
+    {
+        int first = 0;
+        int last = list.length - 1;
+
+        while (first <= last)
+        {
+            int mid = (first + last) / 2;
+
+            if (val == list[mid])
+                return mid;
+            else if (val > list[mid])
+                first = mid + 1;
+            else
+                last = mid - 1;
+        }
+
+        return -1;
+    }
+}
+```
+
+Of course, comments should be appropriately placed throughout the source code. They have been eliminated in this document for brevity and space considerations.

@@ -1,0 +1,133 @@
+---
+title: "Operators"
+---
+
+For the most part, the operators that you learned in Python are the same (or very similar) in Java as well. This means that it should be relatively straightforward to convert code that you've written in Python to Java. There are, however, a few exceptions that we will now discuss.
+
+## Arithmetic Operators
+
+The typical **arithmetic operators** for addition (+), subtraction (--), multiplication (\*), division (/), and modulus (%) are exactly the same in Java. Java, however, does not use `**` as the exponentiation operator. Instead, it makes use of a math library. Specifically, a function called `pow` can be called as follows to replicate the expression `2 ** 3` in Python:
+
+```java
+Math.pow(2, 3);
+```
+
+Another difference in the arithmetic operators is the floor division. Python has a floor division operator (//). As you have seen, this is used in Java to denote a single line comment. To obtain floor division in Java, we need to make use of the math library again, as follows:
+
+```java
+Math.floor(5.2 / 8.11);
+```
+
+Note that, if the values that you are dividing are both integers, (i.e., whole numbers), then the result of their division will be an integer! This is the same result as a floor division. In fact, this is something that you should be very careful about in Java, because it is often the source of logical errors that are very difficult to trace. Java's division operator will give different results for integers than it would for floating point numbers. Take a look at the examples below:
+
+- `1 / 2` → `0`
+- `1.0 / 2` → `0.5`
+- `1 / 2.0` → `0.5`
+- `1.0 / 2.0` → `0.5`
+- `(float)1 / 2` → `0.5`
+- `1 / (float)2` → `0.5`
+
+The first example is a division of integers which will always return an integer result that is equal to the quotient of the division. If the remainder is needed, we can use the modulus operator. The second, third, and fourth examples are divisions which involve a floating point value as one (or both) of the operands. In this case, the division operator returns the expected floating point result. The fifth and sixth examples result in floating point division because one of the operators is converted or **typecast** to a floating point value. Typecasting is used to inform the compiler that the variable that it applies to is to be considered of the type specified in the parentheses. Depending on the direction of the typecast, typecasting can result in a loss or increase in accuracy of the operation.
+
+The following table enumerates all of Java's arithmetic operators (assume that a = 23, b = 17, c = 4.0, and d = 8.0):
+
+| Operator | Description    | Example       | Example       |
+|:--------:|:---------------|:--------------|:--------------|
+| +        | addition       | a + b = 40    | c + d = 12.0  |
+| --       | subtraction    | a -- b = 6    | c -- d = -4.0 |
+| \*       | multiplication | a \* b = 391  | c \* d = 32.0 |
+| /        | division       | a / b = 1     | c / d = 0.5   |
+| %        | modulus        | a % b = 6     | c % d = 4.0   |
+
+## Relational Operators
+
+All but one of the Python **relational operators** apply in Java. Recall that Python provides two relational operators to check for inequality: `!=` and `<>`. Java does not support the latter (i.e., it only supports `!=`). The following table enumerates all of Java's relational operators (assume that a = 23 and b = 17):
+
+| Operator | Description              | Example          |
+|:--------:|:-------------------------|:-----------------|
+| ==       | equality                 | a == b is false  |
+| !=       | inequality               | a != b is true   |
+| >        | greater than             | a > b is true    |
+| <        | less than                | a < b is false   |
+| >=       | greater than or equal to | a >= b is true   |
+| <=       | less than or equal to    | a <= b is false  |
+
+## Prefix and Postfix Operators
+
+Java has special **prefix and postfix operators** that you most likely have not seen before (certainly not in Python, anyways). These operators are often referred to as syntactic sugar, in that they provide a shorthand for incrementing or decrementing a variable. Here is a snippet of code as an example:
+
+```java
+int p = 3;
+p++;    // p is now 4
+++p;    // p is now 5
+int q = 5;
+q--;    // q is now 4
+--q;    // q is now 3
+```
+
+The `++` and `--` operators are used to increment and decrement a variable respectively. They only increment or decrement by 1 in each case. The location of the `++` or `--` operator relative to the variable determines the order in which this increment or decrement is done and is dependent on the context in which it is used. If the operator is placed before the variable (i.e., as a prefix), then it means that the increment or decrement is carried out before the variable is used. Conversely, if the operator is placed after the variable (i.e., postfix), then it means that the increment or decrement is carried out after the variable is used. Here's an example of the nuances between prefix and postfix:
+
+```java
+int p = 3;
+System.out.println(p++);    // p is displayed and then
+                            // incremented to 4
+System.out.println(p);
+System.out.println(++p);    // p is incremented to 5 and
+                            // then displayed
+```
+
+And here's the output:
+
+```default
+$ java Arithmetic
+3
+4
+5
+```
+
+Note that the following statements all accomplish the same thing: increment the value of the variable *p* by 1:
+
+- `p = p + 1;`
+- `p += 1;`
+- `p++;`
+- `++p;`
+
+The first two are also valid in Python (and do the same thing), although no semicolons are required.
+
+## Assignment Operators
+
+Java **assignment operators** are similar to those in Python, except that there is no assignment operator for exponentiation or floor division. The following table enumerates all of Java's assignment operators (assume that a = 23.0 and b = 17):
+
+| Operator | Description                                                          | Result                |
+|:--------:|:---------------------------------------------------------------------|:----------------------|
+| =        | a = b assigns b to a                                                 | a = 17.0              |
+| +=       | a += b increments a by b (same as a = a + b)                         | a = 40.0              |
+| -=       | a -= b decrements a by b (same as a = a -- b)                        | a = 6.0               |
+| \*=      | a \*= b multiplies a by b and stores the result in a (same as a = a \* b) | a = 391.0         |
+| /=       | a /= b divides a by b and stores the result in a (same as a = a / b) | a = 1.3529411764705883|
+| %=       | a %= b divides a by b and stores the remainder in a (same as a = a % b) | a = 6.0            |
+
+## Bitwise Operators
+
+In Java, **bitwise operators** work exactly as they do in Python, on bits and perform bit-by-bit operations. The following table enumerates all of Java's bitwise operators (assume that a = 60, or 00111100 in binary, and b = 13, or 00001101 in binary):
+
+| Operator | Description    | Example                                            |
+|:--------:|:---------------|:---------------------------------------------------|
+| &        | bitwise *and*  | a & b = 00001100 (or 12 in decimal)                |
+| \|       | bitwise *or*   | a \| b = 00111101 (or 61 in decimal)               |
+| ^        | bitwise *xor*  | a ^ b = 00110001 (or 49 in decimal)                |
+| ~        | bitwise *not*  | ~a = 11000011 (or -61 in decimal; we will explain this one later) |
+| <<       | left shift     | a << 2 = 11110000 (or 240 in decimal)              |
+| >>       | right shift    | a >> 2 = 1111 (or 15 in decimal)                   |
+
+## Logical Operators
+
+In Python, we had words to represent the **logical operators** `and`, `or`, and `not`. In Java, we have symbols to represent these same operators. Logical operators operate on conditions and provide the overall logical result. The following table enumerates all of Java's logical operators (assume that a is true and b is false):
+
+| Operator | Description  | Example                  |
+|:--------:|:-------------|:-------------------------|
+| &&       | logical *and* | a && b is false         |
+| \|\|     | logical *or*  | a \|\| b is true        |
+| !        | logical *not* | !a is false; !b is true |
+
+The logical operators are most often used with expressions in the conditions of if statements and loop constructs.

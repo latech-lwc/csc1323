@@ -1,0 +1,28 @@
+---
+title: "Input and Output"
+---
+
+You have already seen how output can be done in Java using `System.out.print` and `System.out.println`. This is the standard way to direct output to standard output. To obtain input from standard input, we can use `System.in` (the inverse of `System.out`).
+
+Although it is not as straightforward, obtaining user input can be accomplished as follows:
+
+```java
+import java.util.Scanner;
+
+public class Input
+{
+    public static void main(String[] args)
+    {
+        Scanner s = new Scanner(System.in);
+
+        while (s.hasNextLine())
+        {
+            String line = s.nextLine();
+
+            System.out.println(line);
+        }
+    }
+}
+```
+
+First, note that the `import` keyword is also used in Java to bring in external libraries. In fact, it's not much different than in Python! The statement `import java.util.Scanner` imports the Scanner class from the util library in Java. To setup user input, we instantiate a new Scanner, using `System.in` as the parameter (i.e., we can now scan for user input from standard input). Note the use of the keyword `new`. In Java, the keyword `new` is used to create a new instance of a class. The Scanner class has several useful methods. The first that we will make use of is `hasNextLine`, which returns true if the scanner detects that another line of input exists. The second is `nextLine`, which returns the next line of input. This simple program obtains user input and echoes it back to the console.

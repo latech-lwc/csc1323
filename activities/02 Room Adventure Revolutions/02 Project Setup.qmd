@@ -1,0 +1,57 @@
+---
+title: "Project Setup"
+---
+
+## Creating the File
+
+Create a new file named `RoomAdventure.java` that will contain all the code. 
+
+::: {.callout-tip}
+In Java, a file containing a `public` class **must** be named after that class. In this project, it is not required to make the `RoomAdventure` class a public class so Java will not enforce this for us. It is, however, good practice to name the file after the class that holds `main` (our `RoomAdventure` class).
+:::
+
+
+## The File's Overall Structure
+
+Your finished `RoomAdventure.java` file will have this top-level shape:
+
+```java
+import java.util.Scanner;
+
+class RoomAdventure {
+    // class variables and constants
+    // main() method
+    // handler methods: handleGo, handleLook, handleTake
+    // setupGame() method
+}
+
+class Room {
+    // instance variables
+    // constructor
+    // getter and setters for instance variables
+    // toString() method
+}
+```
+
+Two classes, one file. You will build the `Room` class first (at the bottom of the file), since `RoomAdventure` will use it.
+
+
+## Compiling and Running Java
+
+Recall that unlike Python, Java is a **compiled** language Thus at any point you want to test your code, you should compile it before running it. 
+
+As a reminder, to compile your code, open a terminal in the folder that contains your file and run:
+
+```sh
+javac RoomAdventure.java
+```
+
+This produces will produce two files called `RoomAdventure.class` and `Room.class`. To run the compiled program, use the `java` command on the class that has the `main()` method, that is, the `RoomAdventure` class.
+
+```sh
+java RoomAdventure
+```
+
+::: {.callout-tip}
+If you get errors when compiling, read the error messages carefully. Java's compiler tells you the **line number** where the problem was detected.
+:::

@@ -1,0 +1,106 @@
+---
+title: "Variable Scope and Program Flow"
+---
+
+## Variable Scope
+
+In Java, scoping of variables is similar to Python. That is, global variables can be declared. They must be declared in the class, but outside of any function in the class. This makes them class variables (which you already know about). Technically, they are global to the class. Variables declared in functions are local to those functions.
+
+## Program Flow
+
+Let's use a previous example to illustrate program flow in Java (which, by the way, is similar to Python):
+
+```java
+public class LetterGrade
+{
+    public static void main(String[] args)
+    {
+        // 1:
+        double score = 87.5;
+        // 2:
+        char letter_grade;
+        // 3:
+        letter_grade = calcGrade(score);
+
+        // 4:
+        System.out.println("Your grade is " + letter_grade);
+    }
+
+    public static char calcGrade(double d)
+    {
+        // 5:
+        if (d >= 90.0)
+            // 6:
+            return 'A';
+        // 7:
+        else if (d >= 80.0)
+            // 8:
+            return 'B';
+        // 9:
+        else if (d >= 70.0)
+            // 10:
+            return 'C';
+        // 11:
+        else if (d >= 60.0)
+            // 12:
+            return 'D';
+        // 13:
+        else
+            // 14:
+            return 'F';
+    }
+}
+```
+
+::: {.callout-tip title="Activity"}
+Using the source code above, in the space below try to number the statements in the order that they would be executed.
+:::
+
+Note that the main function doesn't necessarily have to be placed as the first function in a class. Functions can be placed in any order! Here's a slightly modified version of the program above:
+
+```java
+public class LetterGrade
+{
+    public static char calcGrade(double d)
+    {
+        // 1:
+        if (d >= 90.0)
+            // 2:
+            return 'A';
+        // 3:
+        else if (d >= 80.0)
+            // 4:
+            return 'B';
+        // 5:
+        else if (d >= 70.0)
+            // 6:
+            return 'C';
+        // 7:
+        else if (d >= 60.0)
+            // 8:
+            return 'D';
+        // 9:
+        else
+            // 10:
+            return 'F';
+    }
+
+    public static void main(String[] args)
+    {
+        // 11:
+        double score = 66.0;
+        // 12:
+        char letter_grade;
+
+        // 13:
+        letter_grade = calcGrade(score);
+
+        // 14:
+        System.out.println("Your grade is " + letter_grade);
+    }
+}
+```
+
+::: {.callout-tip title="Activity"}
+Using the modified source code above, in the space below try to number the statements in the order that they would be executed.
+:::

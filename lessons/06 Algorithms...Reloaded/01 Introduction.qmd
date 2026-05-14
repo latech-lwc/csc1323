@@ -1,0 +1,15 @@
+---
+title: "Introduction"
+---
+
+## Why Java?
+
+Before we answer this question, let's discuss why we need to learn any new programming language in the first place. If Python is as powerful and robust as we've been claiming, why can't we use it for everything? As a programmer, you will spend a lot of your time catering to the needs of a client, and those needs are rarely the same. Sometimes, your tasks will involve maintaining code that was written decades ago in a programming language that is now obsolete. Other times, it will involve working on a small part of a larger system, and the client will require that you work in a language that is consistent with the rest of the system. In these cases, it is important that you not only have some form of experience in multiple languages, but also be able to quickly pick up and use new (to you) programming languages. Additionally, newer languages are always popping up, and you may need to learn them in order to keep relevant in this field.
+
+So back to the original question: Why Java? First, it is considered one of the most widely used programming languages in industry. Second, Java is platform independent. Many programming languages generate compiled executables that are suitable only for the target system on which the code was compiled. This means that the executable code will look different depending on the target system. Java works a bit differently. Java source code is compiled to a platform independent intermediate language known as **bytecodes**. The bytecodes can be distributed to any target system. To execute the bytecodes, the target system must have a Java virtual machine. One doesn't need access to the original source code to execute a Java program. Instead, only the bytecodes are necessary. Third, Java is secure. In addition to allowing for the distribution of bytecodes without the source code, it protects novice programmers from dealing with many details "under the hood," and this provides an extra level of security.
+
+## How is Java installed?
+
+The instructions for installing Java will vary from system to system as it depends on the operating system (e.g., Windows, Linux, MacOS, etc) and the CPU of the target computer (i.e., 32-bit or 64-bit). There are many online tutorials that show how to install Java on a variety of systems. Google it! Note, however, that you will want the Java Development Kit (JDK). It comes with the tools necessary to compile Java source code to bytecodes. In addition, it comes with the Java Virtual Machine (JVM) that can execute the bytecodes. Do not confuse the JDK with the JRE (Java Runtime Environment) that only contains the JVM (i.e., no tools to compile Java source code).
+
+The JDK can be downloaded at: <https://www.oracle.com/java/technologies/javase-downloads.html>

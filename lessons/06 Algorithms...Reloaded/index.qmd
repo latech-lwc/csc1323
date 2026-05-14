@@ -1,3 +1,31 @@
 ---
 title: "Algorithms... Reloaded"
 ---
+
+The time has come to add another language to our programming "tool belt." This is a skill that you are going to have to get used to because learning a new programming language is something that a programmer does pretty frequently. Once you have a good understanding of a general purpose programming language (e.g., Python), transitioning to another language is really just a matter of identifying the subtle differences in syntax. It therefore takes a considerably shorter time than learning your first programming language.
+
+## Contents
+
+1. [Introduction](01 Introduction.qmd)
+
+2. [A First Java Program](02 A First Java Program.qmd)
+
+3. [Data Types, Constants, and Variables](03 Data Types, Constants, and Variables.qmd)
+
+4. [Activity - What's My Grade?](04 Activity - What's My Grade.qmd)
+
+5. [Input and Output](05 Input and Output.qmd)
+
+6. [Operators](06 Operators.qmd)
+
+7. [Control Constructs](07 Control Constructs.qmd)
+
+8. [Variable Scope and Program Flow](08 Variable Scope and Program Flow.qmd)
+
+9. [Arrays](09 Arrays.qmd)
+
+10. [Activity - Selection Sort and Binary Search](10 Activity - Selection Sort and Binary Search.qmd)
+
+11. [Laying Out Classes](11 Laying Out Classes.qmd)
+
+12. [Inheritance and Abstract Classes](12 Inheritance and Abstract Classes.qmd)

@@ -1,0 +1,639 @@
+---
+title: "Laying Out Classes"
+---
+
+The last part of this lesson will cover the basics of implementing classes in Java. Subsequently, an example will be used to demonstrate how inheritance can be implemented.
+
+Arguably, Java is more powerful than Python when it comes to its support of the object-oriented paradigm. In fact, it was designed as a pure object-oriented language for the purpose of solving problems and designing applications using this paradigm. Python was designed more as the multi-tool for programmers so that they can get things done quickly and efficiently. Both programming languages have their strengths and their most typical intended uses.
+
+The object-oriented principles that were covered in previous lessons are all at play in Java. For example, a class has state and behavior that collectively form its members. These members include class variables, instance variables, and methods. Classes have constructors, accessors and mutators, and can have other support methods. To practice laying out classes in Java, let's revisit the Fraction class.
+
+## Class Skeleton
+
+Rather than listing the Python code for the Fraction class, let's itemize the requirements for this class and try to redesign it in Java. A fraction is made up of a numerator and a denominator. Instantiating one should be possible with no parameters (i.e., a default fraction of 0/1) or with specified parameters through a constructor. The denominator should never be allowed to be 0. Appropriate accessors and mutators should be provided for the numerator and denominator. Fractions should always be in their reduced form. Later, we will also need to be able to add, subtract, multiply, and divide fractions.
+
+Let's begin with a template for the Fraction class:
+
+```java
+class Fraction
+{
+}
+```
+
+Not too bad. The class was not specified to be public (we'll discuss why later). In Java, we place instance variables at the top of the class, outside of any methods. Let's add the fraction's instance variables now:
+
+```java
+class Fraction
+{
+    private int numerator;
+    private int denominator;
+}
+```
+
+Note how the instance variables were declared to be private. This is because we do not want to allow their modification outside of the class. Instead, we will provide an accessor and mutator for each to provide read and write access.
+
+## Constructor
+
+Next, let's add the constructor. In Java, a constructor has the same name as the class, is always public (so that we can instantiate instances outside of the class), and has no return type:
+
+```java
+class Fraction
+{
+    private int numerator;
+    private int denominator;
+
+    public Fraction()
+    {
+        numerator = 0;
+        denominator = 1;
+    }
+}
+```
+
+At this point, it would be nice to test our Fraction class. The goal will be to create a program (let's call it FractionFun) that will instantiate several fractions, play around with them, and display their values throughout the program. Since in Java everything must be in a class, let's add the FractionFun class now. You can place this anywhere in the source code (i.e., either above or beneath the existing Fraction class):
+
+```java
+class FractionFun
+{
+    public static void main(String[] args)
+    {
+        Fraction f = new Fraction();
+
+        System.out.println(f);
+    }
+}
+```
+
+Since this class will represent our program, we must add the main method to the class. Note that we will simply be declaring and initializing a new fraction (with default values) and subsequently displaying it to the console. Here's the output after compilation and execution:
+
+```default
+$ java FractionFun
+Fraction@7e9bed
+```
+
+Note that, after compilation, two .class files are generated: Fraction.class and FractionFun.class. The first contains the bytecodes for the Fraction class; the second contains the bytecodes for the FractionFun class. The latter is the one that contains the main function; therefore, this is the one that must be executed.
+
+## The toString Method
+
+Note the output. It apparently makes no sense. It's actually displaying the fraction object's memory address (i.e., its location in memory). This is similar behavior to Python. Since we have not specified how to display a fraction, Java simply displays its location in memory. Just as in Python, we can override a particular method (called the `toString` method) that can return the string representation of a fraction. Let's add this function to the Fraction class now:
+
+```java
+class Fraction
+{
+    private int numerator;
+    private int denominator;
+
+    public Fraction()
+    {
+        numerator = 0;
+        denominator = 1;
+    }
+
+    public String toString()
+    {
+        return numerator + "/" + denominator;
+    }
+}
+```
+
+Recompile and execute the program again. Here's the output after the change:
+
+```default
+$ java FractionFun
+0/1
+```
+
+## Private Members
+
+Suppose that we wanted to display the numerator of a fraction from outside of the Fraction class. A first try may be as follows:
+
+```java
+class FractionFun
+{
+    public static void main(String[] args)
+    {
+        Fraction f = new Fraction();
+
+        System.out.println(f.numerator);
+    }
+}
+```
+
+In the FractionFun class, we attempt to access the numerator (a member of the Fraction class) through the object reference, *f* (an instance of the Fraction class). Since the numerator is declared to be private in the Fraction class, it should not be possible to access it outside the class (in this case, in the FractionFun class). And this is exactly the case:
+
+```default
+$ javac FractionFun.java
+FractionFun.java:24: error: numerator has private access in Fraction
+        System.out.println(f.numerator);
+1 error
+```
+
+## Accessors and Mutators
+
+We'll revert the FractionFun class to the previous version for now. We'll also add accessors for both of the instance variables in the Fraction class. It is convention to place accessors and mutators beneath the constructor, but above other functions:
+
+```java
+class Fraction
+{
+    private int numerator;
+    private int denominator;
+
+    public Fraction()
+    {
+        numerator = 0;
+        denominator = 1;
+    }
+
+    public int getNumerator()
+    {
+        return numerator;
+    }
+
+    public int getDenominator()
+    {
+        return denominator;
+    }
+
+    public String toString()
+    {
+        return numerator + "/" + denominator;
+    }
+}
+```
+
+Accessors in Java look similar to an early method of implementation that we used in Python. Accessors must be public and return the same type as the type of the instance variable it represents. We typically name the accessor using "get" followed by the name of the instance variable, initially capitalized. For the instance variable *numerator*, we name the accessor getNumerator. Typically, the only statement in an accessor is one that returns the value of the instance variable.
+
+Next, let's work on mutators for the instance variables:
+
+```java
+public void setNumerator(int val)
+{
+    numerator = val;
+}
+
+public void setDenominator(int val)
+{
+    if (val != 0)
+        denominator = val;
+}
+```
+
+Note how the mutators were placed beneath their respective accessors. Mutators are always public, always return nothing (since their purpose is to change a value), are usually named with "set" followed by the name of the instance variable (initially capitalized), and must have a parameter of the same type as the instance variable. This parameter will be assigned to the instance variable in the mutator.
+
+Since the numerator can be any valid integer, we simply assign the specified value to the numerator. The denominator is a bit different. Since we cannot allow its value to be 0, we first check that it isn't 0. If this is true, we make the assignment; otherwise, we ignore the parameter.
+
+Let's modify the FractionFun class to test what we've done so far. Here's its modified main function:
+
+```java
+public static void main(String[] args)
+{
+    Fraction f = new Fraction();
+
+    System.out.println(f.getDenominator());
+    System.out.println(f);
+    f.setNumerator(5);
+    f.setDenominator(0);
+    System.out.println(f);
+}
+```
+
+Note that the initial value of the fraction represented by the variable *f* is 0/1. First, we display the fraction's denominator. Then, we display the entire fraction, attempt to change its numerator to 5, attempt to set its denominator to 0, and finally display the entire fraction again.
+
+Here's the output:
+
+```default
+$ java FractionFun
+1
+0/1
+5/1
+```
+
+The output is as we expect: the Fraction class permitted the change of the numerator to 5, but not our attempt to change the denominator to 0!
+
+## Overloaded Constructors
+
+Next, let's work on a way to permit the instantiation of a fraction with specified values for the numerator and denominator. There are several ways of doing this. One involves adding a second constructor with parameters that will be mapped to the instance variables:
+
+```java
+public Fraction(int n, int d)
+{
+    numerator = n;
+    if (d != 0)
+        denominator = d;
+    else
+        denominator = 1;
+}
+```
+
+How does Java know which constructor to use? Well, if we initialize a fraction without providing any parameters, it uses the default one that has no parameters; otherwise, it uses this new version. Java permits functions of the same name, so long as their signatures are different. This usually means that their parameters must differ so that the compiler knows which function to use. Note that we ensure that, if the specified denominator is 0, we ignore it and force the fraction's denominator to be 1.
+
+To show that the new constructor works, the main function of the FractionFun class has been replaced as follows:
+
+```java
+public static void main(String[] args)
+{
+    Fraction f = new Fraction(1, 2);
+
+    System.out.println(f);
+    f = new Fraction(5, 0);
+    System.out.println(f);
+}
+```
+
+And here's the output, as expected:
+
+```default
+$ java FractionFun
+1/2
+5/1
+```
+
+Note how we can reinitialize the fraction, *f*, with the statement, `f = new Fraction(5, 0)`.
+
+## Reducing Fractions
+
+Next, we should probably work on a function that reduces a fraction. You have already done this in the Python assignment; therefore, we will simply take the Python source code and convert it to Java. If necessary, please refer to the first lesson on the object-oriented paradigm that discusses the Fraction class. In addition, we will add appropriate calls to this new function in the constructor (with parameters) and in the mutators:
+
+```java
+class Fraction
+{
+    private int numerator;
+    private int denominator;
+
+    public Fraction()
+    {
+        numerator = 0;
+        denominator = 1;
+    }
+
+    public Fraction(int n, int d)
+    {
+        numerator = n;
+        if (d != 0)
+            denominator = d;
+        else
+            denominator = 1;
+        reduce();
+    }
+
+    public int getNumerator()
+    {
+        return numerator;
+    }
+
+    public void setNumerator(int val)
+    {
+        numerator = val;
+        reduce();
+    }
+
+    public int getDenominator()
+    {
+        return denominator;
+    }
+
+    public void setDenominator(int val)
+    {
+        if (val != 0)
+        {
+            denominator = val;
+            reduce();
+        }
+    }
+
+    private void reduce()
+    {
+        int gcd = 1;
+        int min = Math.min(Math.abs(numerator),
+                Math.abs(denominator));
+
+        for (int i = 2; i <= min; i++)
+        {
+            if (numerator % i == 0 && denominator % i == 0)
+                gcd = i;
+        }
+
+        numerator /= gcd;
+        denominator /= gcd;
+
+        if (numerator == 0)
+            denominator = 1;
+    }
+
+    public String toString()
+    {
+        return numerator + "/" + denominator;
+    }
+}
+```
+
+Note how the reduce function is private. There is no need to make it publicly accessible outside of the class, since it will only be used internally as fractions are instantiated or instance variables are modified. It is good programming practice to publicly expose only required functions. The rest should be private. Also note that the reduce function makes use of Java's Math library. Specifically, it uses its **min** and **abs** functions to correctly determine the minimum between the function's numerator and denominator.
+
+We will also replace the main function of the FractionFun class as follows to test the new reduce function:
+
+```java
+public static void main(String[] args)
+{
+    Fraction f = new Fraction(2, 4);
+
+    System.out.println(f);
+    f = new Fraction(45, 198);
+    System.out.println(f);
+}
+```
+
+And here's the output, as expected:
+
+```default
+$ java FractionFun
+1/2
+5/22
+```
+
+## Floating Point Representation
+
+Next, let's add a function that returns the floating point representation of a fraction, and modify the string representation appropriately. Add this new function in the Fraction class above the reduce function:
+
+```java
+private double getReal()
+{
+    return (double)numerator / denominator;
+}
+```
+
+This new function is also private, since it has no use outside of the Fraction class. We'll also change the string representation of a fraction as follows:
+
+```java
+public String toString()
+{
+    return numerator + "/" + denominator + " (" +
+        getReal() + ")";
+}
+```
+
+And here's the output with the above changes:
+
+```default
+$ java FractionFun
+1/2 (0.5)
+5/22 (0.22727272727272727)
+```
+
+## Arithmetic with Fractions
+
+Lastly, let's add support for arithmetic (addition, subtraction, multiplication, and division) with fractions. Recall that, in Python, we were able to **overload** the various arithmetic operators using special magic functions. We could then add fractions using the operator symbols (e.g., +, --, \*, and /). Unfortunately, the same is not possible in Java. Therefore, we will resort to functions with appropriate names to accomplish the same thing. Here are the four arithmetic functions. They should be placed above the getReal function and beneath the accessors and mutators. For a discussion on the logic of these functions, please refer to the previous lesson that discusses the Fraction class:
+
+```java
+public Fraction add(Fraction f)
+{
+    Fraction sum = new Fraction();
+
+    sum.numerator = (numerator * f.denominator) +
+                    (denominator * f.numerator);
+    sum.denominator = denominator * f.denominator;
+    sum.reduce();
+
+    return sum;
+}
+
+public Fraction sub(Fraction f)
+{
+    Fraction neg_f = new Fraction(f.numerator * -1,
+                                  f.denominator);
+    Fraction diff = this.add(neg_f);
+
+    return diff;
+}
+
+public Fraction mul(Fraction f)
+{
+    Fraction prod = new Fraction();
+
+    prod.numerator = numerator * f.numerator;
+    prod.denominator = denominator * f.denominator;
+    prod.reduce();
+
+    return prod;
+}
+
+public Fraction div(Fraction f)
+{
+    Fraction f_reciprocal = new Fraction(f.denominator,
+                                         f.numerator);
+    Fraction div = this.mul(f_reciprocal);
+
+    return div;
+}
+```
+
+If you're wondering why we can access the private instance variables *numerator* and *denominator* of fraction *f* passed in as a parameter to these functions, it is because we are in the Fraction class! Even though we are referring to a separate instance of the Fraction class, we can still access its private members.
+
+## The this Keyword
+
+You probably also noticed a new keyword, `this`, in the sub and div functions. Think of `this` in Java as the same thing as `self` in Python. It refers to the *current* instance of a fraction. Consider, for example, the following statements in the main function of the FractionFun class:
+
+```java
+Fraction f1 = new Fraction(1, 2);
+Fraction f2 = new Fraction(2, 3);
+System.out.println(f1.sub(f2));
+```
+
+In the `System.out.println` statement, fraction *f1* invokes its sub function, passing fraction *f2* as a parameter. In the sub function, *f2* is mapped to *f* in the parameter list. The keyword `this` refers to the current instance of the fraction that invoked the method. In this case, it is fraction *f1*. Lastly, let's update the main function of the FractionFun class so that it tests the new arithmetic functions:
+
+```java
+public static void main(String[] args)
+{
+    Fraction f1 = new Fraction();
+    Fraction f2 = new Fraction(5, 8);
+    Fraction f3 = new Fraction(3, 4);
+    Fraction f4 = new Fraction(1, 0);
+
+    System.out.println("f1: " + f1);
+    System.out.println("f2: " + f2);
+    System.out.println("f3: " + f3);
+    System.out.println("f4: " + f4);
+
+    f3.setNumerator(5);
+    f3.setDenominator(8);
+    f1 = f2.add(f3);
+    f4.setDenominator(88);
+    f2 = f1.sub(f1);
+    f3 = f1.mul(f1);
+    f4 = f4.div(f3);
+
+    System.out.println();
+    System.out.println("f1: " + f1);
+    System.out.println("f2: " + f2);
+    System.out.println("f3: " + f3);
+    System.out.println("f4: " + f4);
+}
+```
+
+And here's the output:
+
+```default
+$ java FractionFun
+f1: 0/1 (0.0)
+f2: 5/8 (0.625)
+f3: 3/4 (0.75)
+f4: 1/1 (1.0)
+
+f1: 5/4 (1.25)
+f2: 0/1 (0.0)
+f3: 25/16 (1.5625)
+f4: 2/275 (0.007272727272727273)
+```
+
+## The Complete Source
+
+For completeness, here is the entire updated Fraction and FractionFun classes:
+
+```java
+class Fraction
+{
+    private int numerator;
+    private int denominator;
+
+    public Fraction()
+    {
+        numerator = 0;
+        denominator = 1;
+    }
+
+    public Fraction(int n, int d)
+    {
+        numerator = n;
+        if (d != 0)
+            denominator = d;
+        else
+            denominator = 1;
+        reduce();
+    }
+
+    public int getNumerator()
+    {
+        return numerator;
+    }
+
+    public void setNumerator(int val)
+    {
+        numerator = val;
+        reduce();
+    }
+
+    public int getDenominator()
+    {
+        return denominator;
+    }
+
+    public void setDenominator(int val)
+    {
+        if (val != 0)
+        {
+            denominator = val;
+            reduce();
+        }
+    }
+
+    public Fraction add(Fraction f)
+    {
+        Fraction sum = new Fraction();
+
+        sum.numerator = (numerator * f.denominator) +
+            (denominator * f.numerator);
+        sum.denominator = denominator * f.denominator;
+        sum.reduce();
+
+        return sum;
+    }
+
+    public Fraction sub(Fraction f)
+    {
+        Fraction neg_f = new Fraction(f.numerator * -1,
+            f.denominator);
+        Fraction diff = this.add(neg_f);
+
+        return diff;
+    }
+
+    public Fraction mul(Fraction f)
+    {
+        Fraction prod = new Fraction();
+
+        prod.numerator = numerator * f.numerator;
+        prod.denominator = denominator * f.denominator;
+        prod.reduce();
+
+        return prod;
+    }
+
+    public Fraction div(Fraction f)
+    {
+        Fraction f_reciprocal = new Fraction(f.denominator,
+            f.numerator);
+        Fraction div = this.mul(f_reciprocal);
+
+        return div;
+    }
+
+    private double getReal()
+    {
+        return (double)numerator / denominator;
+    }
+
+    private void reduce()
+    {
+        int gcd = 1;
+        int min = Math.min(Math.abs(numerator),
+                Math.abs(denominator));
+
+        for (int i = 2; i <= min; i++)
+        {
+            if (numerator % i == 0 && denominator % i == 0)
+                gcd = i;
+        }
+
+        numerator /= gcd;
+        denominator /= gcd;
+
+        if (numerator == 0)
+            denominator = 1;
+    }
+
+    public String toString()
+    {
+        return numerator + "/" + denominator + " (" +
+            getReal() + ")";
+    }
+}
+
+class FractionFun
+{
+    public static void main(String[] args)
+    {
+        Fraction f1 = new Fraction();
+        Fraction f2 = new Fraction(5, 8);
+        Fraction f3 = new Fraction(3, 4);
+        Fraction f4 = new Fraction(1, 0);
+
+        System.out.println("f1: " + f1);
+        System.out.println("f2: " + f2);
+        System.out.println("f3: " + f3);
+        System.out.println("f4: " + f4);
+
+        f3.setNumerator(5);
+        f3.setDenominator(8);
+        f1 = f2.add(f3);
+        f4.setDenominator(88);
+        f2 = f1.sub(f1);
+        f3 = f1.mul(f1);
+        f4 = f4.div(f3);
+
+        System.out.println();
+        System.out.println("f1: " + f1);
+        System.out.println("f2: " + f2);
+        System.out.println("f3: " + f3);
+        System.out.println("f4: " + f4);
+    }
+}
+```

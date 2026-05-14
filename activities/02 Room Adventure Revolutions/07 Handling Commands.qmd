@@ -1,0 +1,49 @@
+---
+title: "Handling Commands"
+---
+
+Each handler method receives the **noun** from the player's input and uses it to update the game state and the `status` variable. The verb has already been checked by the time these methods are called.
+
+## `handleGo`
+
+The `handleGo` method checks whether the noun matches any exit direction in the current room. If it does, the player moves to the connected room.
+
+Replace the empty `handleGo` stub with this implementation:
+
+```java
+private static void handleGo(String noun) {
+    status = "I don't see that room.";
+    for (int i = 0; i < currentRoom.exitDirections.length; i++) {
+        if (noun.equals(currentRoom.exitDirections[i])) {
+            currentRoom = currentRoom.exitDestinations[i];
+            status = "Changed Room";
+        }
+    }
+}
+```
+
+The loop checks each exit direction in order. `exitDirections` and `exitDestinations` are **parallel arrays** — index `i` in `exitDirections` corresponds to index `i` in `exitDestinations`. When a match is found, `currentRoom` is updated to the corresponding destination room.
+
+## `handleLook` and `handleTake`
+
+The `handleLook` and `handleTake` methods will be implemented as part of the homework. For now, leave their stubs empty:
+
+```java
+private static void handleLook(String noun) { }
+private static void handleTake(String noun) { }
+```
+
+## Testing
+
+Compile and run the game to verify `handleGo` works:
+
+```sh
+javac RoomAdventure.java
+java RoomAdventure
+```
+
+- Type `go east` — you should move to Room 2
+- Type `go west` — you should move back to Room 1
+- Type `go south` — you should see "I don't see that room."
+- Type a single word — you should see the default error message
+- Type three words — you should see the default error message

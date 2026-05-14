@@ -1,0 +1,139 @@
+---
+title: "Hello World"
+---
+
+When you were introduced to Python, the concept of an IDE (Integrated Development Environment) was also covered. An IDE is a form of editor that allows you to write programs in one or more programming languages. It normally has features such as syntax highlighting, syntax suggestions, and allows you to compile and/or execute the programs that you have written easily. For Python, the default IDE on the RPi is IDLE. Unfortunately, IDLE only works with Python.
+
+There are IDEs that are more general purpose than IDLE, in that they support more than one programming language. Examples include Eclipse, NetBeans, and Code::Blocks. The process of installing and setting up these IDEs is beyond the scope of this lesson. If you want to work on large projects in Java and other general purpose programming languages, you will want to research how to install a robust IDE on your system. As an FYI, Eclipse is perhaps the most widely used IDE for Java. For the purpose of this lesson, it is significantly easier to use a general purpose text editor, and compile Java source code and execute the resulting Java bytecodes at the command line (i.e., in the terminal or console).
+
+## Classes and Methods
+
+One of the main features of Java is that it is fully object-oriented. This means that everything that you do within Java has to be defined in a class. It embodies the principle that everything is an object! Even a simple hello world program must be in a class. Unlike Python, where indentation is used to identify blocks of statements, Java used curly braces. The left (or open) curly brace is typically placed after the header of a block and shows where the block begins, and the right (or close) curly brace shows where the block ends. Here's an example:
+
+```java
+class HelloWorld
+{
+    ...
+}
+```
+
+Note that there is still indentation within the block. Although this is not required, it is considered good programming practice to do so. In fact, not doing so is indicative of a worthless programmer. Well, maybe that's too harsh. Maybe not...
+
+You'll notice the keyword `class`, which signifies that the word coming after it is the name of a class. This is similar to Python. The name of the class can be any identifier. The only restrictions on identifiers is that they have to be made up of alphanumeric characters and underscores, and cannot begin with a digit. It is Java convention to initially capitalize class names; however, that's not enforced. Since it is convention, however, it does make your code easier to read by professional programmers.
+
+Unlike Python, where statements don't necessarily have to be encapsulated in methods, Java requires everything to be in at least one method. Method signatures have the following form:
+
+```java
+modifier return_type method_name(parameter_list)
+{
+    method body
+}
+```
+
+The **modifier** is a word that determines the accessibility (or usability) of a method. The most common modifiers are:
+
+- `public`: indicates that the method can be accessed from anywhere; and
+- `private`: indicates that the method can only be accessed within its defining class.
+
+The **return_type** is a key word that informs the compiler of the kind of result that the function returns to whichever statement called the function in the first place. In Python, there is no such thing as formally defined data types. A Python variable can take on any type, and a Python function can return any type (even multiple types). In Java, variables must be declared along with their type. These are valid throughout the duration of the program and cannot be changed! Functions may return a value, and if so, the return type must be specified. If the function does not return anything, then the keyword `void` is used. Common return types are `int`, `long`, `float`, `double`, `String`, and `char`. We will cover some of these later in this lesson. The return type can also be a class! That is, the value returned can be an instance of a class!
+
+The **method_name** can be any valid Java identifier. It is convention that it begin with a lower case character, and that successive words be initially capitalized (e.g., `printGrades`). This way, it is easy to differentiate between a class name and a function name.
+
+The **parameter_list** is a comma separated list of variables and their types that are passed in as inputs to the function. If a function does not require any parameters, then the parentheses are left empty. Below are some examples of method signatures:
+
+- `public int getSum(int a, int b)`
+- `public String printBoard()`
+- `private double getAverage(double a, double b, double c)`
+- `private void doSomethingCool(int a, double c, String b, char d)`
+
+## The main Method
+
+Since a program's source code in Java must be specified within at least one function, how does the compiler know which function is to be executed first? There is a special function with a special name that is always executed first in a Java program. That function has a specific signature:
+
+```java
+public static void main (String[] args)
+```
+
+Note that the method is public, and can therefore be accessed outside of the class. It does not return anything due to the keyword `void`. Its name is main, and it takes an array of Strings called `args`. The square brackets after the `String` type indicates that it is an array of `Strings`. Arrays in Java are similar to lists in Python. The `static` keyword enforces the idea that, even if multiple objects were created from the class in which the main function is located, there will only be one copy of main that is the same for all the objects. That is, the main function is shared among all instances of the class that contains it. The main function is considered the entry point of a program.
+
+## Hello World
+
+Let's put all of this information together to create our first "hello world" Java program:
+
+```java
+public class HelloWorld
+{
+    public static void main (String[] args)
+    {
+        System.out.println("Programming rules, man!");
+    }
+}
+```
+
+Note the semicolon at the end of the statement that displays "Programming rules, man!" In Java (and, in fact, many other programming languages), the end of a statement is marked by a semicolon.
+
+::: {.callout-note title="Did you know?"}
+A missing semicolon at the end of a Java statement is the most common syntax error. It is practically guaranteed that you will forget to put a semicolon at the end of a Java statement at some point.
+:::
+
+Let's discuss the content of the source code to the simple hello world program. There is really only a single statement in the program: the one that displays the string. It is enclosed in the main function, which itself is enclosed in the HelloWorld class. Let's formally discuss the single statement:
+
+```java
+System.out.println("Programming rules, man!");
+```
+
+In order to access the members of classes, we use the dot notation. Recall that we used the dot notation to access members within classes in Python as well. In Java, the `println` function displays the parameter specified to it to standard output (i.e., to the console). To access it, we fully qualify it with `System.out.println`. Technically, `System` is a class, inside of which is an object called `out`. The defining class of the `out` object provides the `println` function.
+
+Note that the `println` function automatically inserts a newline after displaying its parameter to the console. This is similar to the behavior of the print statement in Python. To suppress the newline, use the function `print` instead of `println`. For example:
+
+```java
+System.out.print("Programming rules, man!");
+```
+
+## Compiling and Executing
+
+So how do we compile and execute our first Java program? Here is this process from the command line:
+
+```default
+$ javac HelloWorld.java
+$ java HelloWorld
+Programming rules, man!
+```
+
+On some operating systems (e.g., Windows) it may be necessary to include the location of the Java compiler and other executables in the *path* environment variable in order to allow compilation and execution from any folder. To compile a Java program from the command line, we use the following syntax:
+
+```default
+javac myfile.java
+```
+
+Note that it is convention to name our Java source files with a `.java` extension. The compilation process generates a new file of the same name; however, it has a `.class` extension. To execute the compiled Java bytecodes, we use the following syntax:
+
+```default
+java myfile
+```
+
+Note that we do not specify the `.class` extension when executing the bytecodes!
+
+Here's an example of what happens when you try to compile a Java program with a syntax error. First, here's a modified version of the hello world program:
+
+```java
+public class HelloWorld
+{
+    public static void main (String[] args)
+    {
+        System.out.println("Programming rules, man!")
+    }
+}
+```
+
+Did you notice the error? Here's the output generated when compiling this modified program:
+
+```default
+$ javac HelloWorld.java
+HelloWorld.java:5: error: ';' expected
+        System.out.println("Programming rules, man!")
+                                                     ^
+1 error
+```
+
+The error is actually quite easy to see when the program is compiled. The Java compiler does a pretty good job of informing us what and where the error is: a missing semicolon at the end of the statement that displays output to the console.

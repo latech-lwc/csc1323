@@ -1,0 +1,40 @@
+---
+title: "The Game"
+---
+
+The game takes place in a small mansion. The player interacts with it by typing two-word commands: a **verb** followed by a **noun**, separated by a space.
+
+The three supported verbs are:
+
+- **`go [direction]`** — move to a connected room (e.g., `go east`)
+- **`look [item]`** — read the description of an item in the current room (e.g., `look chair`)
+- **`take [item]`** — pick up a lootable item and add it to the player's inventory (e.g., `take key`)
+
+Any input that is not exactly two words will be rejected with the message `Wat?! Try [verb] [noun].`
+
+## The Rooms
+
+The game starts with two rooms connected to each other:
+
+| Room   | Items                  | Lootable | Exit         |
+|--------|------------------------|----------|--------------|
+| Room 1 | chair, cheese          | key      | east → Room 2 |
+| Room 2 | cheesepuff, cheeseball | cheeseman | west → Room 1 |
+
+For the homework portion, you will expand the mansion to four rooms, each with at least 2 items, 1 lootable, and the exits needed to navigate to rooms 1 and 2. 
+
+## The Inventory
+
+The player starts with an empty inventory that can hold up to **5 items**. Because Java arrays have a fixed size, the inventory is represented as an array of 5 strings, each initialized to `null` — Java's equivalent of Python's `None`.
+
+## The Game Loop
+
+The game runs in a continuous loop. Each iteration:
+
+1. Prints the current room's name, visible items, and exits
+2. Prints the player's current inventory
+3. Prompts for input
+4. Parses the input and routes it to the appropriate handler
+5. Prints the result of the action
+
+The loop never exits on its own — the player stops the program by closing the terminal.

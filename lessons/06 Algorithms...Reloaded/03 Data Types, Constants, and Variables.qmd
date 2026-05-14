@@ -1,0 +1,105 @@
+---
+title: "Data Types, Constants, and Variables"
+---
+
+Although Python does not support the formal declaration of variables with data types, the data types in Java are actually very similar to those in Python. Java supports primitive types such as integers (`int`), long integers (`long`), single precision floating point numbers (`float`), double precision floating point numbers (`double`), characters (`char`), Booleans (`boolean`), and more. In addition it supports more complex types such as a String (which, as in Python, is a *string* of characters) and user-defined types defined in classes that can be instantiated as objects.
+
+## Declaring Variables
+
+When it comes to the variables and the way that they are used, there is one difference with Java. In fact, this difference was something that we dealt with in Scratch. Before a variable can be used, it has to be declared. This means that the compiler needs to know what data type and name will be associated with a variable. Once it has been declared as one type, it can not be reused to store a different data type.
+
+Declaring a variable can be done with a statement in the following format:
+
+```java
+data_type variable_name;
+```
+
+The statements below are examples of valid variable declarations:
+
+- `int x;`
+- `float num1, num2;`
+- `double c;`
+- `String str;`
+- `char c;`
+- `boolean b;`
+
+Note the second example. Here, two variables are actually declared, `num1` and `num2`, both of the data type `float`. Once declared, the variables can be assigned and used as they would be in Python (i.e., they do not have to be redeclared every time we wish to use one). In fact, we can assign new values to previously declared (and even previously initialized) variables at any point in a program.
+
+## Initializing Variables
+
+It is also possible to declare and initialize a variable with a value in a single Java statement, as shown in the examples below:
+
+- `int x = 3;`
+- `float num1 = 3.14, num2 = 1.414;`
+- `double c = 2.78;`
+- `String str = "hard drive";`
+- `char c = 'p';`
+- `boolean b = false;`
+
+It is also possible to assign the result of an expression to a variable, even as you declare it:
+
+- `double d = 1.3 + 2.5;`
+- `char grade = calcGrade();`
+
+Note that the function `calcGrade` in the second example must return a value of type `char`.
+
+::: {.callout-note title="Did you know?"}
+While the character `#` is used to mark single-line comments in Python, Java uses `//`. For example:
+
+```java
+// this is a comment
+```
+
+Java also uses `/*` to begin a multi-line comment and `*/` to end a multi-line comment. For example:
+
+```java
+/* this is
+   a multi-line
+   comment */
+```
+
+Of course it is possible to use `//` for a comment spanning multiple lines so long as each line begins with `//`.
+:::
+
+## A More Complicated Example
+
+Now that we have a general understanding of primitive data types and how to use them, let's write a slightly more complicated program that displays the sum of two integers to the terminal.
+
+```java
+public class Sum
+{
+    public static void main(String[] args)
+    {
+        int a = 5;
+        int b = 7;
+
+        System.out.println(a + " + " + b + " = " + (a + b));
+    }
+}
+```
+
+Here is the output of this program's compilation and execution:
+
+```default
+$ javac Sum.java
+$ java Sum
+5 + 7 = 12
+```
+
+Let's look more closely at the following statement:
+
+```java
+System.out.println(a + " + " + b + " = " + (a + b));
+```
+
+The variable *a* is an integer. It appears to be added to the string `" + "`. However, Java cannot add an integer to a string; therefore, it converts the integer to a string first and then concatenates the two strings. Since the value of *a* is 5, then `a + " + "` results in `"5" + " + "` which yields the string `"5 + "`. In this statement, the integers are all converted to strings first before concatenating them together.
+
+## Constants
+
+Constants in Java are declared using the `final` keyword. Here is an example:
+
+```java
+public static final int NUM_RECORDS = 100;
+```
+
+It is convention to capitalize the entire constant name and use an underscore to separate words. The constant must be assigned a value, but exactly where you are allowed to give it a value depends on where and how you define it (e.g., a class local variable defined as a constant will need to be given a value on the same line as it is defined but an instance variable defined as a constant can be given a value in the constructor).

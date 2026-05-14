@@ -1,0 +1,79 @@
+---
+title: "The `RoomAdventure` Class"
+---
+
+Now let's build the `RoomAdventure` class. This is the main class that drives the game. At the very top of the file, **before the class declaration**, add the import statement for the `Scanner` class. The `Scanner` will be used to take input from the user.
+
+```java
+import java.util.Scanner;
+```
+
+Then begin the class just below it:
+
+```java
+class RoomAdventure {
+
+}
+```
+
+## Class Variables
+
+The game needs several pieces of state that every method in the class can access. In Java, variables that are shared across all methods in a class (without needing an object instance) are declared with the `static` keyword.
+
+Add these class variables inside `RoomAdventure`:
+
+```java
+private static Room currentRoom;
+
+private static String[] inventory = {null, null, null, null, null};
+
+private static String status;
+```
+
+- `currentRoom` tracks which room the player is currently in.
+- `inventory` is a fixed-size array of 5 strings. Each slot starts as `null`. `null` is Java's equivalent of Python's `None`. A consideration as part of your game enhancements would be to make the inventory more dynamic instead of being limited to 5 items. 
+- `status` holds the message that gets printed after each command is processed.
+
+::: {.callout-tip}
+## Python Comparison
+Python class variables are declared directly in the class body (outside any method). Java uses the `static` keyword to achieve the same effect. Both are shared across the class without needing to create an instance.
+:::
+
+## Constants
+
+A variable declared with the `final` keyword in Java cannot be reassigned after it is first set. The keyword `final` means it is a constant. By convention, constants are named in `ALL_CAPS_WITH_UNDERSCORES` (also known as `SCREAMING_SNAKE_CASE`).
+
+Add the `DEFAULT_STATUS` constant below the class variables:
+
+```java
+final private static String DEFAULT_STATUS = "Sorry. I did not understand. Try [verb] [noun].";
+```
+
+This is the error message displayed whenever the player does not type exactly two words.
+
+::: {.callout-tip}
+## Python Comparison
+Python has no built-in constant keyword. Developers use `ALL_CAPS` as a naming convention to signal "do not change this." Java enforces it with `final`. The compiler will reject any attempt to reassign a `final` variable.
+:::
+
+## Where We Are So Far
+
+The top of your file should now look like this:
+
+```java
+import java.util.Scanner;
+
+class RoomAdventure {
+
+    private static Room currentRoom;
+    private static String[] inventory = {null, null, null, null, null};
+    private static String status;
+
+    final private static String DEFAULT_STATUS = "Sorry. I did not understand. Try [verb] [noun].";
+
+    // methods will go here
+
+}
+```
+
+In the next sections you will add the methods one at a time.

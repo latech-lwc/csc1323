@@ -1,0 +1,130 @@
+---
+title: "Arrays"
+---
+
+By now, you are familiar with Python lists. In previous lessons, we mentioned that a list in Python is similar to an array. The main differences are that (1) a Python list can store heterogeneous pieces of data, while arrays are designed to store homogeneous pieces of data (i.e., values of the same data type); and (2) arrays must be declared with a fixed capacity (i.e., they cannot grow as needed).
+
+Java does not support lists in the same way that Python does. Instead, it support arrays as described above. In the end, they are almost the same. Declaring an array in Java is very similar to declaring any other data type. The difference is that square brackets are placed between the data type and the identifier (i.e., the variable name). Here is an example that declares two variables: (1) an integer, x; and (2) an array, y:
+
+```java
+int x;
+int[] y;
+```
+
+Just as with simple variables, arrays can be declared and initialized in the same statement:
+
+```java
+int x = 10;
+int[] y = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+```
+
+The second statement in the example above declares an array of integers and initializes it with the integers 1 through 10 at indexes 0 through 9 respectively. This sets the array's capacity at 10 values. The curly braces allow for the initialization of arrays upon declaration.
+
+Once arrays have been declared, its individual elements can be accessed in a manner similar to accessing the elements of a list in Python (i.e., using the index in square brackets following the name of the array). Here's an example:
+
+```java
+System.out.println(y[3]);   // outputs 4
+y[6] = -1;  // array is now { 1, 2, 3, 4, 5, 6, -1, 8, 9, 10 }
+```
+
+Note that array slices are not supported in Java. This is rather unfortunate! It is also possible to just declare an array and subsequently initialize it as follows:
+
+```java
+int[] y = new int[10];
+
+for (int i = 0; i < 10; i++)
+    y[i] = i * i;
+```
+
+This snippet of code declares an array of 10 integers. It then iteratively populates the array with the first ten squares (i.e., 0 \* 0, 1 \* 1, 2 \* 2, etc).
+
+Here are a few other differences between Python lists and Java arrays:
+
+- There is no way to actually delete an element from an array (instead, we can zero out an element or shift elements over to effectively delete an element); and
+- Similarly, there is no way to insert an element in an array (once the capacity is set, it cannot be changed).
+
+Can you understand what the source code below produces and how it works?
+
+```java
+public class Arrays
+{
+    public static void main(String[] args)
+    {
+        int[] test1 = { 67, 23, 98, 45, 99, 45 };
+        int[] test2 = { 88, 44, 94, 78, 64, 44 };
+        int i = 0;
+
+        while (i < 6)
+        {
+            if (test1[i] > 80 && test2[i] > 80)
+            {
+                System.out.println("Student " + i +
+                    " doesn't need to take the final");
+            }
+            else if (test1[i] > 80 || test2[i] > 80)
+            {
+                System.out.println("Student " + i +
+                    " can decide to take the final");
+            }
+            else if (!(test1[i] > 60) && !(test2[i] > 60))
+            {
+                System.out.println("Student " + i +
+                    " definitely needs to take the final");
+            }
+            else
+            {
+                System.out.println("Student " + i +
+                    " -- no decision");
+            }
+
+            i++;
+        }
+    }
+}
+```
+
+You will notice that statements in Java can be split among multiple lines without needing any special formatting or continuation character. This is evident in the statements outputting strings to the console via `System.out.println`. In Python, a backslash is required to inform the interpreter that a statement is continued on the next line.
+
+The program first declares and initializes two arrays of six integers. The first, *test1*, represents six students' grades for the first test. The second, *test2*, represents the same six students' grades for the second test. The while loop then iterates over all of the students' grades (there are two of them for all six students). Next, an informative message is displayed depending on the test grades of each student. If a student earned more than an 80 on both tests, then the student doesn't need to take the final. If a student earned more than an 80 on one of the tests but not the other, then the student can decide to take the final. If a student did not earn more than a 60 on both tests (i.e., earned 60 or less on both tests), then the student must take the final. If none of these cases is true, then there is no decision for the student.
+
+The first student, represented by the values in the arrays at the first index (i.e., index 0), earned a 67 on the first test and an 88 on the second test. Following the logic, this student "can decide to take the final." The second student, represented by the values in the arrays at the second index, earned a 23 on the first test and a 44 on the second test. Following the logic, this student "definitely needs to take the final." The third student earned a 98 and a 94. This student "doesn't need to take the final." The fourth student earned a 45 and a 78, which results in "no decision." The fifth student earned a 99 and a 64, and "can decide to take the final." The sixth student earned a 45 and a 44, and "definitely needs to take the final."
+
+To confirm this logic, here is the output:
+
+```default
+$ java Arrays
+Student 0 can decide to take the final
+Student 1 definitely needs to take the final
+Student 2 doesn't need to take the final
+Student 3 -- no decision
+Student 4 can decide to take the final
+Student 5 definitely needs to take the final
+```
+
+## The foreach loop
+
+Earlier, the foreach loop was briefly mentioned as another variation of the for loop. Formally, it allows iteration over the items in any type of collection (e.g., an array). Java has many collections, and discussing them is beyond the scope of this lesson. However, let's take a look at how the foreach loop can be used to iterate over the items in an array. Here's an example:
+
+```java
+double[] cool_constants = new double[5];
+
+cool_constants[0] = 3.14159;    // pi
+cool_constants[1] = 2.71828;    // e
+cool_constants[2] = 1.414;      // sqrt(2)
+cool_constants[3] = 1.73;       // sqrt(3)
+cool_constants[4] = 1.618;      // phi
+
+for (double d : cool_constants)
+    System.out.println(d);
+```
+
+The foreach loop actually uses the keyword `for` (and not literally foreach). The portion inside the parentheses contains two parts, separated by a colon. The first is a data type and variable that will represent each of the values in the array. The second is the array name. The colon can be read as "in." In fact, the entire foreach loop above can be read as, "For each double value temporarily called *d* in the array cool_constants." The body of the foreach loop just displays the value temporarily stored in the variable *d*.
+
+The foreach loop is a neat way to iterate over the items in an array, where each item is temporarily stored in a variable. Note that any index (i.e., location) information is not available in a foreach loop. That is, the location of the values in the array is not provided. If the index was required, then a for loop would be needed. For example:
+
+```java
+for (int i = 0; i < cool_constants.length; i++)
+    System.out.println(cool_constants[i]);
+```
+
+You may have noticed the condition in the for loop, `i < cool_constants.length`. This brings up the useful fact that the length of an array can be obtained by accessing its `length` member. This should clue you in that arrays must therefore be objects and have a defining class! The `length` member turns out to be an instance variable defined in the Array class.

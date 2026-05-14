@@ -1,0 +1,98 @@
+---
+title: "Homework: Room Adventure...Revolutions"
+---
+
+The starting version of the game has two rooms and two unimplemented handlers. Your task is to implement those handlers, expand the mansion into four rooms, and make 2 significant additions to the game.
+
+## 0. Implement the Base Game (5 pts)
+
+You should have the base game implemented at this point. If not, just follow the instructions on the previous pages in this activity.
+
+## 1. Implement `handleLook` (5 pts)
+
+The `handleLook` method should search the current room's items. If the noun matches an item, it sets `status` to that item's description.
+
+::: {.callout-note}
+## Details: Implement `handleLook`
+
+Replace the empty `handleLook` stub. The method should:
+
+1. Set `status` to a default message of `"I don't see that item."`
+2. Loop through `currentRoom.items`.
+3. Set `status` to corresponding `itemDescription`.
+
+Remember to use `.equals()` for string comparison. `items` and `itemDescriptions` are parallel arrays, so index `i` in one corresponds to index `i` in the other.
+:::
+
+
+
+## 2. Implement `handleTake` (5 pts)
+
+The `handleTake` method should search the current room's lootables. If the noun matches one, it should move that item into the player's inventory and remove it from the room.
+
+Since `inventory` is a fixed-size array of 5 slots, you need to find the first `null` slot before placing the item.
+
+::: {.callout-note}
+## Challenge: Implement `handleTake`
+
+Replace the empty `handleTake` stub. The method should:
+
+1. Set `status` to a default message of `"I don't see that item."`
+2. Loop through `currentRoom.lootables`.
+3. If it finds the `lootable` in the `currentRoom`:
+   - Place it in the first blank inventory slot
+   - Set `status` to `"Looted."`
+
+**Note:** Compare to `null` with `==`. The `.equals()` rule only applies when comparing two string values to each other.
+:::
+
+
+
+## 3. Add Rooms 3 and 4 and Populate them (5 pts)
+
+Update `setupGame` to create two more rooms. Arrange them in the same square layout used in the previous Room Adventure activity:
+
+- **Room 3**: south of Room 1, east leads to Room 4
+- **Room 4**: south of Room 2, west leads to Room 3
+
+You will also need to make updates to Room 1 and Room 2 in order to connect them to Room 3 and Room 4. 
+
+Be sure to populate Room 3 and Room 4 with items and lootables.
+
+
+## 4. Make Two Significant Additions to the Game (10 pts each)
+
+Now make the game your own game by making two significant additions to the game. Note that additing any number of additional rooms can only be counted as 1 of your two additions.
+
+Here are some ideas on what you can add. Do not limit yourself to these ideas.
+
+- More Rooms and Items (this can only count as one feature, regardless of the number of rooms and items you add)
+- An additional piece of functionality (i.e. a "use" command or an "eat" command). Each piece of functionality can count as a separate additional feature.
+- Making Improvements to the Code (ex: using Hashmaps or classes to represent the Items/Exits/etc).
+- For this, the program may function the same, but you improve the codebase.
+- Anything else you dream up.
+
+## Other (5 pts)
+
+Here are some other things to be mindful of for your submission.
+
+- Be sure to turn in a `README.md` file with your submission that outlines the additions you made (you can turn in a `.zip` that includes both.)
+- Be sure to include you name in both the `RoomAdventure.java` file and the `README.md` file.
+- Be sure to turn in the source code (the `.java` file). Your prof will compile it on their machine.
+- Be sure to use good coding etiquette such as comments, descriptive variable names, indentation, and other aspects that make code easy to read.
+
+
+
+## Rubric
+
+| # | Item | Points |
+|---|------|--------|
+| 1 | Code is appropriately commented | 1 |
+| 2 | Coding style is clean and consistent | 1 |
+| 3 | Student included the `README.md` file describing the additions. | 3 |
+| 4 | The base game is implemented correctly. | 5 |
+| 5 | `handleLook` is implemented correctly | 5 |
+| 6 | `handleTake` is implemented correctly | 5 |
+| 7 | Rooms 3 and 4 were implemented correctly | 5 |
+| 8 | Two major additions were made. | 20 |
+| | **Total** | **45** |

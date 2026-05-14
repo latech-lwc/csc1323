@@ -1,0 +1,318 @@
+---
+title: "Inheritance and Abstract Classes"
+---
+
+Since Java is an object-oriented programming language, all of the concepts that you have learned about the object-oriented paradigm are relevant. The difference between Java and Python (or any other object-oriented programming language) is just in how it syntactically implements the concepts. The basic idea of superclasses and subclasses exists. In fact, their implementation in Java is pretty similar to Python.
+
+To illustrate how Java implements inheritance, let's revisit the example of the shapes project introduced in an earlier lesson on the object-oriented paradigm. In this example, we defined four classes: a Shape class that encapsulated the members that all shapes shared, a Rectangle class that specifically described a rectangle, a Square class, and a Triangle class. We restricted triangles to those that are right-angled isosceles triangles.
+
+```default
+                    ┌─────────────────────┐
+                    │       Shape         │
+                    ├─────────────────────┤
+                    │ length : integer    │
+                    │ width  : integer    │
+                    ├─────────────────────┤
+                    │ draw()              │
+                    └──────────▲──────────┘
+                               │
+            ┌──────────────────┼──────────────────┐
+            │                  │                  │
+   ┌────────┴────────┐ ┌───────┴────────┐ ┌──────┴─────────┐
+   │   Rectangle     │ │     Square     │ │   Triangle     │
+   ├─────────────────┤ ├────────────────┤ ├────────────────┤
+   │                 │ │                │ │                │
+   ├─────────────────┤ ├────────────────┤ ├────────────────┤
+   │                 │ │                │ │ draw()         │
+   └─────────────────┘ └────────────────┘ └────────────────┘
+```
+
+Since rectangles and squares are similar, we specified the draw function in the Shape superclass. Triangles, however, were a bit different; therefore, we overloaded the draw function (defined in the Shape superclass) in the Triangle subclass. Feel free to refer to the previous lesson if necessary.
+
+## The Shape Class
+
+Let's begin by reimplementing the Shape class in Java:
+
+```java
+abstract class Shape
+{
+    protected int length;
+    protected int width;
+
+    public Shape(int l, int w)
+    {
+        length = l;
+        width = w;
+    }
+
+    public void draw()
+    {
+        for (int i = 0; i < width; i++)
+        {
+            for (int j = 0; j < length; j++)
+                System.out.print("* ");
+            System.out.println();
+        }
+    }
+}
+```
+
+Most of the Shape class should be familiar to you. There are, however, a few new surprises. First, the keyword `abstract` in the class header: `abstract class Shape`. In Java, this keyword marks a class as abstract. Recall that an abstract class cannot be instantiated. This makes sense, because our intention is to instantiate rectangles, squares, and triangles (and not shapes in general). The Shape class is only used to encapsulate members common to all of the shapes.
+
+Second, the keyword `protected` is used to specify a different level of accessibility for the instance variables. You are already familiar with `public` and `private`. The `protected` modifier stretches the accessibility of a member to all subclasses of the current class. To summarize, public members can be accessed anywhere, private members can only be accessed in the class that defines them, and protected members can be accessed in the class that defines them and all subclasses of the class that defines them. Therefore, protected members in the Shape class can be accessed in the Shape class (since it defines them), and the Rectangle, Square, and Triangle classes (since they are subclasses of the Shape class).
+
+The Shape class has a constructor that takes a length and a width of the shape to be instantiated. It also has a draw method that draws the shape using asterisks as specified in the earlier lesson.
+
+## The Rectangle Class
+
+Now, let's work on the individual shape classes. First, the Rectangle class:
+
+```java
+class Rectangle extends Shape
+{
+    public Rectangle(int l, int w)
+    {
+        super(l, w);
+    }
+}
+```
+
+The method that Java uses to create a subclass involves the use of the keyword `extends`. In fact, this makes sense because a subclass does indeed *extend* its superclass. The class header, `class Rectangle extends Shape`, marks the Rectangle class as a subclass of the Shape class. Therefore, the Rectangle class will inherit all members defined in the Shape class. It will also be able to access all public and protected members in the Shape class.
+
+The Rectangle class only has a constructor that accepts a rectangle's length and width. The single statement in the constructor calls the superclass' constructor, passing in those same parameters. The keyword `super` in Java means to access the superclass. The statement, `super()`, calls the constructor in the superclass. In fact, this is actually done by default, and we don't even have to add the statement if the constructor has no parameters. Since the Shape class' constructor takes two parameters, we must formally call the superclass' constructor, passing in the two parameters.
+
+## The Square Class
+
+Next, let's work on the Square class. In fact, it looks very similar to the rectangle class, except that a square has the same length and width:
+
+```java
+class Square extends Shape
+{
+    public Square(int s)
+    {
+        super(s, s);
+    }
+}
+```
+
+The variable, *s*, passed as parameter to the constructor in the Square class denotes its size. It is passed twice in the call to the superclass' constructor.
+
+## The Triangle Class
+
+Lastly, the triangle class:
+
+```java
+class Triangle extends Shape
+{
+    public Triangle(int s)
+    {
+        super(s, s);
+    }
+    public void draw()
+    {
+        for (int i = 0; i < width; i++)
+        {
+            for (int j = 0; j < width - i; j++)
+                System.out.print("* ");
+            System.out.println();
+        }
+    }
+}
+```
+
+The Triangle class is slightly different than the other two shape classes. Since it is drawn differently than the others, we override the draw function with a new one that describes specifically how to draw a triangle. The rest of the class is similar to the other shape classes.
+
+## The ShapeTest Class
+
+Finally, we can create a ShapeTest class that will serve as our application, and will instantiate several of the shapes and draw them to the console:
+
+```java
+public class ShapeTest
+{
+    public static void main(String[] args)
+    {
+        Rectangle r = new Rectangle(12, 4);
+        Square s = new Square(6);
+        Triangle t = new Triangle(7);
+
+        r.draw();
+        System.out.println();
+        s.draw();
+        System.out.println();
+        t.draw();
+    }
+}
+```
+
+Note that all of the classes above can be placed in the same Java source file. In Java, however, if a class is qualified with the public modifier, then it must be saved in a file that is of the same name as the class. You can see how this could be a problem if, for example, all of the classes above had been qualified with the public modifier. Of course, they were not; however, the ShapeTest class was. Therefore, the file must be saved as ShapeTest.java. In addition, the ShapeTest class must contain the main function since it will be used to execute the program. The ShapeTest class simply instantiates each shape, specifying various shape sizes. The shapes are then drawn.
+
+Here is the output:
+
+```default
+$ java ShapeTest
+* * * * * * * * * * * *
+* * * * * * * * * * * *
+* * * * * * * * * * * *
+* * * * * * * * * * * *
+
+* * * * * *
+* * * * * *
+* * * * * *
+* * * * * *
+* * * * * *
+* * * * * *
+
+* * * * * * *
+* * * * * *
+* * * * *
+* * * *
+* * *
+* *
+*
+```
+
+## The Complete Source
+
+For completeness, here is the entire source code to the shapes project:
+
+```java
+abstract class Shape
+{
+    protected int length;
+    protected int width;
+
+    public Shape(int l, int w)
+    {
+        length = l;
+        width = w;
+    }
+
+    public void draw()
+    {
+        for (int i = 0; i < width; i++)
+        {
+            for (int j = 0; j < length; j++)
+                System.out.print("* ");
+            System.out.println();
+        }
+    }
+}
+
+class Rectangle extends Shape
+{
+    public Rectangle(int l, int w)
+    {
+        super(l, w);
+    }
+}
+
+class Square extends Shape
+{
+    public Square(int s)
+    {
+        super(s, s);
+    }
+}
+
+class Triangle extends Shape
+{
+    public Triangle(int s)
+    {
+        super(s, s);
+    }
+
+    public void draw()
+    {
+        for (int i = 0; i < width; i++)
+        {
+            for (int j = 0; j < width - i; j++)
+                System.out.print("* ");
+            System.out.println();
+        }
+    }
+}
+
+
+public class ShapeTest
+{
+    public static void main(String[] args)
+    {
+        Rectangle r = new Rectangle(12, 4);
+        Square s = new Square(6);
+        Triangle t = new Triangle(7);
+
+        r.draw();
+        System.out.println();
+        s.draw();
+        System.out.println();
+        t.draw();
+    }
+}
+```
+
+## Enforcing Abstract Classes
+
+Just to show that abstract classes cannot be instantiated, let's add the following statement in the main function of the ShapeTest class:
+
+```java
+Shape poly = new Shape(5, 15);
+```
+
+Here's the output (as expected) when we try to compile the program:
+
+```default
+$ javac ShapeTest.java
+ShapeTest.java:71: error: Shape is abstract; cannot be instantiated
+        Shape poly = new Shape(5, 15);
+                     ^
+1 error
+```
+
+The compiler enforces the abstract class and prevents its instantiation.
+
+## Abstract Methods
+
+In the previous lesson on the object-oriented paradigm, we also discussed abstract methods. These are methods that are defined in an abstract class, and that *must* be implemented in all subclasses of the class that defines them. Although we don't have any abstract methods in the shapes project above, let's add one to the Shape class to see what happens if the individual shape subclasses don't implement them. We'll add a fictitious abstract method, foo, to the Shape class and recompile the program. Since the point of an abstract class is to implement it in subclasses, then there is no body to the method specified in the superclass. Instead, we only provide its signature and terminate it with a semicolon:
+
+```java
+abstract class Shape
+{
+    protected int length;
+    protected int width;
+
+    public Shape(int l, int w)
+    {
+        length = l;
+        width = w;
+    }
+
+    ...
+
+    abstract void foo();
+}
+```
+
+Here's the output when compiling the program:
+
+```default
+$ javac ShapeTest.java
+ShapeTest.java:25: error: Rectangle is not abstract and does not
+override abstract method foo() in Shape
+class Rectangle extends Shape
+^
+ShapeTest.java:33: error: Square is not abstract and does not
+override abstract method foo() in Shape
+class Square extends Shape
+^
+ShapeTest.java:41: error: Triangle is not abstract and does not
+override abstract method foo() in Shape
+class Triangle extends Shape
+^
+3 errors
+```
+
+The errors produced are very clear and expected. The shape subclasses must override the abstract method foo. To fix this, we would simply need to define the foo method in each of the subclasses.
+
+## Multiple Inheritance and Interfaces
+
+Finally, we discussed the idea of multiple inheritance, where a class can inherit traits from more than one superclass. This was useful, for example, in a grocery store's point-of-sale system where a banana could be both a fruit (with a point of origin, date of harvest, etc) and a grocery store item (with a price, location, etc). In Java, multiple inheritance is not directly supported. It can be *faked*, however, through the use of interfaces. In Java, an **interface** is like a contract. You will learn about them in future classes, and discussing them here is beyond the scope of this lesson.
